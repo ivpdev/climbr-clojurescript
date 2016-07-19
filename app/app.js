@@ -6,10 +6,10 @@ app.get('/about', function (req, res) {
 });
 
 app.get('/', function (req, res) {
-  res.render('index.html');
+  res.send('Welcome to climbr');
 });
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
   console.log('Example app listening on port 3000!');
 });
 
