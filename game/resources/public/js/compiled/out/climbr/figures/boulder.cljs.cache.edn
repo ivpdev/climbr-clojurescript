@@ -1,0 +1,2 @@
+;; Analyzed by ClojureScript 1.7.170
+{:name climbr.figures.boulder, :doc nil, :excludes #{}, :use-macros nil, :require-macros nil, :uses nil, :requires {m climbr.matter.matter, climbr.matter.matter climbr.matter.matter}, :imports nil, :defs {boulders {:name climbr.figures.boulder/boulders, :file "src/climbr/figures/boulders.cljs", :line 4, :column 1, :end-line 4, :end-column 14, :meta {:file "/Users/ivp/dev/projects/matter_cljs/climbr/src/climbr/figures/boulders.cljs", :line 4, :column 6, :end-line 4, :end-column 14}}}}
