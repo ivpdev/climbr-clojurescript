@@ -9,8 +9,10 @@ app.get('/', function (req, res) {
   res.send('Welcome to climbr');
 });
 
-app.listen(process.env.PORT || 3000, function () {
-  console.log('Example app listening on port 3000!');
+var port = process.env.PORT || 3000;
+
+app.listen(port, function () {
+  console.log('App listening on port ' + port);
 });
 
 app.use(express.static('game/resources/public'));
