@@ -2,7 +2,10 @@
   (:require ))
 
 (defonce app-state
-  (atom { :h1-holds nil
+  (atom { :h1-near nil
+          :h2-near nil
+
+          :h1-holds nil
           :h2-holds nil
 
           :climber { :body nil

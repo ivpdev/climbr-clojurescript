@@ -3,7 +3,9 @@
             [climbr.figures.climber :as climber]
             [climbr.figures.boulders :as boulders]
             [climbr.matter.matter :as m]
-            [climbr.behaviour.behaviour :as b]))
+            [climbr.behaviour.user_actions :as user-actions]
+            [climbr.behaviour.climber_moves :as climber-moves]
+            ))
 
 (enable-console-print!)
 
@@ -22,9 +24,9 @@
   (do
     (.add m/world (.-world engine) (clj->js [ground/ground boulders/boulders climber mouse-constraint]))
 
-    (b/init-boulder-touch-events! engine)
-    (b/init-boulder-release-events! engine)
-    (b/init-climber-moves!)
+    (climber-moves/init-boulder-touch-events! engine)
+    (user-actions/setup-boulder-release-events! engine)
+    (user-actions/setup-user-controls!)
     (.run m/engine engine)))
 
 
