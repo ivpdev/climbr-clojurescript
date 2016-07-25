@@ -1,11 +1,13 @@
-(ns ^:figwheel-always climbr.behaviour.behaviour
+(ns ^:figwheel-always climbr.behaviour.climber_moves
   (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [climbr.matter.matter :as m]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
             [climbr.utils.utils :as u]
-            [climbr.behaviour.utils :refer [h1-holds? h2-holds?]]
             [cljs.core.async :refer [tap chan <!]]))
+
+(defmacro def- [item value]
+  `(def ^{:private true} ~item ~value))
 
 (defn init-boulder-touch-events! [engine]
   (.on m/events
@@ -39,55 +41,6 @@
             (do
               (.addConstraint m/world (.-world engine) boulder)
               (swap! a/app-state assoc key-boulder boulder))))))))
-
-(defn- fetch-climber-part [part] (get-in @a/app-state [:climber part]))
-
-(defn- fetch-hand [hand]
-             (let [h1 (fetch-climber-part :h1)
-                   h2 (fetch-climber-part :h2)
-                   h1x (.-x (.-position h1))
-                   h2x (.-x (.-position h2))
-                   h1-is-left? (< h1x h2x)
-
-                   left-hand (if h1-is-left? h1 h2)
-                   right-hand (if h1-is-left? h2 h1)]
-
-               (case hand
-                   :left left-hand
-                   :right right-hand
-                   :free (fetch-free-hand))))
-
-(defn- fetch-free-hand []
-  (let [h1-holds (get @a/app-state :h1-holds)
-        h2-holds (get @a/app-state :h2-holds)
-        both-hold (and (not (nil? h1-holds)) (not (nil? h2-holds)))]
-
-    (cond both-hold nil
-      (not (nil? h1-holds)) (fetch-climber-part :h2)
-      (not (nil? h2-holds)) (fetch-climber-part :h1)
-      :else nil)))
-
-(defn- get-boulder-for-hand [hand-name]
-  (let [boulder-key (case hand-name
-                      "h1" :h1-holds
-                      "h2" :h2-holds
-                      nil)]
-    (get @a/app-state boulder-key)))
-
-
-
-(defn- remove-boulder-for-hand! [hand-name]
-  (let [key-boulder (case hand-name
-                   "h1" :h1-holds
-                   "h2" :h2-holds)]
-
-       (swap! a/app-state dissoc key-boulder)))
-
-
-
-
-(defmacro def- [item value]
-  `(def ^{:private true} ~item ~value))
 
 (def- not-nil? (complement nil?))
 
