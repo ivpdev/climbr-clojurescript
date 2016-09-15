@@ -66,9 +66,10 @@
   [threshold distance-watch]
   (let [data (:data distance-watch)
         distance-sig (:signal distance-watch)
-        near-sig (r/map #(< % threshold) distance-sig)]
+        near-sig (r/map #(< % threshold) distance-sig)
+        near-change-sig (r/uniq near-sig)]
     { :data data
-      :signal near-sig}))
+      :signal near-change-sig }))
 
 (defn cartesian-prod[col1 col2]
   (for [x col1
@@ -76,10 +77,11 @@
     [x y]))
 
 (defn watch-approaching! [config]
-  (let [bodies1 (without-keywords (:when config))
-        bodies2 (without-keywords (:approaches config))
+  (let [bodies1 (without-keywords (:watch config))
+        bodies2 (without-keywords (:approaching config))
         distance-threshold (get-in config [:with :distance])
-        action (:do config)
+        action-on (:on config)
+        action-off (:off config)
 
         bodies1-position-watches (map create-body-position-watch! bodies1)
         bodies2-position-watches (map create-body-position-watch! bodies2)
@@ -96,7 +98,7 @@
                     (let [signal (:signal watch)
                           data (:data watch)]
                       (r/map (fn[near]
-                               (if near (doall (map println data))))
+                               (if near (apply action-on data) (apply action-off data)))
                         signal)))
                nearing-watches))
 

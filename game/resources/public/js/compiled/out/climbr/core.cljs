@@ -8,6 +8,7 @@
 
 (enable-console-print!)
 
+[:TODO rename "boulders" to "holds"]
 (println "Hello Climber!")
 
 (let [engine (.create m/engine (.-body js/document))

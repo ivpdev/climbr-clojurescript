@@ -11,6 +11,7 @@
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
 
+[:TODO remove after new behaviour is ready]
 (defn init-boulder-touch-events! [engine]
   (.on m/events
     engine
@@ -44,7 +45,6 @@
               (.addConstraint m/world (.-world engine) boulder)
               (swap! a/app-state assoc key-boulder boulder))))))))
 
-
 (defn init-approaching-watch![]
   (let [;hand-left (ua/fetch-climber-part :h1)
         ;hand-right (ua/fetch-climber-part :h2)
@@ -53,13 +53,17 @@
         hand2 (:h2 climber/climber)
         boulders (:components boulders/boulders)]
 
-    (u/watch-approaching! {:when [hand1 :or hand2]
-                           :approaches boulders
-                           :with {:distance 50}
-                           :do (fn [hand boulder]
+    (u/watch-approaching! {:watch [hand1 :or hand2]
+                           :approaching boulders
+                           :with {:distance 20}
+                           :on (fn [hand boulder]
                                  (let [hand-key nil]
                                    ; (swap! a/app-state assoc hand-key boulder-obj)
-                                   (println "approached!")))})))
+                                   (println "approached!")
+                                   (.log js/console hand)))
+                           :off (fn [hand boulder]
+                                  (println "away!"))
+                           })))
 
 
 
