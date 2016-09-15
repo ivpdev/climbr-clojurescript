@@ -20,14 +20,14 @@ return console.log(x);
  */
 climbr.utils.utils.TODO = (function climbr$utils$utils$TODO(var_args){
 var args__17870__auto__ = [];
-var len__17863__auto___20633 = arguments.length;
-var i__17864__auto___20634 = (0);
+var len__17863__auto___20916 = arguments.length;
+var i__17864__auto___20917 = (0);
 while(true){
-if((i__17864__auto___20634 < len__17863__auto___20633)){
-args__17870__auto__.push((arguments[i__17864__auto___20634]));
+if((i__17864__auto___20917 < len__17863__auto___20916)){
+args__17870__auto__.push((arguments[i__17864__auto___20917]));
 
-var G__20635 = (i__17864__auto___20634 + (1));
-i__17864__auto___20634 = G__20635;
+var G__20918 = (i__17864__auto___20917 + (1));
+i__17864__auto___20917 = G__20918;
 continue;
 } else {
 }
@@ -44,12 +44,12 @@ return null;
 
 climbr.utils.utils.TODO.cljs$lang$maxFixedArity = (2);
 
-climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq20630){
-var G__20631 = cljs.core.first.call(null,seq20630);
-var seq20630__$1 = cljs.core.next.call(null,seq20630);
-var G__20632 = cljs.core.first.call(null,seq20630__$1);
-var seq20630__$2 = cljs.core.next.call(null,seq20630__$1);
-return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__20631,G__20632,seq20630__$2);
+climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq20913){
+var G__20914 = cljs.core.first.call(null,seq20913);
+var seq20913__$1 = cljs.core.next.call(null,seq20913);
+var G__20915 = cljs.core.first.call(null,seq20913__$1);
+var seq20913__$2 = cljs.core.next.call(null,seq20913__$1);
+return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__20914,G__20915,seq20913__$2);
 });
 
 climbr.utils.utils.TODO.cljs$lang$macro = true;
@@ -65,7 +65,7 @@ return prop;
 }));
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.factor,cljs.core.time,cljs.core.into,climbr.utils.utils.config);
 
-return reagi.core.sample.call(null,(1000),behaviour);
+return reagi.core.sample.call(null,(10),behaviour);
 });
 /**
  * creates watch(signal + data) body position
@@ -98,7 +98,7 @@ var x1 = pos1.x;
 var y1 = pos1.y;
 var x2 = pos2.x;
 var y2 = pos2.y;
-return climbr.utils.utils.sqrt.call(null,climbr.utils.utils.sqr.call(null,(x2 - x1),climbr.utils.utils.sqr.call(null,(y2 - y1))));
+return climbr.utils.utils.sqrt.call(null,(climbr.utils.utils.sqr.call(null,(x2 - x1)) + climbr.utils.utils.sqr.call(null,(y2 - y1))));
 });})(pos1_watch,pos2_watch,body1,body2,pos1_sig,pos2_sig,pos_LT_1_PLUS_2_GT_sig))
 ,pos_LT_1_PLUS_2_GT_sig);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"data","data",-232669377),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [body1,body2], null),new cljs.core.Keyword(null,"signal","signal",-1984951589),distance_sig], null);
@@ -110,43 +110,43 @@ climbr.utils.utils.create_nearing_watch_BANG_ = (function climbr$utils$utils$cre
 var data = new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var distance_sig = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var near_sig = reagi.core.map.call(null,((function (data,distance_sig){
-return (function (p1__20636_SHARP_){
-return (p1__20636_SHARP_ < threshold);
+return (function (p1__20919_SHARP_){
+return (p1__20919_SHARP_ < threshold);
 });})(data,distance_sig))
 ,distance_sig);
 var near_change_sig = reagi.core.uniq.call(null,near_sig);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"data","data",-232669377),data,new cljs.core.Keyword(null,"signal","signal",-1984951589),near_change_sig], null);
 });
 climbr.utils.utils.cartesian_prod = (function climbr$utils$utils$cartesian_prod(col1,col2){
-var iter__17577__auto__ = (function climbr$utils$utils$cartesian_prod_$_iter__20643(s__20644){
+var iter__17577__auto__ = (function climbr$utils$utils$cartesian_prod_$_iter__20926(s__20927){
 return (new cljs.core.LazySeq(null,(function (){
-var s__20644__$1 = s__20644;
+var s__20927__$1 = s__20927;
 while(true){
-var temp__4425__auto__ = cljs.core.seq.call(null,s__20644__$1);
+var temp__4425__auto__ = cljs.core.seq.call(null,s__20927__$1);
 if(temp__4425__auto__){
 var xs__4977__auto__ = temp__4425__auto__;
 var x = cljs.core.first.call(null,xs__4977__auto__);
-var iterys__17573__auto__ = ((function (s__20644__$1,x,xs__4977__auto__,temp__4425__auto__){
-return (function climbr$utils$utils$cartesian_prod_$_iter__20643_$_iter__20645(s__20646){
-return (new cljs.core.LazySeq(null,((function (s__20644__$1,x,xs__4977__auto__,temp__4425__auto__){
+var iterys__17573__auto__ = ((function (s__20927__$1,x,xs__4977__auto__,temp__4425__auto__){
+return (function climbr$utils$utils$cartesian_prod_$_iter__20926_$_iter__20928(s__20929){
+return (new cljs.core.LazySeq(null,((function (s__20927__$1,x,xs__4977__auto__,temp__4425__auto__){
 return (function (){
-var s__20646__$1 = s__20646;
+var s__20929__$1 = s__20929;
 while(true){
-var temp__4425__auto____$1 = cljs.core.seq.call(null,s__20646__$1);
+var temp__4425__auto____$1 = cljs.core.seq.call(null,s__20929__$1);
 if(temp__4425__auto____$1){
-var s__20646__$2 = temp__4425__auto____$1;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__20646__$2)){
-var c__17575__auto__ = cljs.core.chunk_first.call(null,s__20646__$2);
+var s__20929__$2 = temp__4425__auto____$1;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__20929__$2)){
+var c__17575__auto__ = cljs.core.chunk_first.call(null,s__20929__$2);
 var size__17576__auto__ = cljs.core.count.call(null,c__17575__auto__);
-var b__20648 = cljs.core.chunk_buffer.call(null,size__17576__auto__);
-if((function (){var i__20647 = (0);
+var b__20931 = cljs.core.chunk_buffer.call(null,size__17576__auto__);
+if((function (){var i__20930 = (0);
 while(true){
-if((i__20647 < size__17576__auto__)){
-var y = cljs.core._nth.call(null,c__17575__auto__,i__20647);
-cljs.core.chunk_append.call(null,b__20648,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null));
+if((i__20930 < size__17576__auto__)){
+var y = cljs.core._nth.call(null,c__17575__auto__,i__20930);
+cljs.core.chunk_append.call(null,b__20931,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null));
 
-var G__20649 = (i__20647 + (1));
-i__20647 = G__20649;
+var G__20932 = (i__20930 + (1));
+i__20930 = G__20932;
 continue;
 } else {
 return true;
@@ -154,29 +154,29 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__20648),climbr$utils$utils$cartesian_prod_$_iter__20643_$_iter__20645.call(null,cljs.core.chunk_rest.call(null,s__20646__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__20931),climbr$utils$utils$cartesian_prod_$_iter__20926_$_iter__20928.call(null,cljs.core.chunk_rest.call(null,s__20929__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__20648),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__20931),null);
 }
 } else {
-var y = cljs.core.first.call(null,s__20646__$2);
-return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null),climbr$utils$utils$cartesian_prod_$_iter__20643_$_iter__20645.call(null,cljs.core.rest.call(null,s__20646__$2)));
+var y = cljs.core.first.call(null,s__20929__$2);
+return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null),climbr$utils$utils$cartesian_prod_$_iter__20926_$_iter__20928.call(null,cljs.core.rest.call(null,s__20929__$2)));
 }
 } else {
 return null;
 }
 break;
 }
-});})(s__20644__$1,x,xs__4977__auto__,temp__4425__auto__))
+});})(s__20927__$1,x,xs__4977__auto__,temp__4425__auto__))
 ,null,null));
-});})(s__20644__$1,x,xs__4977__auto__,temp__4425__auto__))
+});})(s__20927__$1,x,xs__4977__auto__,temp__4425__auto__))
 ;
 var fs__17574__auto__ = cljs.core.seq.call(null,iterys__17573__auto__.call(null,col2));
 if(fs__17574__auto__){
-return cljs.core.concat.call(null,fs__17574__auto__,climbr$utils$utils$cartesian_prod_$_iter__20643.call(null,cljs.core.rest.call(null,s__20644__$1)));
+return cljs.core.concat.call(null,fs__17574__auto__,climbr$utils$utils$cartesian_prod_$_iter__20926.call(null,cljs.core.rest.call(null,s__20927__$1)));
 } else {
-var G__20650 = cljs.core.rest.call(null,s__20644__$1);
-s__20644__$1 = G__20650;
+var G__20933 = cljs.core.rest.call(null,s__20927__$1);
+s__20927__$1 = G__20933;
 continue;
 }
 } else {
@@ -199,7 +199,7 @@ var bodies2_position_watches = cljs.core.map.call(null,climbr.utils.utils.create
 var bodies_pairs_to_watch = climbr.utils.utils.cartesian_prod.call(null,bodies1_position_watches,bodies2_position_watches);
 var distance_watches = cljs.core.map.call(null,climbr.utils.utils.create_distance_watch_BANG_,bodies_pairs_to_watch);
 var nearing_watches = cljs.core.map.call(null,cljs.core.partial.call(null,climbr.utils.utils.create_nearing_watch_BANG_,distance_threshold),distance_watches);
-var xx = cljs.core.doall.call(null,cljs.core.map.call(null,((function (bodies1,bodies2,distance_threshold,action_on,action_off,bodies1_position_watches,bodies2_position_watches,bodies_pairs_to_watch,distance_watches,nearing_watches){
+return cljs.core.doall.call(null,cljs.core.map.call(null,((function (bodies1,bodies2,distance_threshold,action_on,action_off,bodies1_position_watches,bodies2_position_watches,bodies_pairs_to_watch,distance_watches,nearing_watches){
 return (function (watch){
 var signal = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(watch);
 var data = new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(watch);
@@ -214,12 +214,9 @@ return cljs.core.apply.call(null,action_off,data);
 ,signal);
 });})(bodies1,bodies2,distance_threshold,action_on,action_off,bodies1_position_watches,bodies2_position_watches,bodies_pairs_to_watch,distance_watches,nearing_watches))
 ,nearing_watches));
-var bodies_near = climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,cljs.core.boolean$,climbr.utils.utils.signals,climbr.utils.utils.which,climbr.utils.utils.are,true,cljs.core.when,climbr.utils.utils.two,climbr.utils.utils.bodies,climbr.utils.utils.are,climbr.utils.utils.close);
-var any_bodies_near = climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.signal,climbr.utils.utils.exposing,climbr.utils.utils.all,climbr.utils.utils.pairs,climbr.utils.utils.of,climbr.utils.utils.bodies,climbr.utils.utils.which,climbr.utils.utils.are,climbr.utils.utils.near);
-return any_bodies_near;
 });
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.move,climbr.utils.utils.all,climbr.utils.utils.bodies,climbr.utils.utils.approaching,climbr.utils.utils.watch,cljs.core.into,climbr.utils.utils.matter,climbr.utils.utils.package$);
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.script,climbr.utils.utils.which,climbr.utils.utils.parses,climbr.utils.utils.source,climbr.utils.utils.code,climbr.utils.utils.end,climbr.utils.utils.extracts,climbr.utils.utils.all,climbr.utils.utils.TODOs);
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.issue,climbr.utils.utils.macro);
 
-//# sourceMappingURL=utils.js.map?rel=1473970908013
+//# sourceMappingURL=utils.js.map?rel=1473977623609

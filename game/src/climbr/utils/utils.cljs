@@ -23,7 +23,7 @@
 (defn signal-from-property![prop]
   (let [behaviour (r/behavior prop)]
     (TODO factor time into config)
-    (r/sample 1000 behaviour)))
+    (r/sample 10 behaviour)))
 
 (defn create-body-position-watch!
   "creates watch(signal + data) body position"
@@ -55,7 +55,7 @@
                                 y1 (.-y pos1)
                                 x2 (.-x pos2)
                                 y2 (.-y pos2)]
-                            (sqrt (sqr (- x2 x1) (sqr (- y2 y1))))))
+                            (sqrt (+ (sqr (- x2 x1)) (sqr (- y2 y1))))))
                    pos<1+2>sig)]
 
      {:data [body1 body2]
@@ -88,29 +88,17 @@
 
         bodies-pairs-to-watch (cartesian-prod bodies1-position-watches bodies2-position-watches)
         distance-watches (map create-distance-watch! bodies-pairs-to-watch)
+        nearing-watches (map (partial create-nearing-watch! distance-threshold) distance-watches)]
 
-        nearing-watches (map (partial create-nearing-watch! distance-threshold) distance-watches)
-
-
-
-        xx (doall
-             (map (fn[watch]
-                    (let [signal (:signal watch)
-                          data (:data watch)]
-                      (r/map (fn[near]
-                               (if near (apply action-on data) (apply action-off data)))
-                        signal)))
-               nearing-watches))
-
-        ; x2 (println (count approachings-to-watch))
-
-
-        bodies-near (TODO create boolean signals which are true when two bodies are close)
-
-        any-bodies-near (TODO create signal exposing all pairs of bodies which are near )]
-
-
-    any-bodies-near))
+    (doall
+      (map (fn[watch]
+             (let [signal (:signal watch)
+                   data (:data watch)]
+               (r/map (fn[near]
+                        (if near (apply action-on data)
+                                 (apply action-off data)))
+                 signal)))
+        nearing-watches))))
 
 (TODO move all bodies approaching watch into matter package)
 

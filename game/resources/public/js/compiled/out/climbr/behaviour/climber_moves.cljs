@@ -45,7 +45,7 @@
               (.addConstraint m/world (.-world engine) boulder)
               (swap! a/app-state assoc key-boulder boulder))))))))
 
-(defn init-approaching-watch![]
+(defn init-approaching-watch![engine]
   (let [;hand-left (ua/fetch-climber-part :h1)
         ;hand-right (ua/fetch-climber-part :h2)
         climber (:climber climber/climber)
@@ -55,12 +55,18 @@
 
     (u/watch-approaching! {:watch [hand1 :or hand2]
                            :approaching boulders
-                           :with {:distance 20}
+                           :with {:distance 50}
                            :on (fn [hand boulder]
-                                 (let [hand-key nil]
+                                 (let [constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })]
+
                                    ; (swap! a/app-state assoc hand-key boulder-obj)
                                    (println "approached!")
-                                   (.log js/console hand)))
+                                   (.log js/console hand)
+                                   (.log js/console boulder)
+
+                                   (.addConstraint m/world (.-world engine) constraint)
+
+                                   (println (m/read-data "name" hand))))
                            :off (fn [hand boulder]
                                   (println "away!"))
                            })))
