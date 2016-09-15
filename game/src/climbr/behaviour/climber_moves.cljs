@@ -1,6 +1,8 @@
 (ns ^:figwheel-always climbr.behaviour.climber_moves
   (:require-macros [cljs.core.async.macros :refer [go]])
-  (:require [climbr.matter.matter :as m]
+  (:require [climbr.figures.climber :as climber]
+            [climbr.figures.boulders :as boulders]
+            [climbr.matter.matter :as m]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
             [climbr.utils.utils :as u]
@@ -9,6 +11,7 @@
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
 
+[:TODO remove after new behaviour is ready]
 (defn init-boulder-touch-events! [engine]
   (.on m/events
     engine
@@ -41,6 +44,24 @@
             (do
               (.addConstraint m/world (.-world engine) boulder)
               (swap! a/app-state assoc key-boulder boulder))))))))
+
+(defn init-approaching-watch![]
+  (let [;hand-left (ua/fetch-climber-part :h1)
+        ;hand-right (ua/fetch-climber-part :h2)
+        climber (:climber climber/climber)
+        hand1 (:h1 climber/climber)
+        hand2 (:h2 climber/climber)
+        boulders (:components boulders/boulders)]
+
+    (u/watch-approaching! {:when [hand1 :or hand2]
+                           :approaches boulders
+                           :with {:distance 50}
+                           :do (fn [hand boulder]
+                                 (let [hand-key nil]
+                                   ; (swap! a/app-state assoc hand-key boulder-obj)
+                                   (println "approached!")))})))
+
+
 
 (def- not-nil? (complement nil?))
 

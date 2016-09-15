@@ -130,7 +130,7 @@
             (when hand-key
               (release-hand! hand-key)))))))
 
-(defn- fetch-hand [hand]
+(defn fetch-hand [hand]
   (let [h1 (fetch-climber-part :h1)
         h2 (fetch-climber-part :h2)
         h1x (.-x (.-position h1))
