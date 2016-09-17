@@ -5,7 +5,7 @@
             [climbr.matter.matter :as m]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
-            [climbr.utils.utils :as u]
+            [climbr.behaviour.position_watches :as p]
             [cljs.core.async :refer [tap chan <!]]))
 
 (defmacro def- [item value]
@@ -53,7 +53,7 @@
         hand2 (:h2 climber/climber)
         boulders (:components boulders/boulders)]
 
-    (u/watch-approaching! {:watch [hand1 :or hand2]
+    (p/watch-approaching! {:watch [hand1 :or hand2]
                            :approaching boulders
                            :with {:distance 50}
 

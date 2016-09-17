@@ -1,8 +1,8 @@
 // Compiled by ClojureScript 1.7.170 {}
 goog.provide('climbr.behaviour.climber_moves');
 goog.require('cljs.core');
+goog.require('climbr.behaviour.position_watches');
 goog.require('climbr.app_state');
-goog.require('climbr.utils.utils');
 goog.require('climbr.matter.matter');
 goog.require('climbr.figures.climber');
 goog.require('climbr.figures.boulders');
@@ -30,8 +30,8 @@ var touched_boulder = ((touched_a_QMARK_)?body_a:((touched_b_QMARK_)?body_b:null
 ));
 var touched_boulder_QMARK_ = cljs.core.not_EQ_.call(null,touched_boulder,null);
 var hand_name = ((touched_boulder_QMARK_)?climbr.matter.matter.read_data.call(null,"name",hand):null);
-var key_boulder = (function (){var G__21133 = hand_name;
-switch (G__21133) {
+var key_boulder = (function (){var G__21340 = hand_name;
+switch (G__21340) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -61,13 +61,13 @@ var climber = new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$co
 var hand1 = new cljs.core.Keyword(null,"h1","h1",-1896887462).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 var hand2 = new cljs.core.Keyword(null,"h2","h2",-372662728).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 var boulders = new cljs.core.Keyword(null,"components","components",-1073188942).cljs$core$IFn$_invoke$arity$1(climbr.figures.boulders.boulders);
-return climbr.utils.utils.watch_approaching_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"approaching","approaching",-564158407),boulders,new cljs.core.Keyword(null,"with","with",-1536296876),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"distance","distance",-1671893894),(50)], null),new cljs.core.Keyword(null,"on","on",173873944),cljs.core.partial.call(null,climbr.behaviour.climber_moves.set_hand_holds_BANG_,engine),new cljs.core.Keyword(null,"off","off",606440789),climbr.behaviour.climber_moves.release_hand_holds_BANG_], null));
+return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"approaching","approaching",-564158407),boulders,new cljs.core.Keyword(null,"with","with",-1536296876),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"distance","distance",-1671893894),(50)], null),new cljs.core.Keyword(null,"on","on",173873944),cljs.core.partial.call(null,climbr.behaviour.climber_moves.set_hand_holds_BANG_,engine),new cljs.core.Keyword(null,"off","off",606440789),climbr.behaviour.climber_moves.release_hand_holds_BANG_], null));
 });
 climbr.behaviour.climber_moves.set_hand_holds_BANG_ = (function climbr$behaviour$climber_moves$set_hand_holds_BANG_(engine,hand,boulder){
 var constraint = climbr.matter.matter.constraint.create({"bodyA": hand, "bodyB": boulder});
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var key_holds = (function (){var G__21136 = hand_name;
-switch (G__21136) {
+var key_holds = (function (){var G__21343 = hand_name;
+switch (G__21343) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -95,4 +95,4 @@ return cljs.core.println.call(null,"away!");
 });
 climbr.behaviour.climber_moves.def_.call(null,climbr.behaviour.climber_moves.not_nil_QMARK_,cljs.core.complement.call(null,cljs.core.nil_QMARK_));
 
-//# sourceMappingURL=climber_moves.js.map?rel=1474057298337
+//# sourceMappingURL=climber_moves.js.map?rel=1474093165048
