@@ -56,22 +56,25 @@
     (u/watch-approaching! {:watch [hand1 :or hand2]
                            :approaching boulders
                            :with {:distance 50}
-                           :on (fn [hand boulder]
-                                 (let [constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })]
 
-                                   ; (swap! a/app-state assoc hand-key boulder-obj)
-                                   (println "approached!")
-                                   (.log js/console hand)
-                                   (.log js/console boulder)
+                           :on (partial set-hand-holds! engine)
+                           :off release-hand-holds! })))
 
-                                   (.addConstraint m/world (.-world engine) constraint)
+(defn set-hand-holds![engine hand boulder]
+  (let [constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
+        hand-name (m/read-data "name" hand)
+        key-holds (case hand-name "h1" :h1-holds
+                                  "h2" :h2-holds
+                                   nil)
+        existing-boulder (get @a/app-state key-boulder)]
 
-                                   (println (m/read-data "name" hand))))
-                           :off (fn [hand boulder]
-                                  (println "away!"))
-                           })))
+    (when (nil? existing-boulder)
+        (do
+          (.addConstraint m/world (.-world engine) constraint)
+          (swap! a/app-state assoc key-holds constraint)))))
 
-
+(defn release-hand-holds![hand bolder]
+  (println "away!"))
 
 (def- not-nil? (complement nil?))
 
