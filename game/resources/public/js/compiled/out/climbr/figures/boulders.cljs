@@ -7,7 +7,7 @@
 (def boulders
   (let [boulders (.create m/composite)
         b1 (.rectangle m/bodies 300 400 20 20 #js {:isStatic true :collisionFilter { :category "red"}})
-        b2 (.rectangle m/bodies 500 400 20 20 #js {:isStatic true })
+        b2 (.rectangle m/bodies 500 400 20 20 #js {:isStatic true :collisionFilter { :category "red"}})
         b3 (.rectangle m/bodies 100 200 20 20 #js {:isStatic true :collisionFilter { :category "red"}})
         b4 (.rectangle m/bodies 400 200 20 20 #js {:isStatic true :collisionFilter { :category "red"}})]
 

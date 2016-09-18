@@ -55,7 +55,7 @@
 
     (p/watch-approaching! {:watch [hand1 :or hand2]
                            :approaching boulders
-                           :with {:distance 50}
+                           :with {:distance 20}
 
                            :on (partial set-hand-holds! engine)
                            :off release-hand-holds! })))
@@ -64,14 +64,25 @@
   (let [constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
         hand-name (m/read-data "name" hand)
         key-holds (case hand-name "h1" :h1-holds
-                                  "h2" :h2-holds
-                                   nil)
+                                  "h2" :h2-holds nil)
         existing-boulder (get @a/app-state key-boulder)]
 
     (when (nil? existing-boulder)
         (do
           (.addConstraint m/world (.-world engine) constraint)
           (swap! a/app-state assoc key-holds constraint)))))
+
+(def set-hand-can-hold! (partial update-hand-can-hold :add))
+(def unset-hand-can-hold! (partial update-hand-can-hold :remove))
+
+(defn update-hand-can-hold[haction and boulder]
+  (let [hand-name (m/read-data "name" hand)
+        hand-key (case hand-name "h1" :h1
+                                  "h2" :h2 nil)
+        update-func (case action :add conj
+                                 :remove disj nil)]
+
+    (swap a/app-state update-in [:can-grab hand-key] update-func boulder)))
 
 (defn release-hand-holds![hand bolder]
   (println "away!"))

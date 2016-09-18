@@ -2,8 +2,10 @@
   (:require ))
 
 (defonce app-state
-  (atom { :h1-near nil
-          :h2-near nil
+  (atom { :can-grab {
+            :h1 #{}
+            :h2 #{}
+          }
 
           :h1-holds nil
           :h2-holds nil
