@@ -75,7 +75,7 @@
 (def set-hand-can-hold! (partial update-hand-can-hold :add))
 (def unset-hand-can-hold! (partial update-hand-can-hold :remove))
 
-(defn update-hand-can-hold[haction and boulder]
+(defn update-hand-can-hold[action and boulder]
   (let [hand-name (m/read-data "name" hand)
         hand-key (case hand-name "h1" :h1
                                   "h2" :h2 nil)
