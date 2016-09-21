@@ -130,6 +130,38 @@
             (when hand-key
               (release-hand! hand-key)))))))
 
+(defn setup-boulder-grab-events![engine]
+  (let [keypressed (chan)
+        grab-hand! (fn [hand-key]
+                        (let [hand (fetch-hand hand-key)
+                              hand-name (m/read-data "name" hand)
+                              hand-key (case hand-name "h1" :h1
+                                                       "h2" :h2 nil)
+                              can-grab (seq (get-in @a/app-state [:can-grab hand-key]))
+                              boulder (nth can-grab 0)
+                              engine (:engine @a/app-state)
+
+
+                              ]
+
+                          (if-not (nil? boulder)
+                            (let [;TODO method for create constraint
+                                  constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })]
+                              (.addConstraint m/world (.-world engine) constraint))
+                            )))]
+
+    (tap k/keypressed keypressed)
+    (go (while true
+         (let [key (<! keypressed)
+
+               hand-key (case key
+                          :grab-left :left
+                          :grab-right :right
+                          nil)]
+
+           (when hand-key
+             (grab-hand! hand-key)))))))
+
 (defn fetch-hand [hand]
   (let [h1 (fetch-climber-part :h1)
         h2 (fetch-climber-part :h2)

@@ -3,6 +3,7 @@
             [climbr.figures.climber :as climber]
             [climbr.figures.boulders :as boulders]
             [climbr.matter.matter :as m]
+            [climbr.app_state :as a]
             [climbr.behaviour.user_actions :as user-actions]
             [climbr.behaviour.climber_moves :as climber-moves]))
 
@@ -16,11 +17,13 @@
       climber (:climber climber/climber)]
 
   (do
-    (.add m/world (.-world engine) (clj->js [ground/ground (:whole boulders/boulders) climber mouse-constraint]))
+    (.add m/world (.-world engine) (clj->js [ground/ground (:whole boulders/boulders) climber mouse-constraint])
+    (swap! a/app-state assoc :engine engine))
 
     ;(climber-moves/init-boulder-touch-events! engine)
     (climber-moves/init-approaching-watch! engine)
     (user-actions/setup-boulder-release-events! engine)
+    (user-actions/setup-boulder-grab-events! engine)
     (user-actions/setup-user-controls!)
     (.run m/engine engine)))
 

@@ -7,10 +7,10 @@ var boulder = climbr.matter.matter.bodies.rectangle((500),(400),(20),(20),{"isSt
 return null;
 });
 climbr.figures.boulders.boulders = (function (){var boulders = climbr.matter.matter.composite.create();
-var b1 = climbr.matter.matter.bodies.rectangle((300),(400),(20),(20),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
-var b2 = climbr.matter.matter.bodies.rectangle((500),(400),(20),(20),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
+var b1 = climbr.matter.matter.bodies.rectangle((300),(400),(40),(40),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
+var b2 = climbr.matter.matter.bodies.rectangle((500),(400),(30),(30),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
 var b3 = climbr.matter.matter.bodies.rectangle((100),(200),(20),(20),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
-var b4 = climbr.matter.matter.bodies.rectangle((400),(200),(20),(20),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
+var b4 = climbr.matter.matter.bodies.rectangle((400),(200),(10),(10),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
 climbr.matter.matter.data_BANG_.call(null,"class","boulder",b1);
 
 climbr.matter.matter.data_BANG_.call(null,"class","boulder",b2);
@@ -18,6 +18,14 @@ climbr.matter.matter.data_BANG_.call(null,"class","boulder",b2);
 climbr.matter.matter.data_BANG_.call(null,"class","boulder",b3);
 
 climbr.matter.matter.data_BANG_.call(null,"class","boulder",b4);
+
+climbr.matter.matter.data_BANG_.call(null,"name","4",b1);
+
+climbr.matter.matter.data_BANG_.call(null,"name","3",b2);
+
+climbr.matter.matter.data_BANG_.call(null,"name","2",b3);
+
+climbr.matter.matter.data_BANG_.call(null,"name","1",b4);
 
 climbr.matter.matter.composite.add(boulders,b1);
 
@@ -30,4 +38,4 @@ climbr.matter.matter.composite.add(boulders,b4);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"whole","whole",-1395468966),boulders,new cljs.core.Keyword(null,"components","components",-1073188942),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [b1,b2,b3,b4], null)], null);
 })();
 
-//# sourceMappingURL=boulders.js.map?rel=1474175398895
+//# sourceMappingURL=boulders.js.map?rel=1474478059370
