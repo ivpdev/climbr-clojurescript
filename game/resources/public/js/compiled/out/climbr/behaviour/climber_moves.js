@@ -30,8 +30,8 @@ var touched_boulder = ((touched_a_QMARK_)?body_a:((touched_b_QMARK_)?body_b:null
 ));
 var touched_boulder_QMARK_ = cljs.core.not_EQ_.call(null,touched_boulder,null);
 var hand_name = ((touched_boulder_QMARK_)?climbr.matter.matter.read_data.call(null,"name",hand):null);
-var key_boulder = (function (){var G__28192 = hand_name;
-switch (G__28192) {
+var key_boulder = (function (){var G__39915 = hand_name;
+switch (G__39915) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -66,8 +66,8 @@ return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new c
 climbr.behaviour.climber_moves.set_hand_holds_BANG_ = (function climbr$behaviour$climber_moves$set_hand_holds_BANG_(engine,hand,boulder){
 var constraint = climbr.matter.matter.constraint.create({"bodyA": hand, "bodyB": boulder});
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var key_holds = (function (){var G__28195 = hand_name;
-switch (G__28195) {
+var key_holds = (function (){var G__39918 = hand_name;
+switch (G__39918) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -92,8 +92,8 @@ return null;
 });
 climbr.behaviour.climber_moves.update_hand_can_hold_BANG_ = (function climbr$behaviour$climber_moves$update_hand_can_hold_BANG_(action,hand,boulder){
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var hand_key = (function (){var G__28199 = hand_name;
-switch (G__28199) {
+var hand_key = (function (){var G__39922 = hand_name;
+switch (G__39922) {
 case "h1":
 return new cljs.core.Keyword(null,"h1","h1",-1896887462);
 
@@ -107,8 +107,8 @@ return null;
 
 }
 })();
-var update_func = (function (){var G__28200 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
-switch (G__28200) {
+var update_func = (function (){var G__39923 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
+switch (G__39923) {
 case "add":
 return cljs.core.conj;
 
@@ -129,4 +129,4 @@ return cljs.core.println.call(null,"away!");
 });
 climbr.behaviour.climber_moves.def_.call(null,climbr.behaviour.climber_moves.not_nil_QMARK_,cljs.core.complement.call(null,cljs.core.nil_QMARK_));
 
-//# sourceMappingURL=climber_moves.js.map?rel=1474478802340
+//# sourceMappingURL=climber_moves.js.map?rel=1474574282787

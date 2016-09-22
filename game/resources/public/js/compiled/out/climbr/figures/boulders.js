@@ -38,4 +38,4 @@ climbr.matter.matter.composite.add(boulders,b4);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"whole","whole",-1395468966),boulders,new cljs.core.Keyword(null,"components","components",-1073188942),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [b1,b2,b3,b4], null)], null);
 })();
 
-//# sourceMappingURL=boulders.js.map?rel=1474478059370
+//# sourceMappingURL=boulders.js.map?rel=1474574282622

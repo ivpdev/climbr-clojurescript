@@ -3,6 +3,7 @@
                    ;[climbr.behaviour.utils :refer [defn-]] TODO
                    )
   (:require [climbr.matter.matter :as m]
+            [climbr.figures.climber :as c]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
             [cljs.core.async :refer [tap chan <!]]))
@@ -41,7 +42,10 @@
               ;:release-right #(cond (holds-right?) (release! :right) :else nil)
               }))
 
-(defn- on-the-ground? [] false)
+(defn- on-the-ground? []
+  (let [body (fetch-climber-part :body)
+        y (m/y body)]
+    (> y 550)))
 
 (defn- holds-nothing? [] (not (or (h1-holds?) (h2-holds?))))
 (defn- holds-one? [] (and (not (holds-both?)) (not (holds-nothing?))))
@@ -88,7 +92,10 @@
     (tap k/keypressed keypressed)
     (go (while true
           (let [key (<! keypressed)
-                action (get key-actions key)]
+                action (get key-actions key)
+                ;p (println key)
+                ;p1 (println action)
+                ]
 
             (when-not (nil? action) (action)))))))
 

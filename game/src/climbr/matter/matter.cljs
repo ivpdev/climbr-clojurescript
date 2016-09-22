@@ -24,3 +24,6 @@
 (defn apply-force [body force]
   (let [{:keys [x y]} force]
     (.applyForce (.-Body js/Matter) body (.-position body) #js {:x x :y y})))
+
+(defn y [body]
+  (get (js->clj (.-position body)) "y"))

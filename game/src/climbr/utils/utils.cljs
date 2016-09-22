@@ -19,6 +19,7 @@
 
 (TODO create issue macro)
 
+(TODO import globally)
 ;(def y (is (+ x 1)
 ;          :where
 ;            [x (+ a 1)

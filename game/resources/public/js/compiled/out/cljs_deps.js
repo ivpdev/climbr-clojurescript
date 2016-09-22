@@ -25,7 +25,7 @@ goog.addDependency("../figwheel/client/file_reloading.js", ['figwheel.client.fil
 goog.addDependency("../figwheel/client/heads_up.js", ['figwheel.client.heads_up'], ['goog.string', 'cljs.core', 'cljs.core.async', 'figwheel.client.socket', 'clojure.string']);
 goog.addDependency("../climbr/behaviour/utils.js", ['climbr.behaviour.utils'], ['cljs.core', 'climbr.app_state']);
 goog.addDependency("../climbr/figures/ground.js", ['climbr.figures.ground'], ['climbr.matter.matter', 'cljs.core']);
-goog.addDependency("../climbr/behaviour/user_actions.js", ['climbr.behaviour.user_actions'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.controls.keyboard']);
+goog.addDependency("../climbr/behaviour/user_actions.js", ['climbr.behaviour.user_actions'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.figures.climber', 'climbr.controls.keyboard']);
 goog.addDependency("../climbr/core.js", ['climbr.core'], ['climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.figures.climber', 'climbr.figures.ground', 'climbr.figures.boulders', 'climbr.behaviour.climber_moves', 'climbr.behaviour.user_actions']);
 goog.addDependency("../cljs/repl.js", ['cljs.repl'], ['cljs.core']);
 goog.addDependency("../figwheel/client.js", ['figwheel.client'], ['goog.userAgent.product', 'goog.Uri', 'cljs.core', 'cljs.core.async', 'figwheel.client.file_reloading', 'figwheel.client.utils', 'cljs.repl', 'figwheel.client.heads_up', 'figwheel.client.socket', 'clojure.string']);

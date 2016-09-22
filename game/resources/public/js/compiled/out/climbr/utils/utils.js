@@ -19,14 +19,14 @@ return console.log(x);
  */
 climbr.utils.utils.TODO = (function climbr$utils$utils$TODO(var_args){
 var args__17870__auto__ = [];
-var len__17863__auto___21263 = arguments.length;
-var i__17864__auto___21264 = (0);
+var len__17863__auto___37080 = arguments.length;
+var i__17864__auto___37081 = (0);
 while(true){
-if((i__17864__auto___21264 < len__17863__auto___21263)){
-args__17870__auto__.push((arguments[i__17864__auto___21264]));
+if((i__17864__auto___37081 < len__17863__auto___37080)){
+args__17870__auto__.push((arguments[i__17864__auto___37081]));
 
-var G__21265 = (i__17864__auto___21264 + (1));
-i__17864__auto___21264 = G__21265;
+var G__37082 = (i__17864__auto___37081 + (1));
+i__17864__auto___37081 = G__37082;
 continue;
 } else {
 }
@@ -43,16 +43,17 @@ return null;
 
 climbr.utils.utils.TODO.cljs$lang$maxFixedArity = (2);
 
-climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq21260){
-var G__21261 = cljs.core.first.call(null,seq21260);
-var seq21260__$1 = cljs.core.next.call(null,seq21260);
-var G__21262 = cljs.core.first.call(null,seq21260__$1);
-var seq21260__$2 = cljs.core.next.call(null,seq21260__$1);
-return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__21261,G__21262,seq21260__$2);
+climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq37077){
+var G__37078 = cljs.core.first.call(null,seq37077);
+var seq37077__$1 = cljs.core.next.call(null,seq37077);
+var G__37079 = cljs.core.first.call(null,seq37077__$1);
+var seq37077__$2 = cljs.core.next.call(null,seq37077__$1);
+return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__37078,G__37079,seq37077__$2);
 });
 
 climbr.utils.utils.TODO.cljs$lang$macro = true;
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.script,climbr.utils.utils.which,climbr.utils.utils.parses,climbr.utils.utils.source,climbr.utils.utils.code,climbr.utils.utils.end,climbr.utils.utils.extracts,climbr.utils.utils.all,climbr.utils.utils.TODOs);
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.issue,climbr.utils.utils.macro);
+climbr.utils.utils.TODO.call(null,climbr.utils.utils.import$,climbr.utils.utils.globally);
 
-//# sourceMappingURL=utils.js.map?rel=1474092861301
+//# sourceMappingURL=utils.js.map?rel=1474573979133
