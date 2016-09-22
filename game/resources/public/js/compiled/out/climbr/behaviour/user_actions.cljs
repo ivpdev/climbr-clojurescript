@@ -11,7 +11,7 @@
   `(def ^{:private true} ~item ~value))
 
 (defn setup-user-controls! []
-  (bind-keys {:up  #(cond
+  (bind-keys! {:up  #(cond
                       (and (on-the-ground?)
                         (holds-nothing?))  (lunge! :both-hands :to :top)
 
@@ -83,7 +83,7 @@
 
     (doseq [o objects] (m/apply-force o force))))
 
-(defn- bind-keys [key-actions]
+(defn- bind-keys! [key-actions]
   (let [keypressed (chan)]
     (tap k/keypressed keypressed)
     (go (while true
@@ -139,16 +139,17 @@
                                                        "h2" :h2 nil)
                               can-grab (seq (get-in @a/app-state [:can-grab hand-key]))
                               boulder (nth can-grab 0)
-                              engine (:engine @a/app-state)
-
-
-                              ]
+                              engine (:engine @a/app-state)]
 
                           (if-not (nil? boulder)
                             (let [;TODO method for create constraint
-                                  constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })]
-                              (.addConstraint m/world (.-world engine) constraint))
-                            )))]
+                                  constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
+                                  key-holds (case hand-name "h1" :h1-holds
+                                                            "h2" :h2-holds
+                                                            nil)]
+                              (do
+                                (.addConstraint m/world (.-world engine) constraint)
+                                (swap! a/app-state assoc key-holds constraint))))))]
 
     (tap k/keypressed keypressed)
     (go (while true

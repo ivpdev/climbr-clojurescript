@@ -72,8 +72,6 @@
           (.addConstraint m/world (.-world engine) constraint)
           (swap! a/app-state assoc key-holds constraint)))))
 
-;(defn set-hand-can-hold![hand boulder] (update-hand-can-hold! :add hand boulder))
-
 (defn update-hand-can-hold![action hand boulder]
   (let [hand-name (m/read-data "name" hand)
         hand-key (case hand-name "h1" :h1
