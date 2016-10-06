@@ -92,10 +92,7 @@
     (tap k/keypressed keypressed)
     (go (while true
           (let [key (<! keypressed)
-                action (get key-actions key)
-                ;p (println key)
-                ;p1 (println action)
-                ]
+                action (get key-actions key)]
 
             (when-not (nil? action) (action)))))))
 
@@ -137,6 +134,16 @@
             (when hand-key
               (release-hand! hand-key)))))))
 
+(defn- connect-hand-and-boulder[hand boulder engine]
+  (let [hand-name (m/read-data "name" hand)
+        constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
+        key-holds (case hand-name "h1" :h1-holds
+                                  "h2" :h2-holds
+                                  nil)]
+    (do
+      (.addConstraint m/world (.-world engine) constraint)
+      (swap! a/app-state assoc key-holds constraint))))
+
 (defn setup-boulder-grab-events![engine]
   (let [keypressed (chan)
         grab-hand! (fn [hand-key]
@@ -144,19 +151,15 @@
                               hand-name (m/read-data "name" hand)
                               hand-key (case hand-name "h1" :h1
                                                        "h2" :h2 nil)
-                              can-grab (seq (get-in @a/app-state [:can-grab hand-key]))
-                              boulder (nth can-grab 0)
+                              can-grab-boulders (seq (get-in @a/app-state [:can-grab hand-key]))
+                              boulder-to-grab (nth can-grab-boulders 0)
+                              have-something-to-grab? (not (nil? boulder-to-grab))
+                              holds-boulder (get-boulder-for-hand hand-name)
+                              already-holds? (not (nil? holds-boulder))
                               engine (:engine @a/app-state)]
 
-                          (if-not (nil? boulder)
-                            (let [;TODO method for create constraint
-                                  constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
-                                  key-holds (case hand-name "h1" :h1-holds
-                                                            "h2" :h2-holds
-                                                            nil)]
-                              (do
-                                (.addConstraint m/world (.-world engine) constraint)
-                                (swap! a/app-state assoc key-holds constraint))))))]
+                          (if (and have-something-to-grab? (not already-holds?))
+                            (connect-hand-and-boulder hand boulder-to-grab engine))))]
 
     (tap k/keypressed keypressed)
     (go (while true
