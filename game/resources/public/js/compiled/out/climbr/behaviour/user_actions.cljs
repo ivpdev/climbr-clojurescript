@@ -34,13 +34,7 @@
 
                         (holds-one?)           (lunge! :free-hand :to :right)
                         (holds-both?)          (lunge! :body :to :right)
-                        :else nil)
-
-              ;:grab-left #(cond (left-can-grab?) (grab! :left) :else nil)
-              ;:grab-right #(cond (right-can-grab?) (grab! :right) :else nil)
-              ;:release-left #(cond (holds-left?) (release! :left) :else nil)
-              ;:release-right #(cond (holds-right?) (release! :right) :else nil)
-              }))
+                        :else nil) }))
 
 (defn- on-the-ground? []
   (let [body (fetch-climber-part :body)
@@ -60,7 +54,7 @@
 (defn- lunge! [what _ where]
   (println "Lunge " what " to " where)
   (let [forces-config {
-                        :hand { :horizonal 0.01
+                        :hand { :horizonal 0.02
                                 :vertical 0.03 }
 
                         :body { :vertical 0.04
@@ -129,6 +123,7 @@
                 hand-key (case key
                            :release-left :left
                            :release-right :right
+                           :release-both :TODO
                            nil)]
 
             (when hand-key
@@ -168,6 +163,7 @@
                hand-key (case key
                           :grab-left :left
                           :grab-right :right
+                          :grab-both :TODO
                           nil)]
 
            (when hand-key
