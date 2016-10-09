@@ -11,10 +11,12 @@
     38 :up
     39 :right
     40 :down
-    68 :release-right ;d
-    65 :release-left ;a
-    69 :grab-right ;e
-    81 :grab-left ;q
+    68 :grab-right ;d
+    65 :grab-left ;a
+    87 :release-both ;w
+    83 :grab-both ;s
+    69 :release-right ;e
+    81 :release-left ;q
     nil))
 
 (def keypressed

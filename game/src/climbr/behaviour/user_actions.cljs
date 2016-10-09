@@ -11,7 +11,7 @@
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
 
-(defn setup-user-controls! []
+(defn setup-climber-moves! []
   (bind-keys! {:up  #(cond
                       (and (on-the-ground?)
                         (holds-nothing?))  (lunge! :both-hands :to :top)
@@ -36,6 +36,61 @@
                         (holds-both?)          (lunge! :body :to :right)
                         :else nil) }))
 
+(defn setup-climber-grab-events![engine]
+  (let [keypressed (chan)
+        grab-hand! (fn [hand]
+                     (let [hand-name (m/read-data "name" hand)
+                           hand-key (case hand-name "h1" :h1
+                                      "h2" :h2 nil)
+                           can-grab-boulders (seq (get-in @a/app-state [:can-grab hand-key]))
+                           boulder-to-grab (nth can-grab-boulders 0)
+                           have-something-to-grab? (not (nil? boulder-to-grab))
+                           holds-boulder (get-boulder-for-hand hand-name)
+                           already-holds? (not (nil? holds-boulder))
+                           engine (:engine @a/app-state)]
+
+                       (if (and have-something-to-grab? (not already-holds?))
+                         (connect-hand-and-boulder hand boulder-to-grab engine))))]
+
+    (tap k/keypressed keypressed)
+    (go (while true
+          (let [key (<! keypressed)
+
+                hand-key (case key
+                           :grab-left :left
+                           :grab-right :right
+                           :grab-both :both
+                           nil)]
+
+            (when hand-key ;TODO when-let
+              (let [hands (fetch-hands hand-key)]
+                (doall (map grab-hand! hands))))))))) ;TODO for-each
+
+(defn setup-climber-release-events! [engine]
+  (let [keypressed (chan)
+        release-hand! (fn [hand]
+                        (let [hand-name (m/read-data "name" hand)
+                              boulder (get-boulder-for-hand hand-name)]
+
+                          (if-not (nil? boulder)
+                            (do
+                              (.remove m/world (.-world engine) boulder)
+                              (remove-boulder-for-hand! hand-name)))))]
+
+    (tap k/keypressed keypressed)
+    (go (while true
+          (let [key (<! keypressed)
+
+                hand-key (case key
+                           :release-left :left
+                           :release-right :right
+                           :release-both :both
+                           nil)]
+
+            (when hand-key
+              (let [hands (fetch-hands hand-key)]
+                (doall (map release-hand! hands)))))))))
+
 (defn- on-the-ground? []
   (let [body (fetch-climber-part :body)
         y (m/y body)]
@@ -54,17 +109,17 @@
 (defn- lunge! [what _ where]
   (println "Lunge " what " to " where)
   (let [forces-config {
-                        :hand { :horizonal 0.02
-                                :vertical 0.03 }
+                        :hand { :horizonal 0.003
+                                :vertical 0.005 }
 
-                        :body { :vertical 0.04
-                                :horizonal 0.04 }}
+                        :body { :vertical 0.004
+                                :horizonal 0.004 }}
 
         objects (case what
-                  :left-hand [(fetch-hand :left)]
-                  :right-hand [(fetch-hand :right)]
-                  :both-hands [(fetch-hand :left) (fetch-hand :right)]
-                  :free-hand [(fetch-hand :free)]
+                  :left-hand (fetch-hands :left)
+                  :right-hand (fetch-hands :right)
+                  :both-hands (fetch-hands :both)
+                  :free-hand (fetch-hands :free)
                   :body [(fetch-climber-part :body)])
 
         force-obj (case what
@@ -104,31 +159,6 @@
 
     (swap! a/app-state dissoc key-boulder)))
 
-(defn setup-boulder-release-events! [engine]
-  (let [keypressed (chan)
-        release-hand! (fn [hand-key]
-                        (let [hand (fetch-hand hand-key)
-                              hand-name (m/read-data "name" hand)
-                              boulder (get-boulder-for-hand hand-name)]
-
-                          (if-not (nil? boulder)
-                            (do
-                              (.remove m/world (.-world engine) boulder)
-                              (remove-boulder-for-hand! hand-name)))))]
-
-    (tap k/keypressed keypressed)
-    (go (while true
-          (let [key (<! keypressed)
-
-                hand-key (case key
-                           :release-left :left
-                           :release-right :right
-                           :release-both :TODO
-                           nil)]
-
-            (when hand-key
-              (release-hand! hand-key)))))))
-
 (defn- connect-hand-and-boulder[hand boulder engine]
   (let [hand-name (m/read-data "name" hand)
         constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
@@ -139,37 +169,7 @@
       (.addConstraint m/world (.-world engine) constraint)
       (swap! a/app-state assoc key-holds constraint))))
 
-(defn setup-boulder-grab-events![engine]
-  (let [keypressed (chan)
-        grab-hand! (fn [hand-key]
-                        (let [hand (fetch-hand hand-key)
-                              hand-name (m/read-data "name" hand)
-                              hand-key (case hand-name "h1" :h1
-                                                       "h2" :h2 nil)
-                              can-grab-boulders (seq (get-in @a/app-state [:can-grab hand-key]))
-                              boulder-to-grab (nth can-grab-boulders 0)
-                              have-something-to-grab? (not (nil? boulder-to-grab))
-                              holds-boulder (get-boulder-for-hand hand-name)
-                              already-holds? (not (nil? holds-boulder))
-                              engine (:engine @a/app-state)]
-
-                          (if (and have-something-to-grab? (not already-holds?))
-                            (connect-hand-and-boulder hand boulder-to-grab engine))))]
-
-    (tap k/keypressed keypressed)
-    (go (while true
-         (let [key (<! keypressed)
-
-               hand-key (case key
-                          :grab-left :left
-                          :grab-right :right
-                          :grab-both :TODO
-                          nil)]
-
-           (when hand-key
-             (grab-hand! hand-key)))))))
-
-(defn fetch-hand [hand]
+(defn fetch-hands [hand]
   (let [h1 (fetch-climber-part :h1)
         h2 (fetch-climber-part :h2)
         h1x (.-x (.-position h1))
@@ -180,9 +180,10 @@
         right-hand (if h1-is-left? h2 h1)]
 
     (case hand
-      :left left-hand
-      :right right-hand
-      :free (fetch-free-hand))))
+      :left  [left-hand]
+      :right [right-hand]
+      :free  [(fetch-free-hand)]
+      :both  [left-hand right-hand])))
 
 (defn- fetch-climber-part [part] (get-in @a/app-state [:climber part]))
 

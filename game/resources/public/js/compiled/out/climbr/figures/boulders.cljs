@@ -1,15 +1,19 @@
 (ns ^:figwheel-always climbr.figures.boulders
   (:require [climbr.matter.matter :as m]))
 
-(defn create-boulder [x y with heights] ;TODO
-  (let [boulder (.rectangle m/bodies 500 400 20 20 #js {:isStatic true })]))
+(defn create-boulder [x y with heights]
+  (let [boulder (.rectangle m/bodies x y 20 20 #js {:isStatic true :collisionFilter { :category "red"}})]
+    (do
+      (m/data! "class" "boulder" boulder))
+
+    boulder))
 
 (def boulders
   (let [boulders (.create m/composite)
-        b1 (.rectangle m/bodies 300 400 40 40 #js {:isStatic true :collisionFilter { :category "red"}})
-        b2 (.rectangle m/bodies 500 400 30 30 #js {:isStatic true :collisionFilter { :category "red"}})
-        b3 (.rectangle m/bodies 100 200 20 20 #js {:isStatic true :collisionFilter { :category "red"}})
-        b4 (.rectangle m/bodies 400 200 10 10 #js {:isStatic true :collisionFilter { :category "red"}})]
+        b1 (create-boulder 300 400)
+        b2 (create-boulder 500 400)
+        b3 (create-boulder 100 200)
+        b4 (create-boulder 400 200)]
 
     (do
       (m/data! "class" "boulder" b1)

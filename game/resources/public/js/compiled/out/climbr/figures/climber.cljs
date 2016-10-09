@@ -5,11 +5,17 @@
 
 (def climber
   (let [climber (.create m/composite)
-        body (.circle m/bodies 400 400 20)
-        left-hand (.circle m/bodies 300 400 15)
-        right-hand (.circle m/bodies 500 400 15)
-        left-arm (.create m/constraint #js {:bodyA left-hand :bodyB body :stiffness 0.4 })
-        right-arm (.create m/constraint #js {:bodyA right-hand :bodyB body :stiffness 0.4 })]
+        body (.circle m/bodies 400 400 10)
+        left-hand (.circle m/bodies 350 400 5)
+        right-hand (.circle m/bodies 450 400 5)
+
+       ; OLD
+       ; body (.circle m/bodies 400 400 10)
+       ; left-hand (.circle m/bodies 350 400 5)
+       ; right-hand (.circle m/bodies 450 400 5)
+
+        left-arm (.create m/constraint #js {:bodyA left-hand :bodyB body :stiffness 0.6 })
+        right-arm (.create m/constraint #js {:bodyA right-hand :bodyB body :stiffness 0.6 })]
 
       (do
         (m/data! "class" "hand" left-hand)

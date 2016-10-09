@@ -20,11 +20,10 @@
     (.add m/world (.-world engine) (clj->js [ground/ground (:whole boulders/boulders) climber mouse-constraint])
     (swap! a/app-state assoc :engine engine))
 
-    ;(climber-moves/init-boulder-touch-events! engine)
     (climber-moves/init-approaching-watch! engine)
-    (user-actions/setup-boulder-release-events! engine)
-    (user-actions/setup-boulder-grab-events! engine)
-    (user-actions/setup-user-controls!)
+    (user-actions/setup-climber-release-events! engine)
+    (user-actions/setup-climber-grab-events! engine)
+    (user-actions/setup-climber-moves!)
     (.run m/engine engine)))
 
 
