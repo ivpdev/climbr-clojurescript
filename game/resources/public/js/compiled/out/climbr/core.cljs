@@ -4,6 +4,7 @@
             [climbr.figures.boulders :as boulders]
             [climbr.matter.matter :as m]
             [climbr.app_state :as a]
+            [climbr.utils.utils :as u]
             [climbr.behaviour.user_actions :as user-actions]
             [climbr.behaviour.climber_moves :as climber-moves]))
 
@@ -24,6 +25,8 @@
     (user-actions/setup-climber-release-events! engine)
     (user-actions/setup-climber-grab-events! engine)
     (user-actions/setup-climber-moves!)
+
+    (u/test 1)
     (.run m/engine engine)))
 
 

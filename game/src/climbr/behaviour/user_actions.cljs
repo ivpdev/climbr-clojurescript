@@ -1,15 +1,11 @@
 (ns ^:figwheel-always climbr.behaviour.user_actions
-  (:require-macros [cljs.core.async.macros :refer [go]]
-                   ;[climbr.behaviour.utils :refer [defn-]] TODO
-                   )
+  (:require-macros [cljs.core.async.macros :refer [go]])
   (:require [climbr.matter.matter :as m]
             [climbr.figures.climber :as c]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
+            [climbr.utils.utils :as u :refer [def- when-let*]]
             [cljs.core.async :refer [tap chan <!]]))
-
-(defmacro def- [item value]
-  `(def ^{:private true} ~item ~value))
 
 (defn setup-climber-moves! []
   (bind-keys! {:up  #(cond
