@@ -15,6 +15,11 @@
   "Ignores body, yields nil"
   [& body])
 
+(defn in?
+  "true if coll contains elm"
+  [coll el]
+  (some #(= el %) coll))
+
 (TODO create script which parses source code end extracts all TODOs)
 
 (TODO create issue macro)

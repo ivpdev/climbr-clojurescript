@@ -1,10 +1,13 @@
 (ns ^:figwheel-always climbr.behaviour.user_actions
-  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require-macros [cljs.core.async.macros :refer [go]]
+                   ;[cljs.core.match :refer [match]]
+                   )
   (:require [climbr.matter.matter :as m]
             [climbr.figures.climber :as c]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
-            [climbr.utils.utils :as u :refer [def- when-let*]]
+
+            [climbr.utils.utils :as u :refer [def- when-let* in?]]
             [cljs.core.async :refer [tap chan <!]]))
 
 (defn setup-climber-moves! []
@@ -22,7 +25,7 @@
 
                        (holds-one?)            (lunge! :free-hand :to :left)
                        (holds-both?)           (lunge! :body :to :left)
-                       :else nil)
+                       :else (lunge! :left-hand :to [:top-TODO :left] :with {:power 0.2 }))
 
               :right #(cond
                         (and (on-the-ground?)
@@ -30,7 +33,7 @@
 
                         (holds-one?)           (lunge! :free-hand :to :right)
                         (holds-both?)          (lunge! :body :to :right)
-                        :else nil) }))
+                        :else (lunge! :right-hand :to [:top-TODO :right] :with {:power 0.2 })) }))
 
 (defn setup-climber-grab-events![engine]
   (let [keypressed (chan)
@@ -102,10 +105,9 @@
   (let [boulder (get-boulder-for-hand hand)]
     (not (nil? boulder))))
 
-(defn- lunge! [what _ where]
+(defn- lunge! [what _ where _ opts]
   (println "Lunge " what " to " where)
-  (let [forces-config {
-                        :hand { :horizonal 0.003
+  (let [forces-config { :hand { :horizonal 0.003
                                 :vertical 0.005 }
 
                         :body { :vertical 0.004
@@ -125,10 +127,35 @@
                     :free-hand (get forces-config :hand)
                     :body (get forces-config :body))
 
-        force (case where
-                :top { :x 0 :y (- (:vertical force-obj))  }
-                :left { :x (- (:horizonal force-obj)) :y 0 }
-                :right { :x (:horizonal force-obj) :y 0 } )]
+        factor (or (:power opts) 1)
+
+        vertical-force-component-raw (* (:vertical force-obj) factor)
+        horizontal-force-component-raw (* (:horizonal force-obj) factor)
+
+        targets (cond (vector? where) where
+                      :else [where])
+
+        vertical-force-component (if (in? targets :top) (- vertical-force-component-raw) 0)
+        horizontal-force-component (cond (and (in? targets :right)
+                                              (in? targets :left)) 0
+                                          (in? targets :left) (- horizontal-force-component-raw)
+                                          (in? targets :right)  horizontal-force-component-raw
+                                          :else 0)
+
+        x (println "!!")
+        x (println targets)
+        x (println (in? targets :left))
+        x1 (println vertical-force-component-raw)
+        x1 (println factor)
+
+        ;force (case where
+        ;        :top { :x 0 :y (- vertical-force-component)  }
+        ;        :left { :x  horizontal-force-component :y 0 }
+        ;        :right { :x horizontal-force-component :y 0 } )
+
+        force {:x horizontal-force-component :y vertical-force-component }
+        f (println force)
+        ]
 
     (doseq [o objects] (m/apply-force o force))))
 

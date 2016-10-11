@@ -18,23 +18,23 @@ return console.log(x);
  * Ignores body, yields nil
  */
 climbr.utils.utils.TODO = (function climbr$utils$utils$TODO(var_args){
-var args__17870__auto__ = [];
-var len__17863__auto___79005 = arguments.length;
-var i__17864__auto___79006 = (0);
+var args__17871__auto__ = [];
+var len__17864__auto___31240 = arguments.length;
+var i__17865__auto___31241 = (0);
 while(true){
-if((i__17864__auto___79006 < len__17863__auto___79005)){
-args__17870__auto__.push((arguments[i__17864__auto___79006]));
+if((i__17865__auto___31241 < len__17864__auto___31240)){
+args__17871__auto__.push((arguments[i__17865__auto___31241]));
 
-var G__79007 = (i__17864__auto___79006 + (1));
-i__17864__auto___79006 = G__79007;
+var G__31242 = (i__17865__auto___31241 + (1));
+i__17865__auto___31241 = G__31242;
 continue;
 } else {
 }
 break;
 }
 
-var argseq__17871__auto__ = ((((2) < args__17870__auto__.length))?(new cljs.core.IndexedSeq(args__17870__auto__.slice((2)),(0))):null);
-return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),argseq__17871__auto__);
+var argseq__17872__auto__ = ((((2) < args__17871__auto__.length))?(new cljs.core.IndexedSeq(args__17871__auto__.slice((2)),(0))):null);
+return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),argseq__17872__auto__);
 });
 
 climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic = (function (_AMPERSAND_form,_AMPERSAND_env,body){
@@ -43,36 +43,44 @@ return null;
 
 climbr.utils.utils.TODO.cljs$lang$maxFixedArity = (2);
 
-climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq79002){
-var G__79003 = cljs.core.first.call(null,seq79002);
-var seq79002__$1 = cljs.core.next.call(null,seq79002);
-var G__79004 = cljs.core.first.call(null,seq79002__$1);
-var seq79002__$2 = cljs.core.next.call(null,seq79002__$1);
-return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__79003,G__79004,seq79002__$2);
+climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq31237){
+var G__31238 = cljs.core.first.call(null,seq31237);
+var seq31237__$1 = cljs.core.next.call(null,seq31237);
+var G__31239 = cljs.core.first.call(null,seq31237__$1);
+var seq31237__$2 = cljs.core.next.call(null,seq31237__$1);
+return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__31238,G__31239,seq31237__$2);
 });
 
 climbr.utils.utils.TODO.cljs$lang$macro = true;
+/**
+ * true if coll contains elm
+ */
+climbr.utils.utils.in_QMARK_ = (function climbr$utils$utils$in_QMARK_(coll,el){
+return cljs.core.some.call(null,(function (p1__31243_SHARP_){
+return cljs.core._EQ_.call(null,el,p1__31243_SHARP_);
+}),coll);
+});
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.script,climbr.utils.utils.which,climbr.utils.utils.parses,climbr.utils.utils.source,climbr.utils.utils.code,climbr.utils.utils.end,climbr.utils.utils.extracts,climbr.utils.utils.all,climbr.utils.utils.TODOs);
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.issue,climbr.utils.utils.macro);
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.import$,climbr.utils.utils.globally);
 climbr.utils.utils.when_let_STAR_ = (function climbr$utils$utils$when_let_STAR_(var_args){
-var args__17870__auto__ = [];
-var len__17863__auto___79012 = arguments.length;
-var i__17864__auto___79013 = (0);
+var args__17871__auto__ = [];
+var len__17864__auto___31248 = arguments.length;
+var i__17865__auto___31249 = (0);
 while(true){
-if((i__17864__auto___79013 < len__17863__auto___79012)){
-args__17870__auto__.push((arguments[i__17864__auto___79013]));
+if((i__17865__auto___31249 < len__17864__auto___31248)){
+args__17871__auto__.push((arguments[i__17865__auto___31249]));
 
-var G__79014 = (i__17864__auto___79013 + (1));
-i__17864__auto___79013 = G__79014;
+var G__31250 = (i__17865__auto___31249 + (1));
+i__17865__auto___31249 = G__31250;
 continue;
 } else {
 }
 break;
 }
 
-var argseq__17871__auto__ = ((((3) < args__17870__auto__.length))?(new cljs.core.IndexedSeq(args__17870__auto__.slice((3)),(0))):null);
-return climbr.utils.utils.when_let_STAR_.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),argseq__17871__auto__);
+var argseq__17872__auto__ = ((((3) < args__17871__auto__.length))?(new cljs.core.IndexedSeq(args__17871__auto__.slice((3)),(0))):null);
+return climbr.utils.utils.when_let_STAR_.cljs$core$IFn$_invoke$arity$variadic((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),argseq__17872__auto__);
 });
 
 climbr.utils.utils.when_let_STAR_.cljs$core$IFn$_invoke$arity$variadic = (function (_AMPERSAND_form,_AMPERSAND_env,bindings,body){
@@ -85,14 +93,14 @@ return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.cal
 
 climbr.utils.utils.when_let_STAR_.cljs$lang$maxFixedArity = (3);
 
-climbr.utils.utils.when_let_STAR_.cljs$lang$applyTo = (function (seq79008){
-var G__79009 = cljs.core.first.call(null,seq79008);
-var seq79008__$1 = cljs.core.next.call(null,seq79008);
-var G__79010 = cljs.core.first.call(null,seq79008__$1);
-var seq79008__$2 = cljs.core.next.call(null,seq79008__$1);
-var G__79011 = cljs.core.first.call(null,seq79008__$2);
-var seq79008__$3 = cljs.core.next.call(null,seq79008__$2);
-return climbr.utils.utils.when_let_STAR_.cljs$core$IFn$_invoke$arity$variadic(G__79009,G__79010,G__79011,seq79008__$3);
+climbr.utils.utils.when_let_STAR_.cljs$lang$applyTo = (function (seq31244){
+var G__31245 = cljs.core.first.call(null,seq31244);
+var seq31244__$1 = cljs.core.next.call(null,seq31244);
+var G__31246 = cljs.core.first.call(null,seq31244__$1);
+var seq31244__$2 = cljs.core.next.call(null,seq31244__$1);
+var G__31247 = cljs.core.first.call(null,seq31244__$2);
+var seq31244__$3 = cljs.core.next.call(null,seq31244__$2);
+return climbr.utils.utils.when_let_STAR_.cljs$core$IFn$_invoke$arity$variadic(G__31245,G__31246,G__31247,seq31244__$3);
 });
 
 climbr.utils.utils.when_let_STAR_.cljs$lang$macro = true;
@@ -102,13 +110,13 @@ return new cljs.core.Keyword(null,"TODO","TODO",-523795145);
 
 climbr.utils.utils.for_each.cljs$lang$macro = true;
 climbr.utils.utils.test = (function climbr$utils$utils$test(ts){
-var temp__4423__auto___79015 = false;
-if(temp__4423__auto___79015){
-var x_79016 = temp__4423__auto___79015;
+var temp__4423__auto___31251 = false;
+if(temp__4423__auto___31251){
+var x_31252 = temp__4423__auto___31251;
 } else {
 }
 
 return climbr.utils.utils.when_let_STAR_.call(null,new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [climbr.utils.utils.x,(1),climbr.utils.utils.y,(2)], null),climbr.utils.utils.println.call(null,((1) + (2))));
 });
 
-//# sourceMappingURL=utils.js.map?rel=1476047227901
+//# sourceMappingURL=utils.js.map?rel=1476217195442
