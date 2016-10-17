@@ -11,6 +11,7 @@
 (def mouse-constraint (.-MouseConstraint js/Matter))
 (def events (.-Events js/Matter))
 
+
 (defn data! [key value object]
   "attach some data (key, value) to an object"
   (let [data (.-climbr-data object)]
@@ -27,3 +28,6 @@
 
 (defn y [body]
   (get (js->clj (.-position body)) "y"))
+
+(defn set-density[target density]
+  (.setDensity body target density))

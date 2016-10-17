@@ -1,6 +1,4 @@
-(ns ^:figwheel-always climbr.utils.macro_draft
-  "draft"
-  (:require ))
+(ns climbr.utils.macros)
 
 ;
 ;(defmacro my-print
@@ -49,3 +47,19 @@
 ;  `(with []
 ;     :compute
 ;     ~args))
+
+(defmacro compute[arg _ & bindings]
+  `(let ~@bindings ~arg))
+
+(defmacro for-each[objects func]
+  `(doall (map ~func ~objects)))
+
+(defmacro let?
+  ([bindings & body]
+    (if (seq bindings)
+      `(when-let [~(first bindings) ~(second bindings)]
+         (when-let* ~(drop 2 bindings) ~@body))
+      `(do ~@body))))
+
+
+

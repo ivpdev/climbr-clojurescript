@@ -20,14 +20,17 @@ var data = object.climbr_data;
 return cljs.core.get.call(null,data,key);
 });
 climbr.matter.matter.apply_force = (function climbr$matter$matter$apply_force(body,force){
-var map__39906 = force;
-var map__39906__$1 = ((((!((map__39906 == null)))?((((map__39906.cljs$lang$protocol_mask$partition0$ & (64))) || (map__39906.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__39906):map__39906);
-var x = cljs.core.get.call(null,map__39906__$1,new cljs.core.Keyword(null,"x","x",2099068185));
-var y = cljs.core.get.call(null,map__39906__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
+var map__25265 = force;
+var map__25265__$1 = ((((!((map__25265 == null)))?((((map__25265.cljs$lang$protocol_mask$partition0$ & (64))) || (map__25265.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__25265):map__25265);
+var x = cljs.core.get.call(null,map__25265__$1,new cljs.core.Keyword(null,"x","x",2099068185));
+var y = cljs.core.get.call(null,map__25265__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
 return Matter.Body.applyForce(body,body.position,{"x": x, "y": y});
 });
 climbr.matter.matter.y = (function climbr$matter$matter$y(body){
 return cljs.core.get.call(null,cljs.core.js__GT_clj.call(null,body.position),"y");
 });
+climbr.matter.matter.set_density = (function climbr$matter$matter$set_density(target,density){
+return climbr.matter.matter.body.setDensity(target,density);
+});
 
-//# sourceMappingURL=matter.js.map?rel=1474574282568
+//# sourceMappingURL=matter.js.map?rel=1476478809169

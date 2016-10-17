@@ -14,10 +14,13 @@
        ; left-hand (.circle m/bodies 350 400 5)
        ; right-hand (.circle m/bodies 450 400 5)
 
-        left-arm (.create m/constraint #js {:bodyA left-hand :bodyB body :stiffness 0.6 })
-        right-arm (.create m/constraint #js {:bodyA right-hand :bodyB body :stiffness 0.6 })]
+        left-arm (.create m/constraint #js {:bodyA left-hand :bodyB body :stiffness 0.3 })
+        right-arm (.create m/constraint #js {:bodyA right-hand :bodyB body :stiffness 0.3 })]
 
       (do
+        ;(m/set-density left-hand 0.0012)
+        ;(m/set-density right-hand 0.0012)
+
         (m/data! "class" "hand" left-hand)
         (m/data! "name" "h1" left-hand)
         (m/data! "class" "hand" right-hand)

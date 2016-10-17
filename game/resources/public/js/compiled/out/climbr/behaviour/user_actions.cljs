@@ -1,17 +1,16 @@
 (ns ^:figwheel-always climbr.behaviour.user_actions
   (:require-macros [cljs.core.async.macros :refer [go]]
-                   ;[cljs.core.match :refer [match]]
-                   )
+                   [climbr.utils.macros :refer [compute for-each let?]])
   (:require [climbr.matter.matter :as m]
             [climbr.figures.climber :as c]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
-
-            [climbr.utils.utils :as u :refer [def- when-let* in?]]
+            [climbr.utils.utils :as u :refer [in?]]
             [cljs.core.async :refer [tap chan <!]]))
 
 (defn setup-climber-moves! []
-  (bind-keys! {:up  #(cond
+  (bind-keys! k/keypressed
+              {:up  #(cond
                       (and (on-the-ground?)
                         (holds-nothing?))  (lunge! :both-hands :to :top)
 
@@ -36,34 +35,34 @@
                         :else (lunge! :right-hand :to [:top-TODO :right] :with {:power 0.2 })) }))
 
 (defn setup-climber-grab-events![engine]
-  (let [keypressed (chan)
-        grab-hand! (fn [hand]
-                     (let [hand-name (m/read-data "name" hand)
-                           hand-key (case hand-name "h1" :h1
-                                      "h2" :h2 nil)
-                           can-grab-boulders (seq (get-in @a/app-state [:can-grab hand-key]))
-                           boulder-to-grab (nth can-grab-boulders 0)
-                           have-something-to-grab? (not (nil? boulder-to-grab))
-                           holds-boulder (get-boulder-for-hand hand-name)
-                           already-holds? (not (nil? holds-boulder))
-                           engine (:engine @a/app-state)]
+  (compute
+    (do
+      (tap k/keypressed keypressed)
+      (go (while true
+            (let? [key (<! keypressed)
+                   hand-key (case key
+                                :grab-left :left
+                                :grab-right :right
+                                :grab-both :both
+                                nil)
+                   hands (fetch-hands hand-key)]
 
-                       (if (and have-something-to-grab? (not already-holds?))
-                         (connect-hand-and-boulder hand boulder-to-grab engine))))]
+                (for-each hands grab-hand!)))))
 
-    (tap k/keypressed keypressed)
-    (go (while true
-          (let [key (<! keypressed)
+    :where [keypressed (chan)
+            grab-hand! (fn [hand]
+                         (let [hand-name (m/read-data "name" hand)
+                               hand-key (case hand-name "h1" :h1
+                                                        "h2" :h2 nil)
+                               can-grab-boulders (seq (get-in @a/app-state [:can-grab hand-key]))
+                               boulder-to-grab (nth can-grab-boulders 0)
+                               have-something-to-grab? (not (nil? boulder-to-grab))
+                               holds-boulder (get-boulder-for-hand hand-name)
+                               already-holds? (not (nil? holds-boulder))
+                               engine (:engine @a/app-state)]
 
-                hand-key (case key
-                           :grab-left :left
-                           :grab-right :right
-                           :grab-both :both
-                           nil)]
-
-            (when hand-key ;TODO when-let
-              (let [hands (fetch-hands hand-key)]
-                (doall (map grab-hand! hands))))))))) ;TODO for-each
+                           (if (and have-something-to-grab? (not already-holds?))
+                             (connect-hand-and-boulder hand boulder-to-grab engine))))]))
 
 (defn setup-climber-release-events! [engine]
   (let [keypressed (chan)
@@ -113,7 +112,7 @@
                         :body { :vertical 0.004
                                 :horizonal 0.004 }}
 
-        objects (case what
+        bodies (case what
                   :left-hand (fetch-hands :left)
                   :right-hand (fetch-hands :right)
                   :both-hands (fetch-hands :both)
@@ -132,38 +131,25 @@
         vertical-force-component-raw (* (:vertical force-obj) factor)
         horizontal-force-component-raw (* (:horizonal force-obj) factor)
 
-        targets (cond (vector? where) where
+        directions (cond (vector? where) where
                       :else [where])
 
-        vertical-force-component (if (in? targets :top) (- vertical-force-component-raw) 0)
-        horizontal-force-component (cond (and (in? targets :right)
-                                              (in? targets :left)) 0
-                                          (in? targets :left) (- horizontal-force-component-raw)
-                                          (in? targets :right)  horizontal-force-component-raw
+        vertical-force-component (if (in? directions :top) (- vertical-force-component-raw) 0)
+        horizontal-force-component (cond (and (in? directions :right)
+                                              (in? directions :left)) 0
+                                          (in? directions :left) (- horizontal-force-component-raw)
+                                          (in? directions :right)  horizontal-force-component-raw
                                           :else 0)
 
-        x (println "!!")
-        x (println targets)
-        x (println (in? targets :left))
-        x1 (println vertical-force-component-raw)
-        x1 (println factor)
+        force {:x horizontal-force-component :y vertical-force-component }]
 
-        ;force (case where
-        ;        :top { :x 0 :y (- vertical-force-component)  }
-        ;        :left { :x  horizontal-force-component :y 0 }
-        ;        :right { :x horizontal-force-component :y 0 } )
+    (doseq [b bodies] (m/apply-force b force))))
 
-        force {:x horizontal-force-component :y vertical-force-component }
-        f (println force)
-        ]
-
-    (doseq [o objects] (m/apply-force o force))))
-
-(defn- bind-keys! [key-actions]
-  (let [keypressed (chan)]
-    (tap k/keypressed keypressed)
+(defn- bind-keys! [external-keypressed-chan key-actions]
+  (let [keypressed-chan (chan)]
+    (tap external-keypressed-chan keypressed-chan)
     (go (while true
-          (let [key (<! keypressed)
+          (let [key (<! keypressed-chan)
                 action (get key-actions key)]
 
             (when-not (nil? action) (action)))))))

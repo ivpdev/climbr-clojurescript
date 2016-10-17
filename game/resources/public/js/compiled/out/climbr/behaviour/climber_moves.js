@@ -23,8 +23,8 @@ return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new c
 climbr.behaviour.climber_moves.set_hand_holds_BANG_ = (function climbr$behaviour$climber_moves$set_hand_holds_BANG_(engine,hand,boulder){
 var constraint = climbr.matter.matter.constraint.create({"bodyA": hand, "bodyB": boulder});
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var key_holds = (function (){var G__75140 = hand_name;
-switch (G__75140) {
+var key_holds = (function (){var G__32319 = hand_name;
+switch (G__32319) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -49,8 +49,8 @@ return null;
 });
 climbr.behaviour.climber_moves.update_hand_can_hold_BANG_ = (function climbr$behaviour$climber_moves$update_hand_can_hold_BANG_(action,hand,boulder){
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var hand_key = (function (){var G__75144 = hand_name;
-switch (G__75144) {
+var hand_key = (function (){var G__32323 = hand_name;
+switch (G__32323) {
 case "h1":
 return new cljs.core.Keyword(null,"h1","h1",-1896887462);
 
@@ -64,8 +64,8 @@ return null;
 
 }
 })();
-var update_func = (function (){var G__75145 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
-switch (G__75145) {
+var update_func = (function (){var G__32324 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
+switch (G__32324) {
 case "add":
 return cljs.core.conj;
 
@@ -86,4 +86,4 @@ return cljs.core.println.call(null,"away!");
 });
 climbr.behaviour.climber_moves.def_.call(null,climbr.behaviour.climber_moves.not_nil_QMARK_,cljs.core.complement.call(null,cljs.core.nil_QMARK_));
 
-//# sourceMappingURL=climber_moves.js.map?rel=1476043836425
+//# sourceMappingURL=climber_moves.js.map?rel=1476479779643

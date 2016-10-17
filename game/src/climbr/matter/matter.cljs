@@ -27,3 +27,6 @@
 
 (defn y [body]
   (get (js->clj (.-position body)) "y"))
+
+(defn set-density[target density]
+  (.setDensity body target density))

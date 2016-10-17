@@ -16,7 +16,7 @@
   [& body])
 
 (defn in?
-  "true if coll contains elm"
+  "true if coll contains el"
   [coll el]
   (some #(= el %) coll))
 
@@ -25,25 +25,6 @@
 (TODO create issue macro)
 
 (TODO import globally)
-
-(defmacro when-let* ;TODO fix: if any of bindings in null -> break execution
-  ([bindings & body]
-    (if (seq bindings)
-      `(when-let [~(first bindings) ~(second bindings)]
-         (when-let* ~(drop 2 bindings) ~@body))
-      `(do ~@body))))
-
-(defmacro for-each[_]
-  :TODO)
-
-(defn test[ts]
-  (if-let [x false]
-    "then"
-    "else")
-
-  (when-let* [x 1
-              y 2]
-    (println (+ 1 2))))
 
 ;(def y (is (+ x 1)
 ;          :where

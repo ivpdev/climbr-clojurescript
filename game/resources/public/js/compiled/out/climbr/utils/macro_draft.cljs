@@ -49,3 +49,10 @@
 ;  `(with []
 ;     :compute
 ;     ~args))
+
+
+(println a+b)
+:where [bindings]
+
+(defmacro compute [arg _ & bindings]
+  `(let ~@bindings ~arg))

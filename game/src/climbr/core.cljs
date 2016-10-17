@@ -26,7 +26,6 @@
     (user-actions/setup-climber-grab-events! engine)
     (user-actions/setup-climber-moves!)
 
-    (u/test 1)
     (.run m/engine engine)))
 
 
