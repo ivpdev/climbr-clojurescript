@@ -54,12 +54,19 @@
 (defmacro for-each[objects func]
   `(doall (map ~func ~objects)))
 
-(defmacro let?
+(defmacro lets
   ([bindings & body]
     (if (seq bindings)
       `(when-let [~(first bindings) ~(second bindings)]
          (when-let* ~(drop 2 bindings) ~@body))
       `(do ~@body))))
 
+(defmacro def- [item value]
+  `(def ^{:private true} ~item ~value))
 
+(defmacro TODO
+  "Ignores body, yields nil"
+  [& body])
+
+(TODO defn-)
 

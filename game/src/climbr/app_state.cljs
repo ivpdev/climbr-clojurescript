@@ -14,4 +14,4 @@
                      :h2 nil}
 
           :eninge nil ;TODO move to matter namespace
-          }))
+          :current-level nil }))
