@@ -64,43 +64,43 @@ climbr.behaviour.position_watches.create_nearing_watch_BANG_ = (function climbr$
 var data = new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var distance_sig = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var near_sig = reagi.core.map.call(null,((function (data,distance_sig){
-return (function (p1__21286_SHARP_){
-return (p1__21286_SHARP_ < threshold);
+return (function (p1__35439_SHARP_){
+return (p1__35439_SHARP_ < threshold);
 });})(data,distance_sig))
 ,distance_sig);
 var near_change_sig = reagi.core.uniq.call(null,near_sig);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"data","data",-232669377),data,new cljs.core.Keyword(null,"signal","signal",-1984951589),near_change_sig], null);
 });
 climbr.behaviour.position_watches.cartesian_prod = (function climbr$behaviour$position_watches$cartesian_prod(col1,col2){
-var iter__17577__auto__ = (function climbr$behaviour$position_watches$cartesian_prod_$_iter__21293(s__21294){
+var iter__17577__auto__ = (function climbr$behaviour$position_watches$cartesian_prod_$_iter__35446(s__35447){
 return (new cljs.core.LazySeq(null,(function (){
-var s__21294__$1 = s__21294;
+var s__35447__$1 = s__35447;
 while(true){
-var temp__4425__auto__ = cljs.core.seq.call(null,s__21294__$1);
+var temp__4425__auto__ = cljs.core.seq.call(null,s__35447__$1);
 if(temp__4425__auto__){
 var xs__4977__auto__ = temp__4425__auto__;
 var x = cljs.core.first.call(null,xs__4977__auto__);
-var iterys__17573__auto__ = ((function (s__21294__$1,x,xs__4977__auto__,temp__4425__auto__){
-return (function climbr$behaviour$position_watches$cartesian_prod_$_iter__21293_$_iter__21295(s__21296){
-return (new cljs.core.LazySeq(null,((function (s__21294__$1,x,xs__4977__auto__,temp__4425__auto__){
+var iterys__17573__auto__ = ((function (s__35447__$1,x,xs__4977__auto__,temp__4425__auto__){
+return (function climbr$behaviour$position_watches$cartesian_prod_$_iter__35446_$_iter__35448(s__35449){
+return (new cljs.core.LazySeq(null,((function (s__35447__$1,x,xs__4977__auto__,temp__4425__auto__){
 return (function (){
-var s__21296__$1 = s__21296;
+var s__35449__$1 = s__35449;
 while(true){
-var temp__4425__auto____$1 = cljs.core.seq.call(null,s__21296__$1);
+var temp__4425__auto____$1 = cljs.core.seq.call(null,s__35449__$1);
 if(temp__4425__auto____$1){
-var s__21296__$2 = temp__4425__auto____$1;
-if(cljs.core.chunked_seq_QMARK_.call(null,s__21296__$2)){
-var c__17575__auto__ = cljs.core.chunk_first.call(null,s__21296__$2);
+var s__35449__$2 = temp__4425__auto____$1;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__35449__$2)){
+var c__17575__auto__ = cljs.core.chunk_first.call(null,s__35449__$2);
 var size__17576__auto__ = cljs.core.count.call(null,c__17575__auto__);
-var b__21298 = cljs.core.chunk_buffer.call(null,size__17576__auto__);
-if((function (){var i__21297 = (0);
+var b__35451 = cljs.core.chunk_buffer.call(null,size__17576__auto__);
+if((function (){var i__35450 = (0);
 while(true){
-if((i__21297 < size__17576__auto__)){
-var y = cljs.core._nth.call(null,c__17575__auto__,i__21297);
-cljs.core.chunk_append.call(null,b__21298,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null));
+if((i__35450 < size__17576__auto__)){
+var y = cljs.core._nth.call(null,c__17575__auto__,i__35450);
+cljs.core.chunk_append.call(null,b__35451,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null));
 
-var G__21299 = (i__21297 + (1));
-i__21297 = G__21299;
+var G__35452 = (i__35450 + (1));
+i__35450 = G__35452;
 continue;
 } else {
 return true;
@@ -108,29 +108,29 @@ return true;
 break;
 }
 })()){
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__21298),climbr$behaviour$position_watches$cartesian_prod_$_iter__21293_$_iter__21295.call(null,cljs.core.chunk_rest.call(null,s__21296__$2)));
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__35451),climbr$behaviour$position_watches$cartesian_prod_$_iter__35446_$_iter__35448.call(null,cljs.core.chunk_rest.call(null,s__35449__$2)));
 } else {
-return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__21298),null);
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__35451),null);
 }
 } else {
-var y = cljs.core.first.call(null,s__21296__$2);
-return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null),climbr$behaviour$position_watches$cartesian_prod_$_iter__21293_$_iter__21295.call(null,cljs.core.rest.call(null,s__21296__$2)));
+var y = cljs.core.first.call(null,s__35449__$2);
+return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null),climbr$behaviour$position_watches$cartesian_prod_$_iter__35446_$_iter__35448.call(null,cljs.core.rest.call(null,s__35449__$2)));
 }
 } else {
 return null;
 }
 break;
 }
-});})(s__21294__$1,x,xs__4977__auto__,temp__4425__auto__))
+});})(s__35447__$1,x,xs__4977__auto__,temp__4425__auto__))
 ,null,null));
-});})(s__21294__$1,x,xs__4977__auto__,temp__4425__auto__))
+});})(s__35447__$1,x,xs__4977__auto__,temp__4425__auto__))
 ;
 var fs__17574__auto__ = cljs.core.seq.call(null,iterys__17573__auto__.call(null,col2));
 if(fs__17574__auto__){
-return cljs.core.concat.call(null,fs__17574__auto__,climbr$behaviour$position_watches$cartesian_prod_$_iter__21293.call(null,cljs.core.rest.call(null,s__21294__$1)));
+return cljs.core.concat.call(null,fs__17574__auto__,climbr$behaviour$position_watches$cartesian_prod_$_iter__35446.call(null,cljs.core.rest.call(null,s__35447__$1)));
 } else {
-var G__21300 = cljs.core.rest.call(null,s__21294__$1);
-s__21294__$1 = G__21300;
+var G__35453 = cljs.core.rest.call(null,s__35447__$1);
+s__35447__$1 = G__35453;
 continue;
 }
 } else {
@@ -170,4 +170,4 @@ return cljs.core.apply.call(null,action_off,data);
 ,nearing_watches));
 });
 
-//# sourceMappingURL=position_watches.js.map?rel=1474092861754
+//# sourceMappingURL=position_watches.js.map?rel=1477646668194

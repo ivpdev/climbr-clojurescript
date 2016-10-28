@@ -1,5 +1,6 @@
 (ns ^:figwheel-always climbr.utils.utils
-  "Utilities")
+  "Utilities"
+  (:require [cemerick.url :as url]))
 
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
@@ -19,6 +20,23 @@
   "true if coll contains el"
   [coll el]
   (some #(= el %) coll))
+
+(defn get-level-name[]
+  (let [location-details (url/url (-> js/window .-location .-href))
+        query (:query location-details)
+        level (get query "l")
+        default-level "l0"]
+
+    (or level default-level)))
+
+;(defn get-level[]
+;  (let [location-details (url/url (-> js/window .-location .-href))
+;        query (:query location-details)
+;        level (get query "l")
+;        default-level "l0"
+;        x (println level)]
+;
+;    (or level default-level)))
 
 (TODO create script which parses source code end extracts all TODOs)
 

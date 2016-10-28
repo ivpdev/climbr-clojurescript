@@ -11,7 +11,7 @@
 (def level
   (let [boulders (.create m/composite)
         b1 (create-boulder 300 400)
-        b2 (create-boulder 500 400)
+        b2 (create-boulder 500 300)
         b3 (create-boulder 100 200)
         b4 (create-boulder 400 200)]
 
@@ -25,7 +25,7 @@
       (m/data! "name" "2" b3)
       (m/data! "name" "1" b4)
       (.add m/composite boulders b1)
-      (.add m/composite boulders b2)
+      ;(.add m/composite boulders b2)
       (.add m/composite boulders b3)
       (.add m/composite boulders b4))
 

@@ -10,7 +10,8 @@
                  [org.clojure/clojurescript "1.7.170"]
                  [org.clojure/core.async "0.2.374"
                   :exclusions [org.clojure/tools.reader]]
-                 [reagi "0.10.1"]]
+                 [reagi "0.10.1"]
+                 [com.cemerick/url "0.1.1"]]
   
   :plugins [[lein-figwheel "0.5.0-6"]
             [lein-cljsbuild "1.1.2" :exclusions [[org.clojure/clojure]]]

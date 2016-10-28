@@ -39,14 +39,24 @@
     (do
       (tap k/keypressed keypressed)
       (go (while true
-            (lets [key (<! keypressed)
+;            TODO make lets macros working
+;            (lets [key (<! keypressed)
+;                   hand-key (case key
+;                                :grab-left :left
+;                                :grab-right :right
+;                                :grab-both :both
+;                                nil)
+;                   hands (fetch-hands hand-key)]
+;
+;                (for-each hands grab-hand!));
+;
+            (let [key (<! keypressed)
                    hand-key (case key
                                 :grab-left :left
                                 :grab-right :right
                                 :grab-both :both
                                 nil)
-                   hands (fetch-hands hand-key)]
-
+                   hands (if (nil? hand-key) nil (fetch-hands hand-key))]
                 (for-each hands grab-hand!)))))
 
     :where [keypressed (chan)

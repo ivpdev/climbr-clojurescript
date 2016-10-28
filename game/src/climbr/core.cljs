@@ -24,11 +24,13 @@
 (let [engine (.create m/engine (.-body js/document))
       mouse-constraint (.create m/mouse-constraint engine)
       climber (:climber climber/climber)
-      my-world (.-world engine)]
+      my-world (.-world engine)
+      level-name (u/get-level-name)]
+
   (do
     (.add m/world my-world (clj->js [ground/ground climber mouse-constraint]))
 
-    (set-level! "l1" my-world)
+    (set-level! level-name my-world)
 
     (swap! a/app-state assoc :engine engine)
 

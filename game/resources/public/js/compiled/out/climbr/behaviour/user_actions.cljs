@@ -1,6 +1,6 @@
 (ns ^:figwheel-always climbr.behaviour.user_actions
   (:require-macros [cljs.core.async.macros :refer [go]]
-                   [climbr.utils.macros :refer [compute for-each let?]])
+                   [climbr.utils.macros :refer [compute for-each lets]])
   (:require [climbr.matter.matter :as m]
             [climbr.figures.climber :as c]
             [climbr.app_state :as a]
@@ -39,14 +39,24 @@
     (do
       (tap k/keypressed keypressed)
       (go (while true
-            (let? [key (<! keypressed)
+;            TODO make lets macros working
+;            (lets [key (<! keypressed)
+;                   hand-key (case key
+;                                :grab-left :left
+;                                :grab-right :right
+;                                :grab-both :both
+;                                nil)
+;                   hands (fetch-hands hand-key)]
+;
+;                (for-each hands grab-hand!));
+;
+            (let [key (<! keypressed)
                    hand-key (case key
                                 :grab-left :left
                                 :grab-right :right
                                 :grab-both :both
                                 nil)
-                   hands (fetch-hands hand-key)]
-
+                   hands (if (nil? hand-key) nil (fetch-hands hand-key))]
                 (for-each hands grab-hand!)))))
 
     :where [keypressed (chan)
@@ -148,7 +158,7 @@
 (defn- bind-keys! [external-keypressed-chan key-actions]
   (let [keypressed-chan (chan)]
     (tap external-keypressed-chan keypressed-chan)
-    (go (while true
+    (go (while true ;TODO endless macro
           (let [key (<! keypressed-chan)
                 action (get key-actions key)]
 

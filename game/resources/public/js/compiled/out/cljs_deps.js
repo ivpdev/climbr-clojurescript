@@ -21,7 +21,9 @@ goog.addDependency("../climbr/figures/level0.js", ['climbr.figures.level0'], ['c
 goog.addDependency("../climbr/figures/level1.js", ['climbr.figures.level1'], ['climbr.matter.matter', 'cljs.core']);
 goog.addDependency("../climbr/figures/levels.js", ['climbr.figures.levels'], ['climbr.figures.level0', 'climbr.figures.level1', 'cljs.core']);
 goog.addDependency("../climbr/app_state.js", ['climbr.app_state'], ['cljs.core']);
-goog.addDependency("../climbr/utils/utils.js", ['climbr.utils.utils'], ['cljs.core']);
+goog.addDependency("../pathetic/core.js", ['pathetic.core'], ['goog.string', 'goog.Uri', 'cljs.core', 'clojure.string']);
+goog.addDependency("../cemerick/url.js", ['cemerick.url'], ['pathetic.core', 'goog.Uri', 'cljs.core', 'clojure.string']);
+goog.addDependency("../climbr/utils/utils.js", ['climbr.utils.utils'], ['cljs.core', 'cemerick.url']);
 goog.addDependency("../climbr/figures/climber.js", ['climbr.figures.climber'], ['climbr.matter.matter', 'cljs.core', 'climbr.app_state']);
 goog.addDependency("../climbr/figures/ground.js", ['climbr.figures.ground'], ['climbr.matter.matter', 'cljs.core']);
 goog.addDependency("../climbr/controls/keyboard.js", ['climbr.controls.keyboard'], ['cljs.core', 'cljs.core.async']);

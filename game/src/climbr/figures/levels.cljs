@@ -4,5 +4,6 @@
 
 (defn get[level-name]
   (case level-name
+    "l0" l0/level
     "l1" l1/level
     "default"))
