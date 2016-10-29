@@ -1,8 +1,55 @@
 .menu {
     margin: auto;
     width: 50%;
-    margin-top: 100px;
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.title {
+    font-size: 119px;
+    margin-top: 0;
+    color: white;
+    font-family: fantasy;
+    margin-bottom: 0;
+    text-shadow: -1px 0 #b5b5b5, 0 1px #b5b5b5, 1px 0 #b5b5b5, 0 -1px #b5b5b5;
+}
+
+.choose-level {
+    font-size: 20px;
+}
+
+body {
+    /*background-image: url(https://wallpaperscraft.com/image/climber_extreme_silhouette_climbing_rock_difficulties_sunset_79975_1280x1024.jpg);
+    */
+    /* background-image: url(http://cdn.earthporm.com/wp-content/uploads/2015/05/imgur-rock-climbing-larger-size.png)*/;
+    background-image: url(../images/background.jpg);
+}
+
+.subtitle {
+    color: black;
+    position: fixed;
+    top: 136px;
+}
+
+.levels {
+    margin-top: 10px;
+}
+
+.level-link {
+    color: #ffff27;
+    font-size: 51px;
+    font-family: fantasy;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.level-link:hover {
+    text-decoration: none;
+    color: #aba257;
+}
+
+.controls {
+    color: white;
+    text-shadow: -1px 0 #b5b5b5, 0 1px #b5b5b5, 1px 0 #b5b5b5, 0 -1px #b5b5b5;
 }

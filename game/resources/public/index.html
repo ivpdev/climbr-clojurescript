@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
-    <script src="js/compiled/out/lib/matter-js/matter.js" type="text/javascript"></script>
+    <link href="css/menu.css" rel="stylesheet" type="text/css">
+    <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 
-  </head>
-  <body>
-    <div id="app"></div>
-    <script src="js/compiled/climbr.js" type="text/javascript"></script>
-  </body>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<menu class="menu">
+    <h1 class="title">Climbr</h1>
+    <p class="subtitle lead">Try to reach the top as fast as possible</p>
+    <div class="levels">
+        <a type="button" class="level-link" id="level0" href="game.html?l=l0">Level 0</a><br>
+        <a type="button" class="level-link" id="level1" href="game.html?l=l1">Level 1</a>
+    </div>
+    <br>
+    <p class="lead controls"><b>Controls</b><br>
+        <b>arrows</b> - lunging to directions<br>
+        <b>a</b> - grab hold with left hand<br>
+        <b>d</b> - grab hold with right hand<br>
+        <b>s</b> - grab hold with any hand<br>
+        <b>q</b> - release left hand<br>
+        <b>e</b> - release right hand<br>
+        <b>w</b> - release both hands<br>
+    </p>
+</menu>
+
+</body>
 </html>
