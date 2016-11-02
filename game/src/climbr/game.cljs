@@ -83,8 +83,7 @@
       ;(stop-engine!)
       (.alert js/window "You won!")
       (set! (.-location js/window) "index.html")
-      (set! game-is-over? true)
-      (println "XXX"))))
+      (set! game-is-over? true))))
 
 
 
