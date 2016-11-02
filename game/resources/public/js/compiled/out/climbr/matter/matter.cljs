@@ -7,10 +7,10 @@
 (def composite (.-Composite js/Matter))
 (def constraint (.-Constraint js/Matter))
 (def engine (.-Engine js/Matter))
+(def runner (.-Runner js/Matter))
 (def world (.-World js/Matter))
 (def mouse-constraint (.-MouseConstraint js/Matter))
 (def events (.-Events js/Matter))
-
 
 (defn data! [key value object]
   "attach some data (key, value) to an object"

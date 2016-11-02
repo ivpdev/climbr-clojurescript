@@ -19,11 +19,11 @@
   { :data body
     :signal (signal-from-property! (.-position body))})
 
-(defn sqrt [x] (.sqrt js/Math x))
+(defn- sqrt [x] (.sqrt js/Math x))
 
-(defn sqr [x] (* x x))
+(defn- sqr [x] (* x x))
 
-(defn create-distance-watch!
+(defn- create-distance-watch!
   "from pair of body position watches creates a watch of body distances"
   [position-watches-pair]
   (let [pos1-watch (get position-watches-pair 0)
@@ -48,6 +48,18 @@
 
     {:data [body1 body2]
      :signal distance-sig }))
+
+[:TODO create map and map2 functions for watches]
+
+(defn- create-position-predicate-watch![predicate position-watch]
+  (let [position-signal (:signal position-watch)
+        predicate-signal (r/map (fn[position]
+                                  (let [x (.-x position)
+                                        y (.-y position)]
+                                    (predicate x y)))
+                           position-signal)]
+    {:data (:data position-watch)
+     :signal predicate-signal}))
 
 (defn create-nearing-watch!
   "creates watch(signal + data) detecting if two bodies are near or not"
@@ -87,3 +99,20 @@
                           (apply action-off data)))
                  signal)))
         nearing-watches))))
+
+(defn watch-position! [config]
+  (let [bodies (without-keywords (:watch config))
+        position-predicate (:is config)
+        action-on (:on config)
+
+        bodies-position-watches (map create-body-position-watch! bodies)
+        bodies-position-predicate-watches (map (partial create-position-predicate-watch! position-predicate)
+                                            bodies-position-watches)]
+
+    (doall
+      (map (fn[watch]
+             (let [signal (:signal watch)]
+               (r/map (fn[is-true]
+                        (when is-true (action-on)))
+                 signal)))
+        bodies-position-predicate-watches))))

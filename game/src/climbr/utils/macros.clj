@@ -68,7 +68,6 @@
   "Ignores body, yields nil"
   [& body])
 
-(TODO defn-)
 
 (TODO sometimes macros doesn't work as expected - fix is removing compiled files)
 

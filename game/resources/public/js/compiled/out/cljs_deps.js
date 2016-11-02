@@ -30,7 +30,8 @@ goog.addDependency("../climbr/controls/keyboard.js", ['climbr.controls.keyboard'
 goog.addDependency("../reagi/core.js", ['reagi.core'], ['cljs.core', 'cljs.core.async']);
 goog.addDependency("../climbr/behaviour/position_watches.js", ['climbr.behaviour.position_watches'], ['cljs.core', 'reagi.core']);
 goog.addDependency("../climbr/figures/boulders.js", ['climbr.figures.boulders'], ['climbr.matter.matter', 'cljs.core']);
-goog.addDependency("../climbr/behaviour/climber_moves.js", ['climbr.behaviour.climber_moves'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.figures.climber', 'climbr.controls.keyboard', 'climbr.behaviour.position_watches', 'climbr.figures.boulders']);
+goog.addDependency("../climbr/behaviour/climber_moves.js", ['climbr.behaviour.climber_moves'], ['climbr.game', 'climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.figures.climber', 'climbr.controls.keyboard', 'climbr.behaviour.position_watches', 'climbr.figures.boulders']);
 goog.addDependency("../climbr/behaviour/user_actions.js", ['climbr.behaviour.user_actions'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.utils.utils', 'climbr.figures.climber', 'climbr.controls.keyboard']);
-goog.addDependency("../climbr/core.js", ['climbr.core'], ['climbr.figures.levels', 'climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.utils.utils', 'climbr.figures.climber', 'climbr.figures.ground', 'climbr.behaviour.climber_moves', 'climbr.behaviour.user_actions']);
+goog.addDependency("../climbr/game.js", ['climbr.game'], ['climbr.figures.levels', 'climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.utils.utils', 'climbr.figures.climber', 'climbr.figures.ground', 'climbr.behaviour.climber_moves', 'climbr.behaviour.user_actions']);
+goog.addDependency("../climbr/core.js", ['climbr.core'], ['climbr.game', 'cljs.core']);
 goog.addDependency("../figwheel/connect.js", ['figwheel.connect'], ['cljs.core', 'figwheel.client', 'climbr.core', 'figwheel.client.utils']);

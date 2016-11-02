@@ -1,9 +1,12 @@
 (ns ^:figwheel-always climbr.behaviour.climber_moves
-  (:require-macros [cljs.core.async.macros :refer [go]])
+  (:require-macros [cljs.core.async.macros :refer [go]]
+                   [climbr.utils.macros :refer [compute]])
+
   (:require [climbr.figures.climber :as climber]
             [climbr.figures.boulders :as boulders]
             [climbr.matter.matter :as m]
             [climbr.app_state :as a]
+            [climbr.game :as game]
             [climbr.controls.keyboard :as k]
             [climbr.behaviour.position_watches :as p]
             [cljs.core.async :refer [tap chan <!]]))
@@ -11,7 +14,9 @@
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
 
-(defn init-approaching-watch![engine]
+(defn watch-hand-can-grab-boulder!
+  "Watch when hands are getting close enough to boulders for being able to grab them."
+  []
   (let [climber (:climber climber/climber)
         hand1 (:h1 climber/climber)
         hand2 (:h2 climber/climber)
@@ -51,10 +56,25 @@
 
 (def- not-nil? (complement nil?))
 
+(defn watch-hand-reaches-top!
+  "Watch when a hand is reaching top. When this happens the game is finished."
+  [engine]
+  (compute
+    (p/watch-position! {:watch [hand1 :or hand2]
+                        :is over-top?
+
+                        :on #(game/win-game!)})
+
+    :where [climber (:climber climber/climber)
+            hand1 (:h1 climber/climber)
+            hand2 (:h2 climber/climber)
+            over-top? (fn[x y]
+                        (< y 0))]))
+
 ;(with [keypressed (chan)]
 ;  :do
-;  (tap k/keypressed keypressed)
-;  (go (while true
+;     (tap k/keypressed keypressed)
+;     (go (while true
 ;        (let [key (<! keypressed)
 ;              hand (case key
 ;                     :a :left

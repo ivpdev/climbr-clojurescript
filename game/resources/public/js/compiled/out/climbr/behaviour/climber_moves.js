@@ -1,6 +1,7 @@
 // Compiled by ClojureScript 1.7.170 {}
 goog.provide('climbr.behaviour.climber_moves');
 goog.require('cljs.core');
+goog.require('climbr.game');
 goog.require('climbr.behaviour.position_watches');
 goog.require('climbr.app_state');
 goog.require('climbr.matter.matter');
@@ -13,7 +14,10 @@ return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.cal
 });
 
 climbr.behaviour.climber_moves.def_.cljs$lang$macro = true;
-climbr.behaviour.climber_moves.init_approaching_watch_BANG_ = (function climbr$behaviour$climber_moves$init_approaching_watch_BANG_(engine){
+/**
+ * Watch when hands are getting close enough to boulders for being able to grab them.
+ */
+climbr.behaviour.climber_moves.watch_hand_can_grab_boulder_BANG_ = (function climbr$behaviour$climber_moves$watch_hand_can_grab_boulder_BANG_(){
 var climber = new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 var hand1 = new cljs.core.Keyword(null,"h1","h1",-1896887462).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 var hand2 = new cljs.core.Keyword(null,"h2","h2",-372662728).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
@@ -23,8 +27,8 @@ return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new c
 climbr.behaviour.climber_moves.set_hand_holds_BANG_ = (function climbr$behaviour$climber_moves$set_hand_holds_BANG_(engine,hand,boulder){
 var constraint = climbr.matter.matter.constraint.create({"bodyA": hand, "bodyB": boulder});
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var key_holds = (function (){var G__35457 = hand_name;
-switch (G__35457) {
+var key_holds = (function (){var G__23979 = hand_name;
+switch (G__23979) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -49,8 +53,8 @@ return null;
 });
 climbr.behaviour.climber_moves.update_hand_can_hold_BANG_ = (function climbr$behaviour$climber_moves$update_hand_can_hold_BANG_(action,hand,boulder){
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var hand_key = (function (){var G__35461 = hand_name;
-switch (G__35461) {
+var hand_key = (function (){var G__23983 = hand_name;
+switch (G__23983) {
 case "h1":
 return new cljs.core.Keyword(null,"h1","h1",-1896887462);
 
@@ -64,8 +68,8 @@ return null;
 
 }
 })();
-var update_func = (function (){var G__35462 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
-switch (G__35462) {
+var update_func = (function (){var G__23984 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
+switch (G__23984) {
 case "add":
 return cljs.core.conj;
 
@@ -85,5 +89,23 @@ climbr.behaviour.climber_moves.release_hand_holds_BANG_ = (function climbr$behav
 return cljs.core.println.call(null,"away!");
 });
 climbr.behaviour.climber_moves.def_.call(null,climbr.behaviour.climber_moves.not_nil_QMARK_,cljs.core.complement.call(null,cljs.core.nil_QMARK_));
+/**
+ * Watch when a hand is reaching top. When this happens the game is finished.
+ */
+climbr.behaviour.climber_moves.watch_hand_reaches_top_BANG_ = (function climbr$behaviour$climber_moves$watch_hand_reaches_top_BANG_(engine){
+var climber = new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
+var hand1 = new cljs.core.Keyword(null,"h1","h1",-1896887462).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
+var hand2 = new cljs.core.Keyword(null,"h2","h2",-372662728).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
+var over_top_QMARK_ = ((function (climber,hand1,hand2){
+return (function (x,y){
+return (y < (0));
+});})(climber,hand1,hand2))
+;
+return climbr.behaviour.position_watches.watch_position_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"is","is",369128998),over_top_QMARK_,new cljs.core.Keyword(null,"on","on",173873944),((function (climber,hand1,hand2,over_top_QMARK_){
+return (function (){
+return climbr.game.win_game_BANG_.call(null);
+});})(climber,hand1,hand2,over_top_QMARK_))
+], null));
+});
 
-//# sourceMappingURL=climber_moves.js.map?rel=1477646668357
+//# sourceMappingURL=climber_moves.js.map?rel=1478008461929
