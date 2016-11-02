@@ -11,7 +11,8 @@
 
 (defn start![]
   (let [engine (setup-engine!)
-        context (get @a/app-state :context)]
+        ;context (get @a/app-state :context) TODO
+        ]
     (do
       (setup-world-base! engine)
       (setup-level! engine)
