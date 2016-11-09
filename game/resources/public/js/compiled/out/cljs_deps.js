@@ -1,5 +1,5 @@
 goog.addDependency("base.js", ['goog'], []);
-goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.string.StringBuffer', 'goog.array']);
+goog.addDependency("../cljs/core.js", ['cljs.core'], ['goog.string', 'goog.object', 'goog.math.Integer', 'goog.string.StringBuffer', 'goog.array', 'goog.math.Long']);
 goog.addDependency("../cljs/core/async/impl/protocols.js", ['cljs.core.async.impl.protocols'], ['cljs.core']);
 goog.addDependency("../cljs/core/async/impl/buffers.js", ['cljs.core.async.impl.buffers'], ['cljs.core', 'cljs.core.async.impl.protocols']);
 goog.addDependency("../cljs/core/async/impl/dispatch.js", ['cljs.core.async.impl.dispatch'], ['cljs.core', 'cljs.core.async.impl.buffers', 'goog.async.nextTick']);
@@ -11,7 +11,10 @@ goog.addDependency("../clojure/set.js", ['clojure.set'], ['cljs.core']);
 goog.addDependency("../clojure/string.js", ['clojure.string'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
 goog.addDependency("../figwheel/client/utils.js", ['figwheel.client.utils'], ['cljs.core', 'clojure.string']);
 goog.addDependency("../figwheel/client/file_reloading.js", ['figwheel.client.file_reloading'], ['goog.string', 'goog.net.jsloader', 'goog.Uri', 'cljs.core', 'goog.object', 'cljs.core.async', 'clojure.set', 'figwheel.client.utils', 'clojure.string']);
-goog.addDependency("../cljs/repl.js", ['cljs.repl'], ['cljs.core']);
+goog.addDependency("../cljs/spec/impl/gen.js", ['cljs.spec.impl.gen'], ['cljs.core']);
+goog.addDependency("../clojure/walk.js", ['clojure.walk'], ['cljs.core']);
+goog.addDependency("../cljs/spec.js", ['cljs.spec'], ['cljs.core', 'goog.object', 'cljs.spec.impl.gen', 'clojure.string', 'clojure.walk']);
+goog.addDependency("../cljs/repl.js", ['cljs.repl'], ['cljs.core', 'cljs.spec']);
 goog.addDependency("../cljs/reader.js", ['cljs.reader'], ['goog.string', 'cljs.core', 'goog.string.StringBuffer']);
 goog.addDependency("../figwheel/client/socket.js", ['figwheel.client.socket'], ['cljs.core', 'figwheel.client.utils', 'cljs.reader']);
 goog.addDependency("../figwheel/client/heads_up.js", ['figwheel.client.heads_up'], ['goog.string', 'cljs.core', 'cljs.core.async', 'figwheel.client.socket', 'clojure.string']);
@@ -30,7 +33,7 @@ goog.addDependency("../climbr/controls/keyboard.js", ['climbr.controls.keyboard'
 goog.addDependency("../reagi/core.js", ['reagi.core'], ['cljs.core', 'cljs.core.async']);
 goog.addDependency("../climbr/behaviour/position_watches.js", ['climbr.behaviour.position_watches'], ['cljs.core', 'reagi.core']);
 goog.addDependency("../climbr/figures/boulders.js", ['climbr.figures.boulders'], ['climbr.matter.matter', 'cljs.core']);
-goog.addDependency("../climbr/behaviour/climber_moves.js", ['climbr.behaviour.climber_moves'], ['climbr.game', 'climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.figures.climber', 'climbr.controls.keyboard', 'climbr.behaviour.position_watches', 'climbr.figures.boulders']);
+goog.addDependency("../climbr/behaviour/climber_moves.js", ['climbr.behaviour.climber_moves'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.figures.climber', 'climbr.controls.keyboard', 'climbr.behaviour.position_watches', 'climbr.figures.boulders']);
 goog.addDependency("../climbr/behaviour/user_actions.js", ['climbr.behaviour.user_actions'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.utils.utils', 'climbr.figures.climber', 'climbr.controls.keyboard']);
 goog.addDependency("../climbr/game.js", ['climbr.game'], ['climbr.figures.levels', 'climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.utils.utils', 'climbr.figures.climber', 'climbr.figures.ground', 'climbr.behaviour.climber_moves', 'climbr.behaviour.user_actions']);
 goog.addDependency("../climbr/core.js", ['climbr.core'], ['climbr.game', 'cljs.core']);

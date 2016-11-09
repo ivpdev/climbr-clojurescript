@@ -1,11 +1,11 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('climbr.figures.levels');
 goog.require('cljs.core');
 goog.require('climbr.figures.level0');
 goog.require('climbr.figures.level1');
 climbr.figures.levels.get = (function climbr$figures$levels$get(level_name){
-var G__23968 = level_name;
-switch (G__23968) {
+var G__7716 = level_name;
+switch (G__7716) {
 case "l0":
 return climbr.figures.level0.level;
 
@@ -20,4 +20,4 @@ return "default";
 }
 });
 
-//# sourceMappingURL=levels.js.map?rel=1478008461669
+//# sourceMappingURL=levels.js.map?rel=1478625868229

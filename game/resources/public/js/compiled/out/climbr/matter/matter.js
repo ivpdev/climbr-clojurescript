@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('climbr.matter.matter');
 goog.require('cljs.core');
 climbr.matter.matter.bodies = Matter.Bodies;
@@ -21,11 +21,11 @@ var data = object.climbr_data;
 return cljs.core.get.call(null,data,key);
 });
 climbr.matter.matter.apply_force = (function climbr$matter$matter$apply_force(body,force){
-var map__23959 = force;
-var map__23959__$1 = ((((!((map__23959 == null)))?((((map__23959.cljs$lang$protocol_mask$partition0$ & (64))) || (map__23959.cljs$core$ISeq$))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__23959):map__23959);
-var x = cljs.core.get.call(null,map__23959__$1,new cljs.core.Keyword(null,"x","x",2099068185));
-var y = cljs.core.get.call(null,map__23959__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
-return Matter.Body.applyForce(body,body.position,{"x": x, "y": y});
+var map__7707 = force;
+var map__7707__$1 = ((((!((map__7707 == null)))?((((map__7707.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__7707.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__7707):map__7707);
+var x = cljs.core.get.call(null,map__7707__$1,new cljs.core.Keyword(null,"x","x",2099068185));
+var y = cljs.core.get.call(null,map__7707__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
+return Matter.Body.applyForce(body,body.position,({"x": x, "y": y}));
 });
 climbr.matter.matter.y = (function climbr$matter$matter$y(body){
 return cljs.core.get.call(null,cljs.core.js__GT_clj.call(null,body.position),"y");
@@ -34,4 +34,4 @@ climbr.matter.matter.set_density = (function climbr$matter$matter$set_density(ta
 return climbr.matter.matter.body.setDensity(target,density);
 });
 
-//# sourceMappingURL=matter.js.map?rel=1478008461503
+//# sourceMappingURL=matter.js.map?rel=1478625868138

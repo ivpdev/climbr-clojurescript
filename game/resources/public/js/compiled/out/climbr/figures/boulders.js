@@ -1,9 +1,9 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.9.293 {}
 goog.provide('climbr.figures.boulders');
 goog.require('cljs.core');
 goog.require('climbr.matter.matter');
 climbr.figures.boulders.create_boulder = (function climbr$figures$boulders$create_boulder(x,y,with$,heights){
-var boulder = climbr.matter.matter.bodies.rectangle(x,y,(20),(20),{"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)});
+var boulder = climbr.matter.matter.bodies.rectangle(x,y,(20),(20),({"isStatic": true, "collisionFilter": new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"category","category",-593092832),"red"], null)}));
 climbr.matter.matter.data_BANG_.call(null,"class","boulder",boulder);
 
 return boulder;
@@ -40,4 +40,4 @@ climbr.matter.matter.composite.add(boulders,b4);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"whole","whole",-1395468966),boulders,new cljs.core.Keyword(null,"components","components",-1073188942),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [b1,b2,b3,b4], null)], null);
 })();
 
-//# sourceMappingURL=boulders.js.map?rel=1478008461807
+//# sourceMappingURL=boulders.js.map?rel=1478625878607

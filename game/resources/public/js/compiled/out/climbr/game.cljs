@@ -10,8 +10,7 @@
     [climbr.behaviour.climber_moves :as climber-moves]))
 
 (defn start![]
-  (let [engine (setup-engine!)
-        context (get @a/app-state :context)]
+  (let [engine (setup-engine!)]
     (do
       (setup-world-base! engine)
       (setup-level! engine)
@@ -72,7 +71,7 @@
   (println "TIMER STARTED"))
 
 (defn- watch-reaching-top![]
-  (climber-moves/watch-hand-reaches-top!))
+  (climber-moves/watch-hand-reaches-top! win-game!))
 
 (def game-is-over? false)
 
@@ -82,9 +81,4 @@
       ;(stop-engine!)
       (.alert js/window "You won!")
       (set! (.-location js/window) "index.html")
-      (set! game-is-over? true)
-      (println "XXX"))))
-
-
-
-
+      (set! game-is-over? true))))
