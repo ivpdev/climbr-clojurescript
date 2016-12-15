@@ -51,7 +51,7 @@ var my_world = engine.world;
 var climber = new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 climbr.matter.matter.world.add(my_world,cljs.core.clj__GT_js.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [climber], null)));
 
-climbr.behaviour.climber_moves.watch_hand_can_grab_boulder_BANG_.call(null,engine,level);
+climbr.behaviour.climber_moves.watch_hand_can_grab_boulder_BANG_.call(null);
 
 climbr.behaviour.user_actions.setup_climber_grab_events_BANG_.call(null,engine,level);
 
@@ -95,4 +95,4 @@ return climbr.game.game_is_over_QMARK_ = true;
 }
 });
 
-//# sourceMappingURL=game.js.map?rel=1478679794178
+//# sourceMappingURL=game.js.map?rel=1481836787971

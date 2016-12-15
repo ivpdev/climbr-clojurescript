@@ -25,13 +25,13 @@ var climber = new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$co
 var hand1 = new cljs.core.Keyword(null,"h1","h1",-1896887462).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 var hand2 = new cljs.core.Keyword(null,"h2","h2",-372662728).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 var boulders = new cljs.core.Keyword(null,"components","components",-1073188942).cljs$core$IFn$_invoke$arity$1(climbr.figures.boulders.boulders);
-return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"approaching","approaching",-564158407),boulders,new cljs.core.Keyword(null,"with","with",-1536296876),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"distance","distance",-1671893894),(20)], null),new cljs.core.Keyword(null,"on","on",173873944),cljs.core.partial.call(null,climbr.behaviour.climber_moves.update_hand_can_hold_BANG_,new cljs.core.Keyword(null,"add","add",235287739)),new cljs.core.Keyword(null,"off","off",606440789),cljs.core.partial.call(null,climbr.behaviour.climber_moves.update_hand_can_hold_BANG_,new cljs.core.Keyword(null,"remove","remove",-131428414))], null));
+return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"approaching","approaching",-564158407),boulders,new cljs.core.Keyword(null,"with","with",-1536296876),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"distance","distance",-1671893894),(20)], null),new cljs.core.Keyword(null,"when-near","when-near",-35119232),cljs.core.partial.call(null,climbr.behaviour.climber_moves.update_hand_can_hold_BANG_,new cljs.core.Keyword(null,"add","add",235287739)),new cljs.core.Keyword(null,"when-far","when-far",2057815104),cljs.core.partial.call(null,climbr.behaviour.climber_moves.update_hand_can_hold_BANG_,new cljs.core.Keyword(null,"remove","remove",-131428414))], null));
 });
 climbr.behaviour.climber_moves.set_hand_holds_BANG_ = (function climbr$behaviour$climber_moves$set_hand_holds_BANG_(engine,hand,boulder){
 var constraint = climbr.matter.matter.constraint.create(({"bodyA": hand, "bodyB": boulder}));
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var key_holds = (function (){var G__28742 = hand_name;
-switch (G__28742) {
+var key_holds = (function (){var G__22853 = hand_name;
+switch (G__22853) {
 case "h1":
 return new cljs.core.Keyword(null,"h1-holds","h1-holds",1841478467);
 
@@ -56,8 +56,8 @@ return null;
 });
 climbr.behaviour.climber_moves.update_hand_can_hold_BANG_ = (function climbr$behaviour$climber_moves$update_hand_can_hold_BANG_(action,hand,boulder){
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var hand_key = (function (){var G__28746 = hand_name;
-switch (G__28746) {
+var hand_key = (function (){var G__22857 = hand_name;
+switch (G__22857) {
 case "h1":
 return new cljs.core.Keyword(null,"h1","h1",-1896887462);
 
@@ -71,8 +71,8 @@ return null;
 
 }
 })();
-var update_func = (function (){var G__28747 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
-switch (G__28747) {
+var update_func = (function (){var G__22858 = (((action instanceof cljs.core.Keyword))?action.fqn:null);
+switch (G__22858) {
 case "add":
 return cljs.core.conj;
 
@@ -91,7 +91,6 @@ return cljs.core.swap_BANG_.call(null,climbr.app_state.app_state,cljs.core.updat
 climbr.behaviour.climber_moves.release_hand_holds_BANG_ = (function climbr$behaviour$climber_moves$release_hand_holds_BANG_(hand,bolder){
 return cljs.core.println.call(null,"away!");
 });
-climbr.behaviour.climber_moves.def_.call(null,climbr.behaviour.climber_moves.not_nil_QMARK_,cljs.core.complement.call(null,cljs.core.nil_QMARK_));
 /**
  * Watch when a hand is reaching top. When this happens the on-reach! function is called.
  */
@@ -104,7 +103,7 @@ return (function (x,y){
 return (y < (0));
 });})(climber,hand1,hand2))
 ;
-return climbr.behaviour.position_watches.watch_position_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"is","is",369128998),over_top_QMARK_,new cljs.core.Keyword(null,"on","on",173873944),on_reach], null));
+return climbr.behaviour.position_watches.watch_position_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"is","is",369128998),over_top_QMARK_,new cljs.core.Keyword(null,"when-true","when-true",-657079170),on_reach], null));
 });
 
-//# sourceMappingURL=climber_moves.js.map?rel=1478679794125
+//# sourceMappingURL=climber_moves.js.map?rel=1481836785908

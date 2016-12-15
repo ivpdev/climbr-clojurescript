@@ -3,6 +3,7 @@
                    [climbr.utils.macros :refer [compute for-each lets]])
   (:require [climbr.matter.matter :as m]
             [climbr.figures.climber :as c]
+            [climbr.figures.figures :as figures]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
             [climbr.utils.utils :as u :refer [in?]]
@@ -11,7 +12,7 @@
 (defn setup-climber-moves! []
   (bind-keys! k/keypressed
               {:up  #(cond
-                      (and (on-the-ground?)
+                      (and (is-standing?)
                         (holds-nothing?))  (lunge! :both-hands :to :top)
 
                       (holds-both?)           (lunge! :body :to :top)
@@ -103,6 +104,16 @@
   (let [body (fetch-climber-part :body)
         y (m/y body)]
     (> y 550)))
+
+(defn- is-standing?[]
+  (let [climber (c/get)
+        climber-body (:body c/climber)
+        climber-x (m/x climber)
+        climber-y (m/y climber)
+        standables (figures/get-all-standables)
+        climber-above? #(m/is-above? climber-body % {:margin 30})]
+
+    (some climber-above? standables)))
 
 (defn- holds-nothing? [] (not (or (h1-holds?) (h2-holds?))))
 (defn- holds-one? [] (and (not (holds-both?)) (not (holds-nothing?))))

@@ -9,11 +9,6 @@
         left-hand (.circle m/bodies 350 400 5)
         right-hand (.circle m/bodies 450 400 5)
 
-       ; OLD
-       ; body (.circle m/bodies 400 400 10)
-       ; left-hand (.circle m/bodies 350 400 5)
-       ; right-hand (.circle m/bodies 450 400 5)
-
         left-arm (.create m/constraint #js {:bodyA left-hand :bodyB body :stiffness 0.3 })
         right-arm (.create m/constraint #js {:bodyA right-hand :bodyB body :stiffness 0.3 })]
 
@@ -37,8 +32,11 @@
         (.add m/composite climber right-arm)
 
         { :climber climber
-         :h1 left-hand
-         :h2 right-hand
-         :body body })))
+          :h1 left-hand
+          :h2 right-hand
+          :body body })))
+
+(defn get[]
+  (:climber climber))
 
 

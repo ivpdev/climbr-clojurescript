@@ -6,7 +6,6 @@
             [climbr.figures.boulders :as boulders]
             [climbr.matter.matter :as m]
             [climbr.app_state :as a]
-            ;[climbr.game :as game]
             [climbr.controls.keyboard :as k]
             [climbr.behaviour.position_watches :as p]
             [cljs.core.async :refer [tap chan <!]]))
@@ -26,8 +25,8 @@
                            :approaching boulders
                            :with {:distance 20}
 
-                           :on (partial update-hand-can-hold! :add)
-                           :off (partial update-hand-can-hold! :remove) })))
+                           :when-near (partial update-hand-can-hold! :add)
+                           :when-far (partial update-hand-can-hold! :remove) })))
 
 (defn set-hand-holds![engine hand boulder]
   (let [constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
@@ -54,8 +53,6 @@
 (defn release-hand-holds![hand bolder]
   (println "away!"))
 
-(def- not-nil? (complement nil?))
-
 (defn watch-hand-reaches-top!
   "Watch when a hand is reaching top. When this happens the on-reach! function is called."
   [on-reach]
@@ -63,7 +60,7 @@
     (p/watch-position! {:watch [hand1 :or hand2]
                         :is over-top?
 
-                        :on on-reach })
+                        :when-true on-reach })
 
     :where [climber (:climber climber/climber)
             hand1 (:h1 climber/climber)

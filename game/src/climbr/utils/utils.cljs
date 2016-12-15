@@ -21,6 +21,8 @@
   [coll el]
   (some #(= el %) coll))
 
+(def not-nil? (complement nil?))
+
 (defn get-level-name[]
   (let [location-details (url/url (-> js/window .-location .-href))
         query (:query location-details)

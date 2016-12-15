@@ -16,10 +16,6 @@
         b4 (create-boulder 400 200)]
 
     (do
-      (m/data! "class" "boulder" b1)
-      (m/data! "class" "boulder" b2)
-      (m/data! "class" "boulder" b3)
-      (m/data! "class" "boulder" b4)
       (m/data! "name" "4" b1)
       (m/data! "name" "3" b2)
       (m/data! "name" "2" b3)

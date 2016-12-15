@@ -4,8 +4,8 @@ goog.require('cljs.core');
 goog.require('climbr.figures.level0');
 goog.require('climbr.figures.level1');
 climbr.figures.levels.get = (function climbr$figures$levels$get(level_name){
-var G__7716 = level_name;
-switch (G__7716) {
+var G__22842 = level_name;
+switch (G__22842) {
 case "l0":
 return climbr.figures.level0.level;
 
@@ -20,4 +20,4 @@ return "default";
 }
 });
 
-//# sourceMappingURL=levels.js.map?rel=1478625868229
+//# sourceMappingURL=levels.js.map?rel=1481836785647

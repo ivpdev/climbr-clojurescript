@@ -80,8 +80,8 @@
   (let [bodies1 (without-keywords (:watch config))
         bodies2 (without-keywords (:approaching config))
         distance-threshold (get-in config [:with :distance])
-        action-on (:on config)
-        action-off (:off config)
+        action-on (:when-near config)
+        action-off (:when-far config)
 
         bodies1-position-watches (map create-body-position-watch! bodies1)
         bodies2-position-watches (map create-body-position-watch! bodies2)
@@ -103,7 +103,7 @@
 (defn watch-position! [config]
   (let [bodies (without-keywords (:watch config))
         position-predicate (:is config)
-        action-on (:on config)
+        action-on (:when-true config)
 
         bodies-position-watches (map create-body-position-watch! bodies)
         bodies-position-predicate-watches (map (partial create-position-predicate-watch! position-predicate)

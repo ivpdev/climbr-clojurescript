@@ -44,7 +44,7 @@
        climber (:climber climber/climber)]
 
     (.add m/world my-world (clj->js [climber]))
-    (climber-moves/watch-hand-can-grab-boulder! engine level)
+    (climber-moves/watch-hand-can-grab-boulder!)
     (user-actions/setup-climber-grab-events! engine level) ;TODO make working with explicitely passed boulders
     (user-actions/setup-climber-release-events! engine)
     (user-actions/setup-climber-moves!)))
