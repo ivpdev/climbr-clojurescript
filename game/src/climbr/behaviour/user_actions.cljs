@@ -111,7 +111,7 @@
         climber-x (m/x climber)
         climber-y (m/y climber)
         standables (figures/get-all-standables)
-        climber-above? #(m/is-above? climber-body % {:margin 30})]
+        climber-above? #(m/is-above? climber-body % {:margin 10})]
 
     (some climber-above? standables)))
 

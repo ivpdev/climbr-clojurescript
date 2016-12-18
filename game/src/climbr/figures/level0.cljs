@@ -1,27 +1,15 @@
 (ns ^:figwheel-always climbr.figures.level0
   (:require [climbr.matter.matter :as m]
+            [climbr.figures.figures :as figures]
             [climbr.utils.utils :as u :refer [not-nil?]]))
-
-(defn create-boulder [x y opts]
-  (let [standable? (not-nil? (:standable opts))
-        boulder (.rectangle m/bodies x y 20 20 #js {:isStatic true :collisionFilter { :category "red"} })]
-    (do
-     ; (m/data! "class" "boulder" boulder) ;TODO holdable
-      (m/data! "standable" true boulder))
-
-    boulder))
 
 (def level
   (let [boulders (.create m/composite)
-        b1 (create-boulder 300 400 nil)
-       ; b2 (create-boulder 500 300 nil)
-        b3 (create-boulder 100 200 nil)
-        b4 (create-boulder 400 200 nil)]
+        b1 (figures/create-boulder {:x 300 :y 400 :standable true :holdable true})
+        b3 (figures/create-boulder {:x 100 :y 200 :holdable true})
+        b4 (figures/create-boulder {:x 400 :y 200 :standable true})]
 
     (do
-      ;(m/data! ["class" "boulder"
-      ;          "name 1"] b0)
-
       (m/data! "name" "4" b1)
      ; (m/data! "name" "3" b2)
       (m/data! "name" "2" b3)

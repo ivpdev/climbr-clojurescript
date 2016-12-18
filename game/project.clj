@@ -19,7 +19,7 @@
             [lein-resource "15.10.2"]]
 
 
-  :npm {:dependencies [[matter-js "0.9.1"]
+  :npm {:dependencies [[matter-js "0.10.0"]
                        ;; Other types of dependencies (github, private npm, etc.) can be passed as a string
                        ;["your_username/your-module" "0.1.O"]
                        ]}

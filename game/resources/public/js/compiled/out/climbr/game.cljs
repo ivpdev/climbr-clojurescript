@@ -10,13 +10,16 @@
     [climbr.behaviour.climber_moves :as climber-moves]))
 
 (defn start![]
-  (let [engine (setup-engine!)]
+  (let [engine (setup-engine!)
+        render (setup-render! engine)]
+
     (do
       (setup-world-base! engine)
       (setup-level! engine)
       (setup-climber! engine)
       (watch-reaching-top! engine)
       (run-engine! engine)
+      (run-render! render)
       (start-timer!))))
 
 (defn- setup-world-base!
@@ -52,14 +55,23 @@
 (defn- setup-engine!
   "create matter.js engine"
   []
-  (let [engine (.create m/engine (.-body js/document))]
+  (let [engine (.create m/engine)]
     (swap! a/app-state assoc :engine engine)
      engine))
 
+(defn- setup-render!
+  "create matter.js render"
+  [engine]
+  (let [body (.-body js/document)
+        render (.create m/render (clj->js {:element body :engine engine :options {:wireframes false}}))]
+    render))
+
 (defn- run-engine![engine]
   (let [runner (.run m/engine engine)]
-    (swap! a/app-state assoc :engine-runner runner))
-  )
+    (swap! a/app-state assoc :engine-runner runner)))
+
+(defn- run-render![render]
+  (.run m/render render))
 
 (defn- stop-engine![]
   (let [runner (get @a/app-state :engine-runner)

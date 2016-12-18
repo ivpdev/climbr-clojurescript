@@ -11,6 +11,7 @@ goog.require('climbr.behaviour.climber_moves');
 goog.require('climbr.behaviour.user_actions');
 climbr.game.start_BANG_ = (function climbr$game$start_BANG_(){
 var engine = climbr.game.setup_engine_BANG_.call(null);
+var render = climbr.game.setup_render_BANG_.call(null,engine);
 climbr.game.setup_world_base_BANG_.call(null,engine);
 
 climbr.game.setup_level_BANG_.call(null,engine);
@@ -20,6 +21,8 @@ climbr.game.setup_climber_BANG_.call(null,engine);
 climbr.game.watch_reaching_top_BANG_.call(null,engine);
 
 climbr.game.run_engine_BANG_.call(null,engine);
+
+climbr.game.run_render_BANG_.call(null,render);
 
 return climbr.game.start_timer_BANG_.call(null);
 });
@@ -63,14 +66,25 @@ return climbr.behaviour.user_actions.setup_climber_moves_BANG_.call(null);
  * create matter.js engine
  */
 climbr.game.setup_engine_BANG_ = (function climbr$game$setup_engine_BANG_(){
-var engine = climbr.matter.matter.engine.create(document.body);
+var engine = climbr.matter.matter.engine.create();
 cljs.core.swap_BANG_.call(null,climbr.app_state.app_state,cljs.core.assoc,new cljs.core.Keyword(null,"engine","engine",1459054265),engine);
 
 return engine;
 });
+/**
+ * create matter.js render
+ */
+climbr.game.setup_render_BANG_ = (function climbr$game$setup_render_BANG_(engine){
+var body = document.body;
+var render = climbr.matter.matter.render.create(cljs.core.clj__GT_js.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"element","element",1974019749),body,new cljs.core.Keyword(null,"engine","engine",1459054265),engine,new cljs.core.Keyword(null,"options","options",99638489),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"wireframes","wireframes",-1841146676),false], null)], null)));
+return render;
+});
 climbr.game.run_engine_BANG_ = (function climbr$game$run_engine_BANG_(engine){
 var runner = climbr.matter.matter.engine.run(engine);
 return cljs.core.swap_BANG_.call(null,climbr.app_state.app_state,cljs.core.assoc,new cljs.core.Keyword(null,"engine-runner","engine-runner",136861880),runner);
+});
+climbr.game.run_render_BANG_ = (function climbr$game$run_render_BANG_(render){
+return climbr.matter.matter.render.run(render);
 });
 climbr.game.stop_engine_BANG_ = (function climbr$game$stop_engine_BANG_(){
 var runner = cljs.core.get.call(null,cljs.core.deref.call(null,climbr.app_state.app_state),new cljs.core.Keyword(null,"engine-runner","engine-runner",136861880));
@@ -95,4 +109,4 @@ return climbr.game.game_is_over_QMARK_ = true;
 }
 });
 
-//# sourceMappingURL=game.js.map?rel=1481836787971
+//# sourceMappingURL=game.js.map?rel=1482099881647

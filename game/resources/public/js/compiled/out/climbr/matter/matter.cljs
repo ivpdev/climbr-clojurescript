@@ -8,6 +8,7 @@
 (def composite (.-Composite js/Matter))
 (def constraint (.-Constraint js/Matter))
 (def engine (.-Engine js/Matter))
+(def render (.-Render js/Matter))
 (def runner (.-Runner js/Matter))
 (def world (.-World js/Matter))
 (def mouse-constraint (.-MouseConstraint js/Matter))

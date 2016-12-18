@@ -8,6 +8,7 @@ climbr.matter.matter.body = Matter.Body;
 climbr.matter.matter.composite = Matter.Composite;
 climbr.matter.matter.constraint = Matter.Constraint;
 climbr.matter.matter.engine = Matter.Engine;
+climbr.matter.matter.render = Matter.Render;
 climbr.matter.matter.runner = Matter.Runner;
 climbr.matter.matter.world = Matter.World;
 climbr.matter.matter.mouse_constraint = Matter.MouseConstraint;
@@ -31,10 +32,10 @@ var data = object.climbr_data;
 return cljs.core.get.call(null,data,key);
 });
 climbr.matter.matter.apply_force = (function climbr$matter$matter$apply_force(body,force){
-var map__22833 = force;
-var map__22833__$1 = ((((!((map__22833 == null)))?((((map__22833.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__22833.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__22833):map__22833);
-var x = cljs.core.get.call(null,map__22833__$1,new cljs.core.Keyword(null,"x","x",2099068185));
-var y = cljs.core.get.call(null,map__22833__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
+var map__25454 = force;
+var map__25454__$1 = ((((!((map__25454 == null)))?((((map__25454.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__25454.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__25454):map__25454);
+var x = cljs.core.get.call(null,map__25454__$1,new cljs.core.Keyword(null,"x","x",2099068185));
+var y = cljs.core.get.call(null,map__25454__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
 return Matter.Body.applyForce(body,body.position,({"x": x, "y": y}));
 });
 climbr.matter.matter.y = (function climbr$matter$matter$y(body){
@@ -65,4 +66,4 @@ var result = climbr.matter.matter.bounds_contain_QMARK_.call(null,target_bounds,
 return climbr.matter.matter.bounds_contain_QMARK_.call(null,target_bounds,({"x": testee_center_x, "y": y_border}));
 });
 
-//# sourceMappingURL=matter.js.map?rel=1481836785534
+//# sourceMappingURL=matter.js.map?rel=1482013017263
