@@ -1,5 +1,6 @@
 (ns ^:figwheel-always climbr.behaviour.position_watches
-  (:require [reagi.core :as r]))
+  (:require [reagi.core :as r]
+            [climbr.utils.utils :as u]))
 
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
@@ -71,11 +72,6 @@
     { :data data
       :signal near-change-sig }))
 
-(defn cartesian-prod[col1 col2]
-  (for [x col1
-        y col2]
-    [x y]))
-
 (defn watch-approaching! [config]
   (let [bodies1 (without-keywords (:watch config))
         bodies2 (without-keywords (:approaching config))
@@ -86,7 +82,7 @@
         bodies1-position-watches (map create-body-position-watch! bodies1)
         bodies2-position-watches (map create-body-position-watch! bodies2)
 
-        bodies-pairs-to-watch (cartesian-prod bodies1-position-watches bodies2-position-watches)
+        bodies-pairs-to-watch (u/cartesian-prod bodies1-position-watches bodies2-position-watches)
         distance-watches (map create-distance-watch! bodies-pairs-to-watch)
         nearing-watches (map (partial create-nearing-watch! distance-threshold) distance-watches)]
 

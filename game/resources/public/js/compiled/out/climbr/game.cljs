@@ -4,7 +4,6 @@
     [climbr.figures.climber :as climber]
     [climbr.figures.levels :as levels]
     [climbr.matter.matter :as m]
-    [climbr.utils.utils :as u]
     [climbr.app_state :as a]
     [climbr.behaviour.user_actions :as user-actions]
     [climbr.behaviour.climber_moves :as climber-moves]))
@@ -26,14 +25,13 @@
   "setup world base components which are the same for all the levels"
   [engine]
   (let[world (.-world engine)
-       mouse-constraint (.create m/mouse-constraint engine)]
+       mouse-constraint (.create m/mouse-constraint engine (clj->js { :element (.-body js/document) }))]
     (.add m/world world (clj->js [ground/ground mouse-constraint]))))
 
 (defn- setup-level!
   "load level based on URL param and put it into the world"
   [engine]
-  (let[level-name (u/get-level-name)
-       level (levels/get level-name)
+  (let[level (levels/get-current-level)
        level-composite (:composite level)
        world (.-world engine)]
 
@@ -47,8 +45,8 @@
        climber (:climber climber/climber)]
 
     (.add m/world my-world (clj->js [climber]))
-    (climber-moves/watch-hand-can-grab-boulder!)
-    (user-actions/setup-climber-grab-events! engine level) ;TODO make working with explicitely passed boulders
+    (climber-moves/watch-hand-can-hook-boulder!)
+    (user-actions/setup-climber-hook-events! engine level) ;TODO make working with explicitely passed boulders
     (user-actions/setup-climber-release-events! engine)
     (user-actions/setup-climber-moves!)))
 

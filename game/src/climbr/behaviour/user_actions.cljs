@@ -6,36 +6,47 @@
             [climbr.figures.figures :as figures]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
-            [climbr.utils.utils :as u :refer [in?]]
-            [cljs.core.async :refer [tap chan <!]]))
+            [climbr.utils.utils :as u :refer [in? not-nil?]]
+            [cljs.core.async :refer [tap chan <!]]
+            [clojure.data :refer [diff]]))
+
+;TODO is-standing sometimes not work
+;TODO hands should not beat each other when jumping up
 
 (defn setup-climber-moves! []
   (bind-keys! k/keypressed
               {:up  #(cond
-                      (and (is-standing?)
-                        (holds-nothing?))  (lunge! :both-hands :to :top)
+                       (and (on-the-ground?)
+                            (hooked-nothing?))  (lunge! :both-hands :to :top)
 
-                      (holds-both?)           (lunge! :body :to :top)
-                      (holds-one?)            (lunge! :free-hand :to :top)
-                      :else nil)
+                       (hooked-both?)           (lunge! :body :to :top)
+
+                       (and (holds-one?)
+                            (hand-above-body?))(lunge! :holding-hands :to :top)
+                       (hooked-one?)            (lunge! :hook#free-hand :to :top)
+                       :else nil)
 
               :left #(cond
                        (and (on-the-ground?)
-                         (holds-nothing?))  (lunge! :left-hand :to :left)
+                         (hooked-nothing?))  (lunge! :left-hand :to :left)
 
-                       (holds-one?)            (lunge! :free-hand :to :left)
-                       (holds-both?)           (lunge! :body :to :left)
+                       (hooked-one?)            (lunge! :hook#free-hand :to :left)
+                       (hooked-both?)           (lunge! :body :to :left)
+                       (and (holds-one?)
+                            (hand-above-body?))(lunge! :hold#free-hand :to :left)
                        :else (lunge! :left-hand :to [:top-TODO :left] :with {:power 0.2 }))
 
               :right #(cond
                         (and (on-the-ground?)
-                          (holds-nothing?)) (lunge! :right-hand :to :right)
+                             (hooked-nothing?)) (lunge! :right-hand :to :right)
 
-                        (holds-one?)           (lunge! :free-hand :to :right)
-                        (holds-both?)          (lunge! :body :to :right)
+                        (hooked-one?)           (lunge! :hook#free-hand :to :right)
+                        (hooked-both?)          (lunge! :body :to :right)
+                        (and (holds-one?)
+                             (hand-above-body?))(lunge! :hold#free-hand :to :right)
                         :else (lunge! :right-hand :to [:top-TODO :right] :with {:power 0.2 })) }))
 
-(defn setup-climber-grab-events![engine]
+(defn setup-climber-hook-events![engine]
   (compute
     (do
       (tap k/keypressed keypressed)
@@ -43,43 +54,43 @@
 ;            TODO make lets macros working
 ;            (lets [key (<! keypressed)
 ;                   hand-key (case key
-;                                :grab-left :left
-;                                :grab-right :right
-;                                :grab-both :both
+;                                :hook-left :left
+;                                :hook-right :right
+;                                :hook-both :both
 ;                                nil)
 ;                   hands (fetch-hands hand-key)]
 ;
-;                (for-each hands grab-hand!));
+;                (for-each hands hook-hand!));
 ;
             (let [key (<! keypressed)
                    hand-key (case key
-                                :grab-left :left
-                                :grab-right :right
-                                :grab-both :both
+                                :hook-left :left
+                                :hook-right :right
+                                :hook-both :both
                                 nil)
                    hands (if (nil? hand-key) nil (fetch-hands hand-key))]
-                (for-each hands grab-hand!)))))
+                (for-each hands hook-hand!)))))
 
     :where [keypressed (chan)
-            grab-hand! (fn [hand]
+            hook-hand! (fn [hand]
                          (let [hand-name (m/read-data "name" hand)
                                hand-key (case hand-name "h1" :h1
                                                         "h2" :h2 nil)
-                               can-grab-boulders (seq (get-in @a/app-state [:can-grab hand-key]))
-                               boulder-to-grab (nth can-grab-boulders 0)
-                               have-something-to-grab? (not (nil? boulder-to-grab))
-                               holds-boulder (get-boulder-for-hand hand-name)
-                               already-holds? (not (nil? holds-boulder))
+                               can-hook-boulders (seq (get-in @a/app-state [:can-hook hand-key]))
+                               boulder-to-hook (nth can-hook-boulders 0)
+                               have-something-to-hook? (not (nil? boulder-to-hook))
+                               hooked-boulder (get-hooked-boulder-for-hand hand-name)
+                               already-hooked? (not (nil? hooked-boulder))
                                engine (:engine @a/app-state)]
 
-                           (if (and have-something-to-grab? (not already-holds?))
-                             (connect-hand-and-boulder hand boulder-to-grab engine))))]))
+                           (if (and have-something-to-hook? (not already-hooked?))
+                             (connect-hand-and-boulder hand boulder-to-hook engine))))]))
 
 (defn setup-climber-release-events! [engine]
   (let [keypressed (chan)
         release-hand! (fn [hand]
                         (let [hand-name (m/read-data "name" hand)
-                              boulder (get-boulder-for-hand hand-name)]
+                              boulder (get-hooked-boulder-for-hand hand-name)]
 
                           (if-not (nil? boulder)
                             (do
@@ -106,24 +117,27 @@
     (> y 550)))
 
 (defn- is-standing?[]
-  (let [climber (c/get)
-        climber-body (:body c/climber)
-        climber-x (m/x climber)
-        climber-y (m/y climber)
+  (let [climber-body (:body c/climber)
         standables (figures/get-all-standables)
         climber-above? #(m/is-above? climber-body % {:margin 10})]
 
     (some climber-above? standables)))
 
-(defn- holds-nothing? [] (not (or (h1-holds?) (h2-holds?))))
-(defn- holds-one? [] (and (not (holds-both?)) (not (holds-nothing?))))
-(defn- holds-both? [] (and (h1-holds?) (h2-holds?)))
-(defn- h1-holds? [] (not (nil? (get @a/app-state :h1-holds))))
-(defn- h2-holds? [] (not (nil? (get @a/app-state :h2-holds))))
+(defn- hand-above-body?[]
+  (let [hands (fetch-hands :both)
+        body (fetch-climber-part :body)
+        above-body? #(> (m/y body) (m/y %))]
 
-(defn- holds-hand? [hand]
-  (let [boulder (get-boulder-for-hand hand)]
-    (not (nil? boulder))))
+    (some above-body? hands)))
+
+(defn- hooked-nothing? [] (not (or (h1-hooked?) (h2-hooked?))))
+(defn- hooked-one? [] (and (not (hooked-both?)) (not (hooked-nothing?))))
+(defn- hooked-both? [] (and (h1-hooked?) (h2-hooked?)))
+(defn- h1-hooked? [] (not (nil? (get @a/app-state :h1-hooked))))
+(defn- h2-hooked? [] (not (nil? (get @a/app-state :h2-hooked))))
+
+(defn- holds-one?[]
+  (> (count (fetch-holding-hands)) 0))
 
 (defn- lunge! [what _ where _ opts]
   (println "Lunge " what " to " where)
@@ -137,14 +151,18 @@
                   :left-hand (fetch-hands :left)
                   :right-hand (fetch-hands :right)
                   :both-hands (fetch-hands :both)
-                  :free-hand (fetch-hands :free)
+                  :hook#free-hand (fetch-hands :hook#free)
+                  :hold#free-hand (fetch-hands :hold#free)
+                  :holding-hands (fetch-hands :holding)
                   :body [(fetch-climber-part :body)])
 
         force-obj (case what
                     :left-hand (get forces-config :hand)
                     :right-hand (get forces-config :hand)
                     :both-hands (get forces-config :hand)
-                    :free-hand (get forces-config :hand)
+                    :hold#free-hand (get forces-config :hand)
+                    :holding-hands (get forces-config :hand)
+                    :hook#free-hand (get forces-config :hand)
                     :body (get forces-config :body))
 
         factor (or (:power opts) 1)
@@ -175,29 +193,29 @@
 
             (when-not (nil? action) (action)))))))
 
-(defn- get-boulder-for-hand [hand-name]
+(defn- get-hooked-boulder-for-hand [hand-name]
   (let [boulder-key (case hand-name
-                      "h1" :h1-holds
-                      "h2" :h2-holds
+                      "h1" :h1-hooked
+                      "h2" :h2-hooked
                       nil)]
     (get @a/app-state boulder-key)))
 
 (defn- remove-boulder-for-hand! [hand-name]
   (let [key-boulder (case hand-name
-                      "h1" :h1-holds
-                      "h2" :h2-holds)]
+                      "h1" :h1-hooked
+                      "h2" :h2-hooked)]
 
     (swap! a/app-state dissoc key-boulder)))
 
 (defn- connect-hand-and-boulder[hand boulder engine]
   (let [hand-name (m/read-data "name" hand)
         constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
-        key-holds (case hand-name "h1" :h1-holds
-                                  "h2" :h2-holds
-                                  nil)]
+        key-hooked (case hand-name "h1" :h1-hooked
+                                   "h2" :h2-hooked
+                                   nil)]
     (do
       (.addConstraint m/world (.-world engine) constraint)
-      (swap! a/app-state assoc key-holds constraint))))
+      (swap! a/app-state assoc key-hooked constraint))))
 
 (defn fetch-hands [hand]
   (let [h1 (fetch-climber-part :h1)
@@ -212,17 +230,46 @@
     (case hand
       :left  [left-hand]
       :right [right-hand]
-      :free  [(fetch-free-hand)]
+      :hook#free  [(fetch-hook#free-hand)]
+      :hold#free (fetch-hold#free-hand)
+      :holding (fetch-holding-hands)
       :both  [left-hand right-hand])))
+
+(defn- fetch-holding-hands[]
+  (let [h1 (:h1 c/climber)
+        h2 (:h2 c/climber)
+        hands [h1 h2]
+        standables (figures/get-all-standables)
+        hand-standable-combinations (u/cartesian-prod hands standables)
+        hand-above? (fn [pair]
+                      (let [hand (nth pair 0)
+                            standable (nth pair 1)]
+                        (m/is-above? hand standable {:margin 10})))]
+
+    (->> hand-standable-combinations
+      (filter hand-above?)
+      (map #(nth % 0)))))
+
+(defn- fetch-hold#free-hand[]
+  (let [holding-hands (fetch-holding-hands)
+        h1 (:h1 c/climber)
+        h2 (:h2 c/climber)
+        hands [h1 h2]
+        is-holding-hand? (fn[hand] (some #(m/same-body? % hand) holding-hands))]
+
+    (filter
+      (fn [hand]
+        (not (is-holding-hand? hand)))
+      hands)))
 
 (defn- fetch-climber-part [part] (get-in @a/app-state [:climber part]))
 
-(defn- fetch-free-hand []
-  (let [h1-holds (get @a/app-state :h1-holds)
-        h2-holds (get @a/app-state :h2-holds)
-        both-hold (and (not (nil? h1-holds)) (not (nil? h2-holds)))]
+(defn- fetch-hook#free-hand []
+  (let [h1-hooked (get @a/app-state :h1-hooked)
+        h2-hooked (get @a/app-state :h2-hooked)
+        both-hooked (and (not-nil? h1-hooked) (not-nil? h2-hooked))]
 
-    (cond both-hold nil
-      (not (nil? h1-holds)) (fetch-climber-part :h2)
-      (not (nil? h2-holds)) (fetch-climber-part :h1)
+    (cond both-hooked nil
+      (not (nil? h1-hooked)) (fetch-climber-part :h2)
+      (not (nil? h2-hooked)) (fetch-climber-part :h1)
       :else nil)))

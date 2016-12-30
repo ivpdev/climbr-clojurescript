@@ -1,7 +1,7 @@
 (ns ^:figwheel-always climbr.matter.matter
   "Clojure wrappers for matter.js objects and methods + utilitary methods for working with matter.js objects"
   (:require [climbr.app_state :as a]
-            [climbr.utils.utils :as u]))
+            [climbr.utils.utils :as u :refer [not-nil?]]))
 
 (def bodies (.-Bodies js/Matter))
 (def body (.-Body js/Matter))
@@ -27,6 +27,17 @@
   "get data by key from an object"
   (let [data (.-climbr-data object)]
     (get data key)))
+
+(defn hookable?
+  "check if object is hookable"
+  [body]
+  (not-nil? (read-data "hookable" body)))
+
+(defn same-body?
+  "checks if all arguments are the same body"
+  [& args]
+  (let [ids (map #(.-id %) args)]
+    (apply = ids)))
 
 (defn apply-force [body force]
   (let [{:keys [x y]} force]

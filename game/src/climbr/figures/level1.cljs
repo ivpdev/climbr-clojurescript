@@ -1,6 +1,8 @@
 (ns ^:figwheel-always climbr.figures.level1
   (:require [climbr.matter.matter :as m]))
 
+;TODO via figures
+
 (defn create-boulder [x y with heights]
   (let [boulder (.rectangle m/bodies x y 20 20 #js {:isStatic true :collisionFilter { :category "red"}})]
     (do
@@ -10,7 +12,7 @@
 
 (def level
   (let [boulders (.create m/composite)
-        b1 (create-boulder 300 400)
+        b1 (create-boulder 300 350)
         b2 (create-boulder 500 400)
         b3 (create-boulder 100 200)
         b4 (create-boulder 400 200)]

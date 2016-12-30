@@ -3,10 +3,11 @@ goog.provide('climbr.figures.climber');
 goog.require('cljs.core');
 goog.require('climbr.matter.matter');
 goog.require('climbr.app_state');
+goog.require('climbr.utils.utils');
 climbr.figures.climber.climber = (function (){var climber = climbr.matter.matter.composite.create();
 var body = climbr.matter.matter.bodies.circle((400),(400),(10));
-var left_hand = climbr.matter.matter.bodies.circle((350),(400),(5));
-var right_hand = climbr.matter.matter.bodies.circle((450),(400),(5));
+var left_hand = climbr.matter.matter.bodies.circle((350),(400),(5),({"friction": 0.8}));
+var right_hand = climbr.matter.matter.bodies.circle((450),(400),(5),({"friction": 0.8}));
 var left_arm = climbr.matter.matter.constraint.create(({"bodyA": left_hand, "bodyB": body, "stiffness": 0.3}));
 var right_arm = climbr.matter.matter.constraint.create(({"bodyA": right_hand, "bodyB": body, "stiffness": 0.3}));
 climbr.matter.matter.data_BANG_.call(null,"class","hand",left_hand);
@@ -39,4 +40,4 @@ climbr.figures.climber.get = (function climbr$figures$climber$get(){
 return new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 });
 
-//# sourceMappingURL=climber.js.map?rel=1481836785685
+//# sourceMappingURL=climber.js.map?rel=1483134923779

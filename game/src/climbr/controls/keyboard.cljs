@@ -11,10 +11,10 @@
     38 :up
     39 :right
     40 :down
-    68 :grab-right ;d
-    65 :grab-left ;a
+    68 :hook-right ;d
+    65 :hook-left ;a
     87 :release-both ;w
-    83 :grab-both ;s
+    83 :hook-both ;s
     69 :release-right ;e
     81 :release-left ;q
     nil))

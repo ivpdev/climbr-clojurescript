@@ -2,12 +2,12 @@
   (:require ))
 
 (defonce app-state
-  (atom { :can-grab {
+  (atom { :can-hook {
             :h1 #{}
             :h2 #{}}
 
-          :h1-holds nil
-          :h2-holds nil
+          :h1-hooked nil
+          :h2-hooked nil
 
           :climber { :body nil
                      :h1 nil

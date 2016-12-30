@@ -23,7 +23,8 @@
 
 (def not-nil? (complement nil?))
 
-(defn get-level-name[]
+(defn get-current-level-name
+  "get name of level from URL"[]
   (let [location-details (url/url (-> js/window .-location .-href))
         query (:query location-details)
         level (get query "l")
@@ -34,6 +35,13 @@
 (defn hide-loading-banner![]
   (let [loading-el (.getElementById js/document "loading")]
     (set! (.-hidden loading-el) true)))
+
+(defn cartesian-prod
+  "computes cartesian product of two collections returning collection of all possible combinations"
+  [col1 col2]
+  (for [x col1
+        y col2]
+    [x y]))
 
 (TODO create script which parses source code end extracts all TODOs)
 

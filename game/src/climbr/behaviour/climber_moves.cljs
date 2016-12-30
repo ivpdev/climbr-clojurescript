@@ -3,44 +3,34 @@
                    [climbr.utils.macros :refer [compute]])
 
   (:require [climbr.figures.climber :as climber]
-            [climbr.figures.boulders :as boulders]
             [climbr.matter.matter :as m]
             [climbr.app_state :as a]
             [climbr.controls.keyboard :as k]
+            [climbr.figures.levels :as levels]
             [climbr.behaviour.position_watches :as p]
             [cljs.core.async :refer [tap chan <!]]))
 
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
 
-(defn watch-hand-can-grab-boulder!
-  "Watch when hands are getting close enough to boulders for being able to grab them."
+(defn watch-hand-can-hook-boulder!
+  "Watch when hands are getting close enough to boulders for being able to hook them."
   []
   (let [climber (:climber climber/climber)
         hand1 (:h1 climber/climber)
         hand2 (:h2 climber/climber)
-        boulders (:components boulders/boulders)]
+        level (levels/get-current-level)
+        boulders (:parts level)
+        hookable-boulders (filter #(m/hookable? %) boulders)]
 
     (p/watch-approaching! {:watch [hand1 :or hand2]
-                           :approaching boulders
+                           :approaching hookable-boulders
                            :with {:distance 20}
 
-                           :when-near (partial update-hand-can-hold! :add)
-                           :when-far (partial update-hand-can-hold! :remove) })))
+                           :when-near (partial update-hand-can-hook! :add)
+                           :when-far (partial update-hand-can-hook! :remove) })))
 
-(defn set-hand-holds![engine hand boulder]
-  (let [constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
-        hand-name (m/read-data "name" hand)
-        key-holds (case hand-name "h1" :h1-holds
-                                  "h2" :h2-holds nil)
-        existing-boulder (get @a/app-state key-boulder)]
-
-    (when (nil? existing-boulder)
-        (do
-          (.addConstraint m/world (.-world engine) constraint)
-          (swap! a/app-state assoc key-holds constraint)))))
-
-(defn update-hand-can-hold![action hand boulder]
+(defn update-hand-can-hook![action hand boulder]
   (let [hand-name (m/read-data "name" hand)
         hand-key (case hand-name "h1" :h1
                                   "h2" :h2 nil)
@@ -48,10 +38,7 @@
                                  :remove disj nil)]
 
     (do
-      (swap! a/app-state update-in [:can-grab hand-key] update-func boulder))))
-
-(defn release-hand-holds![hand bolder]
-  (println "away!"))
+      (swap! a/app-state update-in [:can-hook hand-key] update-func boulder))))
 
 (defn watch-hand-reaches-top!
   "Watch when a hand is reaching top. When this happens the on-reach! function is called."
