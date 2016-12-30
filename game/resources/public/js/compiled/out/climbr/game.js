@@ -3,7 +3,6 @@ goog.provide('climbr.game');
 goog.require('cljs.core');
 goog.require('climbr.figures.levels');
 goog.require('climbr.app_state');
-goog.require('climbr.utils.utils');
 goog.require('climbr.matter.matter');
 goog.require('climbr.figures.climber');
 goog.require('climbr.figures.ground');
@@ -31,15 +30,14 @@ return climbr.game.start_timer_BANG_.call(null);
  */
 climbr.game.setup_world_base_BANG_ = (function climbr$game$setup_world_base_BANG_(engine){
 var world = engine.world;
-var mouse_constraint = climbr.matter.matter.mouse_constraint.create(engine);
+var mouse_constraint = climbr.matter.matter.mouse_constraint.create(engine,cljs.core.clj__GT_js.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"element","element",1974019749),document.body], null)));
 return climbr.matter.matter.world.add(world,cljs.core.clj__GT_js.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [climbr.figures.ground.ground,mouse_constraint], null)));
 });
 /**
  * load level based on URL param and put it into the world
  */
 climbr.game.setup_level_BANG_ = (function climbr$game$setup_level_BANG_(engine){
-var level_name = climbr.utils.utils.get_level_name.call(null);
-var level = climbr.figures.levels.get.call(null,level_name);
+var level = climbr.figures.levels.get_current_level.call(null);
 var level_composite = new cljs.core.Keyword(null,"composite","composite",-257118970).cljs$core$IFn$_invoke$arity$1(level);
 var world = engine.world;
 cljs.core.swap_BANG_.call(null,climbr.app_state.app_state,cljs.core.assoc,new cljs.core.Keyword(null,"current-level","current-level",-11925890),level);
@@ -54,9 +52,9 @@ var my_world = engine.world;
 var climber = new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
 climbr.matter.matter.world.add(my_world,cljs.core.clj__GT_js.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [climber], null)));
 
-climbr.behaviour.climber_moves.watch_hand_can_grab_boulder_BANG_.call(null);
+climbr.behaviour.climber_moves.watch_hand_can_hook_boulder_BANG_.call(null);
 
-climbr.behaviour.user_actions.setup_climber_grab_events_BANG_.call(null,engine,level);
+climbr.behaviour.user_actions.setup_climber_hook_events_BANG_.call(null,engine,level);
 
 climbr.behaviour.user_actions.setup_climber_release_events_BANG_.call(null,engine);
 
@@ -109,4 +107,4 @@ return climbr.game.game_is_over_QMARK_ = true;
 }
 });
 
-//# sourceMappingURL=game.js.map?rel=1482099881647
+//# sourceMappingURL=game.js.map?rel=1483135262358

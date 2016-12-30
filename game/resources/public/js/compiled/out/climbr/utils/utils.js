@@ -24,14 +24,14 @@ return console.log(x);
  */
 climbr.utils.utils.TODO = (function climbr$utils$utils$TODO(var_args){
 var args__19857__auto__ = [];
-var len__19850__auto___31794 = arguments.length;
-var i__19851__auto___31795 = (0);
+var len__19850__auto___25642 = arguments.length;
+var i__19851__auto___25643 = (0);
 while(true){
-if((i__19851__auto___31795 < len__19850__auto___31794)){
-args__19857__auto__.push((arguments[i__19851__auto___31795]));
+if((i__19851__auto___25643 < len__19850__auto___25642)){
+args__19857__auto__.push((arguments[i__19851__auto___25643]));
 
-var G__31796 = (i__19851__auto___31795 + (1));
-i__19851__auto___31795 = G__31796;
+var G__25644 = (i__19851__auto___25643 + (1));
+i__19851__auto___25643 = G__25644;
 continue;
 } else {
 }
@@ -48,12 +48,12 @@ return null;
 
 climbr.utils.utils.TODO.cljs$lang$maxFixedArity = (2);
 
-climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq31791){
-var G__31792 = cljs.core.first.call(null,seq31791);
-var seq31791__$1 = cljs.core.next.call(null,seq31791);
-var G__31793 = cljs.core.first.call(null,seq31791__$1);
-var seq31791__$2 = cljs.core.next.call(null,seq31791__$1);
-return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__31792,G__31793,seq31791__$2);
+climbr.utils.utils.TODO.cljs$lang$applyTo = (function (seq25639){
+var G__25640 = cljs.core.first.call(null,seq25639);
+var seq25639__$1 = cljs.core.next.call(null,seq25639);
+var G__25641 = cljs.core.first.call(null,seq25639__$1);
+var seq25639__$2 = cljs.core.next.call(null,seq25639__$1);
+return climbr.utils.utils.TODO.cljs$core$IFn$_invoke$arity$variadic(G__25640,G__25641,seq25639__$2);
 });
 
 
@@ -62,12 +62,15 @@ climbr.utils.utils.TODO.cljs$lang$macro = true;
  * true if coll contains el
  */
 climbr.utils.utils.in_QMARK_ = (function climbr$utils$utils$in_QMARK_(coll,el){
-return cljs.core.some.call(null,(function (p1__31797_SHARP_){
-return cljs.core._EQ_.call(null,el,p1__31797_SHARP_);
+return cljs.core.some.call(null,(function (p1__25645_SHARP_){
+return cljs.core._EQ_.call(null,el,p1__25645_SHARP_);
 }),coll);
 });
 climbr.utils.utils.not_nil_QMARK_ = cljs.core.complement.call(null,cljs.core.nil_QMARK_);
-climbr.utils.utils.get_level_name = (function climbr$utils$utils$get_level_name(){
+/**
+ * get name of level from URL
+ */
+climbr.utils.utils.get_current_level_name = (function climbr$utils$utils$get_current_level_name(){
 var location_details = cemerick.url.url.call(null,window.location.href);
 var query = new cljs.core.Keyword(null,"query","query",-1288509510).cljs$core$IFn$_invoke$arity$1(location_details);
 var level = cljs.core.get.call(null,query,"l");
@@ -83,8 +86,82 @@ climbr.utils.utils.hide_loading_banner_BANG_ = (function climbr$utils$utils$hide
 var loading_el = document.getElementById("loading");
 return loading_el.hidden = true;
 });
+/**
+ * computes cartesian product of two collections returning collection of all possible combinations
+ */
+climbr.utils.utils.cartesian_prod = (function climbr$utils$utils$cartesian_prod(col1,col2){
+var iter__19525__auto__ = (function climbr$utils$utils$cartesian_prod_$_iter__25652(s__25653){
+return (new cljs.core.LazySeq(null,(function (){
+var s__25653__$1 = s__25653;
+while(true){
+var temp__4657__auto__ = cljs.core.seq.call(null,s__25653__$1);
+if(temp__4657__auto__){
+var xs__5205__auto__ = temp__4657__auto__;
+var x = cljs.core.first.call(null,xs__5205__auto__);
+var iterys__19521__auto__ = ((function (s__25653__$1,x,xs__5205__auto__,temp__4657__auto__){
+return (function climbr$utils$utils$cartesian_prod_$_iter__25652_$_iter__25654(s__25655){
+return (new cljs.core.LazySeq(null,((function (s__25653__$1,x,xs__5205__auto__,temp__4657__auto__){
+return (function (){
+var s__25655__$1 = s__25655;
+while(true){
+var temp__4657__auto____$1 = cljs.core.seq.call(null,s__25655__$1);
+if(temp__4657__auto____$1){
+var s__25655__$2 = temp__4657__auto____$1;
+if(cljs.core.chunked_seq_QMARK_.call(null,s__25655__$2)){
+var c__19523__auto__ = cljs.core.chunk_first.call(null,s__25655__$2);
+var size__19524__auto__ = cljs.core.count.call(null,c__19523__auto__);
+var b__25657 = cljs.core.chunk_buffer.call(null,size__19524__auto__);
+if((function (){var i__25656 = (0);
+while(true){
+if((i__25656 < size__19524__auto__)){
+var y = cljs.core._nth.call(null,c__19523__auto__,i__25656);
+cljs.core.chunk_append.call(null,b__25657,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null));
+
+var G__25658 = (i__25656 + (1));
+i__25656 = G__25658;
+continue;
+} else {
+return true;
+}
+break;
+}
+})()){
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__25657),climbr$utils$utils$cartesian_prod_$_iter__25652_$_iter__25654.call(null,cljs.core.chunk_rest.call(null,s__25655__$2)));
+} else {
+return cljs.core.chunk_cons.call(null,cljs.core.chunk.call(null,b__25657),null);
+}
+} else {
+var y = cljs.core.first.call(null,s__25655__$2);
+return cljs.core.cons.call(null,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [x,y], null),climbr$utils$utils$cartesian_prod_$_iter__25652_$_iter__25654.call(null,cljs.core.rest.call(null,s__25655__$2)));
+}
+} else {
+return null;
+}
+break;
+}
+});})(s__25653__$1,x,xs__5205__auto__,temp__4657__auto__))
+,null,null));
+});})(s__25653__$1,x,xs__5205__auto__,temp__4657__auto__))
+;
+var fs__19522__auto__ = cljs.core.seq.call(null,iterys__19521__auto__.call(null,col2));
+if(fs__19522__auto__){
+return cljs.core.concat.call(null,fs__19522__auto__,climbr$utils$utils$cartesian_prod_$_iter__25652.call(null,cljs.core.rest.call(null,s__25653__$1)));
+} else {
+var G__25659 = cljs.core.rest.call(null,s__25653__$1);
+s__25653__$1 = G__25659;
+continue;
+}
+} else {
+return null;
+}
+break;
+}
+}),null,null));
+});
+return iter__19525__auto__.call(null,col1);
+});
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.script,climbr.utils.utils.which,climbr.utils.utils.parses,climbr.utils.utils.source,climbr.utils.utils.code,climbr.utils.utils.end,climbr.utils.utils.extracts,climbr.utils.utils.all,climbr.utils.utils.TODOs);
 climbr.utils.utils.TODO.call(null,climbr.utils.utils.create,climbr.utils.utils.issue,climbr.utils.utils.macro);
 climbr.utils.utils.TODO.call(null,cljs.core.import$,climbr.utils.utils.globally);
 
-//# sourceMappingURL=utils.js.map?rel=1481799436887
+//# sourceMappingURL=utils.js.map?rel=1482916190362

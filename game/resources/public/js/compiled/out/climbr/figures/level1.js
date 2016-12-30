@@ -9,7 +9,7 @@ climbr.matter.matter.data_BANG_.call(null,"class","boulder",boulder);
 return boulder;
 });
 climbr.figures.level1.level = (function (){var boulders = climbr.matter.matter.composite.create();
-var b1 = climbr.figures.level1.create_boulder.call(null,(300),(400));
+var b1 = climbr.figures.level1.create_boulder.call(null,(300),(350));
 var b2 = climbr.figures.level1.create_boulder.call(null,(500),(400));
 var b3 = climbr.figures.level1.create_boulder.call(null,(100),(200));
 var b4 = climbr.figures.level1.create_boulder.call(null,(400),(200));
@@ -32,4 +32,4 @@ climbr.matter.matter.composite.add(boulders,b4);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"composite","composite",-257118970),boulders,new cljs.core.Keyword(null,"parts","parts",849007691),new cljs.core.PersistentVector(null, 4, 5, cljs.core.PersistentVector.EMPTY_NODE, [b1,b2,b3,b4], null)], null);
 })();
 
-//# sourceMappingURL=level1.js.map?rel=1481836785610
+//# sourceMappingURL=level1.js.map?rel=1483134923415
