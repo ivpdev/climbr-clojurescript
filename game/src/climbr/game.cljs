@@ -8,18 +8,22 @@
     [climbr.behaviour.user_actions :as user-actions]
     [climbr.behaviour.climber_moves :as climber-moves]))
 
-(defn start![]
-  (let [engine (setup-engine!)
-        render (setup-render! engine)]
 
-    (do
-      (setup-world-base! engine)
-      (setup-level! engine)
-      (setup-climber! engine)
-      (watch-reaching-top! engine)
-      (run-engine! engine)
-      (run-render! render)
-      (start-timer!))))
+
+(defn- setup-engine!
+  "create matter.js engine"
+  []
+  (let [engine (.create m/engine)]
+    (swap! a/app-state assoc :engine engine)
+    engine))
+
+(defn- setup-render!
+  "create matter.js render"
+  [engine]
+  (let [body (.-body js/document)
+        render (.create m/render (clj->js {:element body :engine engine :options {:wireframes false}}))]
+    render))
+
 
 (defn- setup-world-base!
   "setup world base components which are the same for all the levels"
@@ -40,29 +44,16 @@
 
 (defn- setup-climber!
   "setup climber and put him into the world"
-  [engine level]
+  [engine]
   (let[my-world (.-world engine)
        climber (:climber climber/climber)]
 
     (.add m/world my-world (clj->js [climber]))
     (climber-moves/watch-hand-can-hook-boulder!)
-    (user-actions/setup-climber-hook-events! engine level) ;TODO make working with explicitely passed boulders
+    (user-actions/setup-climber-hook-events! engine)
     (user-actions/setup-climber-release-events! engine)
     (user-actions/setup-climber-moves!)))
 
-(defn- setup-engine!
-  "create matter.js engine"
-  []
-  (let [engine (.create m/engine)]
-    (swap! a/app-state assoc :engine engine)
-     engine))
-
-(defn- setup-render!
-  "create matter.js render"
-  [engine]
-  (let [body (.-body js/document)
-        render (.create m/render (clj->js {:element body :engine engine :options {:wireframes false}}))]
-    render))
 
 (defn- run-engine![engine]
   (let [runner (.run m/engine engine)]
@@ -80,9 +71,6 @@
 (defn- start-timer![]
   (println "TIMER STARTED"))
 
-(defn- watch-reaching-top![]
-  (climber-moves/watch-hand-reaches-top! win-game!))
-
 (def game-is-over? false)
 
 (defn win-game![]
@@ -92,3 +80,19 @@
       (.alert js/window "You won!")
       (set! (.-location js/window) "index.html")
       (set! game-is-over? true))))
+
+(defn- watch-reaching-top![]
+  (climber-moves/watch-hand-reaches-top! win-game!))
+
+(defn start![]
+  (let [engine (setup-engine!)
+        render (setup-render! engine)]
+
+    (do
+      (setup-world-base! engine)
+      (setup-level! engine)
+      (setup-climber! engine)
+      (watch-reaching-top!)
+      (run-engine! engine)
+      (run-render! render)
+      (start-timer!))))

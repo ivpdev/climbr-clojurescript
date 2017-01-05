@@ -13,6 +13,16 @@
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
 
+(defn update-hand-can-hook![action hand boulder]
+  (let [hand-name (m/read-data "name" hand)
+        hand-key (case hand-name "h1" :h1
+                   "h2" :h2 nil)
+        update-func (case action :add conj
+                      :remove disj nil)]
+
+    (do
+      (swap! a/app-state update-in [:can-hook hand-key] update-func boulder))))
+
 (defn watch-hand-can-hook-boulder!
   "Watch when hands are getting close enough to boulders for being able to hook them."
   []
@@ -29,16 +39,6 @@
 
                            :when-near (partial update-hand-can-hook! :add)
                            :when-far (partial update-hand-can-hook! :remove) })))
-
-(defn update-hand-can-hook![action hand boulder]
-  (let [hand-name (m/read-data "name" hand)
-        hand-key (case hand-name "h1" :h1
-                                  "h2" :h2 nil)
-        update-func (case action :add conj
-                                 :remove disj nil)]
-
-    (do
-      (swap! a/app-state update-in [:can-hook hand-key] update-func boulder))))
 
 (defn watch-hand-reaches-top!
   "Watch when a hand is reaching top. When this happens the on-reach! function is called."
