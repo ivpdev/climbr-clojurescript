@@ -38,8 +38,3 @@
           :h1 left-hand
           :h2 right-hand
           :body body })))
-
-(defn get[]
-  (:climber climber))
-
-

@@ -3,7 +3,7 @@
             [climbr.figures.level0 :as l0]
             [climbr.figures.level1 :as l1]))
 
-(defn get[level-name]
+(defn get-level[level-name]
   (case level-name
     "l0" l0/level
     "l1" l1/level
@@ -13,4 +13,4 @@
   "get level according to levelname in URL"
   []
   (let [level-name (u/get-current-level-name)]
-    (get level-name)))
+    (get-level level-name)))

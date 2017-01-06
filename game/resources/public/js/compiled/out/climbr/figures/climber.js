@@ -36,8 +36,5 @@ climbr.matter.matter.composite.add(climber,right_arm);
 
 return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"climber","climber",1752810721),climber,new cljs.core.Keyword(null,"h1","h1",-1896887462),left_hand,new cljs.core.Keyword(null,"h2","h2",-372662728),right_hand,new cljs.core.Keyword(null,"body","body",-2049205669),body], null);
 })();
-climbr.figures.climber.get = (function climbr$figures$climber$get(){
-return new cljs.core.Keyword(null,"climber","climber",1752810721).cljs$core$IFn$_invoke$arity$1(climbr.figures.climber.climber);
-});
 
-//# sourceMappingURL=climber.js.map?rel=1483134923779
+//# sourceMappingURL=climber.js.map?rel=1483691459752

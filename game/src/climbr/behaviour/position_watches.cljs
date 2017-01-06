@@ -11,7 +11,7 @@
 
 (defn signal-from-property![prop]
   (let [behaviour (r/behavior prop)]
-    [:TODO factor time into config]
+    ;:TODO factor time into config
     (r/sample 10 behaviour)))
 
 (defn create-body-position-watch!
@@ -50,7 +50,7 @@
     {:data [body1 body2]
      :signal distance-sig }))
 
-[:TODO create map and map2 functions for watches]
+;TODO create map and map2 functions for watches
 
 (defn- create-position-predicate-watch![predicate position-watch]
   (let [position-signal (:signal position-watch)
@@ -61,6 +61,7 @@
                            position-signal)]
     {:data (:data position-watch)
      :signal predicate-signal}))
+
 
 (defn create-nearing-watch!
   "creates watch(signal + data) detecting if two bodies are near or not"

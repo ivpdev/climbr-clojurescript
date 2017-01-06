@@ -22,8 +22,6 @@ climbr.behaviour.position_watches.signal_from_property_BANG_ = (function climbr$
 var behaviour = reagi.core.behavior_call.call(null,(function (){
 return prop;
 }));
-new cljs.core.PersistentVector(null, 5, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"TODO","TODO",-523795145),climbr.behaviour.position_watches.factor,cljs.core.time,cljs.core.into,climbr.behaviour.position_watches.config], null);
-
 return reagi.core.sample.call(null,(10),behaviour);
 });
 /**
@@ -62,7 +60,6 @@ return climbr.behaviour.position_watches.sqrt.call(null,(climbr.behaviour.positi
 ,pos_LT_1_PLUS_2_GT_sig);
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"data","data",-232669377),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [body1,body2], null),new cljs.core.Keyword(null,"signal","signal",-1984951589),distance_sig], null);
 });
-new cljs.core.PersistentVector(null, 8, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"TODO","TODO",-523795145),climbr.behaviour.position_watches.create,cljs.core.map,cljs.core.and,climbr.behaviour.position_watches.map2,climbr.behaviour.position_watches.functions,cljs.core.for$,climbr.behaviour.position_watches.watches], null);
 climbr.behaviour.position_watches.create_position_predicate_watch_BANG_ = (function climbr$behaviour$position_watches$create_position_predicate_watch_BANG_(predicate,position_watch){
 var position_signal = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(position_watch);
 var predicate_signal = reagi.core.map.call(null,((function (position_signal){
@@ -81,8 +78,8 @@ climbr.behaviour.position_watches.create_nearing_watch_BANG_ = (function climbr$
 var data = new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var distance_sig = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var near_sig = reagi.core.map.call(null,((function (data,distance_sig){
-return (function (p1__25679_SHARP_){
-return (p1__25679_SHARP_ < threshold);
+return (function (p1__30742_SHARP_){
+return (p1__30742_SHARP_ < threshold);
 });})(data,distance_sig))
 ,distance_sig);
 var near_change_sig = reagi.core.uniq.call(null,near_sig);
@@ -137,4 +134,4 @@ return null;
 ,bodies_position_predicate_watches));
 });
 
-//# sourceMappingURL=position_watches.js.map?rel=1482916191813
+//# sourceMappingURL=position_watches.js.map?rel=1483691449346

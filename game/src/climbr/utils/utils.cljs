@@ -9,8 +9,8 @@
   (set! (.-debug1 js/window) x)
   (.log js/console x))
 
-(defn println [x]
-   (.log js/console x))
+;(defn println [x]
+;   (.log js/console x))
 
 (defmacro TODO
   "Ignores body, yields nil"
@@ -43,11 +43,11 @@
         y col2]
     [x y]))
 
-(TODO create script which parses source code end extracts all TODOs)
+;TODO create script which parses source code end extracts all TODOs
 
-(TODO create issue macro)
+;TODO create issue macro
 
-(TODO import globally)
+;TODO import globally
 
 ;(def y (is (+ x 1)
 ;          :where
@@ -72,7 +72,6 @@
 ;  "Inverted 'if'"
 ;  [test & branches]
 ;  (conj (reverse branches) test 'if))
-
 
 ;TODO macros ???
 ;

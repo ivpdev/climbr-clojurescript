@@ -6,8 +6,8 @@ climbr.controls.keyboard.listen_BANG_ = (function climbr$controls$keyboard$liste
 return el.addEventListener(e,fn);
 });
 climbr.controls.keyboard.event_to_direction = (function climbr$controls$keyboard$event_to_direction(e){
-var G__34636 = e.keyCode;
-switch (G__34636) {
+var G__26522 = e.keyCode;
+switch (G__26522) {
 case (37):
 return new cljs.core.Keyword(null,"left","left",-399115937);
 
@@ -60,17 +60,17 @@ var c__20805__auto__ = cljs.core.async.chan.call(null,(1));
 cljs.core.async.impl.dispatch.run.call(null,((function (c__20805__auto__,keypressed){
 return (function (){
 var f__20806__auto__ = (function (){var switch__20784__auto__ = ((function (c__20805__auto__,keypressed){
-return (function (state_34642){
-var state_val_34643 = (state_34642[(1)]);
-if((state_val_34643 === (1))){
-var inst_34638 = climbr.controls.keyboard.event_to_direction.call(null,e);
-var state_34642__$1 = state_34642;
-return cljs.core.async.impl.ioc_helpers.put_BANG_.call(null,state_34642__$1,(2),keypressed,inst_34638);
+return (function (state_26528){
+var state_val_26529 = (state_26528[(1)]);
+if((state_val_26529 === (1))){
+var inst_26524 = climbr.controls.keyboard.event_to_direction.call(null,e);
+var state_26528__$1 = state_26528;
+return cljs.core.async.impl.ioc_helpers.put_BANG_.call(null,state_26528__$1,(2),keypressed,inst_26524);
 } else {
-if((state_val_34643 === (2))){
-var inst_34640 = (state_34642[(2)]);
-var state_34642__$1 = state_34642;
-return cljs.core.async.impl.ioc_helpers.return_chan.call(null,state_34642__$1,inst_34640);
+if((state_val_26529 === (2))){
+var inst_26526 = (state_26528[(2)]);
+var state_26528__$1 = state_26528;
+return cljs.core.async.impl.ioc_helpers.return_chan.call(null,state_26528__$1,inst_26526);
 } else {
 return null;
 }
@@ -81,17 +81,17 @@ return ((function (switch__20784__auto__,c__20805__auto__,keypressed){
 return (function() {
 var climbr$controls$keyboard$state_machine__20785__auto__ = null;
 var climbr$controls$keyboard$state_machine__20785__auto____0 = (function (){
-var statearr_34647 = [null,null,null,null,null,null,null];
-(statearr_34647[(0)] = climbr$controls$keyboard$state_machine__20785__auto__);
+var statearr_26533 = [null,null,null,null,null,null,null];
+(statearr_26533[(0)] = climbr$controls$keyboard$state_machine__20785__auto__);
 
-(statearr_34647[(1)] = (1));
+(statearr_26533[(1)] = (1));
 
-return statearr_34647;
+return statearr_26533;
 });
-var climbr$controls$keyboard$state_machine__20785__auto____1 = (function (state_34642){
+var climbr$controls$keyboard$state_machine__20785__auto____1 = (function (state_26528){
 while(true){
 var ret_value__20786__auto__ = (function (){try{while(true){
-var result__20787__auto__ = switch__20784__auto__.call(null,state_34642);
+var result__20787__auto__ = switch__20784__auto__.call(null,state_26528);
 if(cljs.core.keyword_identical_QMARK_.call(null,result__20787__auto__,new cljs.core.Keyword(null,"recur","recur",-437573268))){
 continue;
 } else {
@@ -99,23 +99,23 @@ return result__20787__auto__;
 }
 break;
 }
-}catch (e34648){if((e34648 instanceof Object)){
-var ex__20788__auto__ = e34648;
-var statearr_34649_34651 = state_34642;
-(statearr_34649_34651[(5)] = ex__20788__auto__);
+}catch (e26534){if((e26534 instanceof Object)){
+var ex__20788__auto__ = e26534;
+var statearr_26535_26537 = state_26528;
+(statearr_26535_26537[(5)] = ex__20788__auto__);
 
 
-cljs.core.async.impl.ioc_helpers.process_exception.call(null,state_34642);
+cljs.core.async.impl.ioc_helpers.process_exception.call(null,state_26528);
 
 return new cljs.core.Keyword(null,"recur","recur",-437573268);
 } else {
-throw e34648;
+throw e26534;
 
 }
 }})();
 if(cljs.core.keyword_identical_QMARK_.call(null,ret_value__20786__auto__,new cljs.core.Keyword(null,"recur","recur",-437573268))){
-var G__34652 = state_34642;
-state_34642 = G__34652;
+var G__26538 = state_26528;
+state_26528 = G__26538;
 continue;
 } else {
 return ret_value__20786__auto__;
@@ -123,12 +123,12 @@ return ret_value__20786__auto__;
 break;
 }
 });
-climbr$controls$keyboard$state_machine__20785__auto__ = function(state_34642){
+climbr$controls$keyboard$state_machine__20785__auto__ = function(state_26528){
 switch(arguments.length){
 case 0:
 return climbr$controls$keyboard$state_machine__20785__auto____0.call(this);
 case 1:
-return climbr$controls$keyboard$state_machine__20785__auto____1.call(this,state_34642);
+return climbr$controls$keyboard$state_machine__20785__auto____1.call(this,state_26528);
 }
 throw(new Error('Invalid arity: ' + arguments.length));
 };
@@ -138,10 +138,10 @@ return climbr$controls$keyboard$state_machine__20785__auto__;
 })()
 ;})(switch__20784__auto__,c__20805__auto__,keypressed))
 })();
-var state__20807__auto__ = (function (){var statearr_34650 = f__20806__auto__.call(null);
-(statearr_34650[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = c__20805__auto__);
+var state__20807__auto__ = (function (){var statearr_26536 = f__20806__auto__.call(null);
+(statearr_26536[cljs.core.async.impl.ioc_helpers.USER_START_IDX] = c__20805__auto__);
 
-return statearr_34650;
+return statearr_26536;
 })();
 return cljs.core.async.impl.ioc_helpers.run_state_machine_wrapped.call(null,state__20807__auto__);
 });})(c__20805__auto__,keypressed))
@@ -154,4 +154,4 @@ return c__20805__auto__;
 return cljs.core.async.mult.call(null,keypressed);
 })();
 
-//# sourceMappingURL=keyboard.js.map?rel=1482999980328
+//# sourceMappingURL=keyboard.js.map?rel=1483691185106

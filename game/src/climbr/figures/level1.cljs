@@ -3,7 +3,7 @@
 
 ;TODO via figures
 
-(defn create-boulder [x y with heights]
+(defn create-boulder [x y & [width heights]]
   (let [boulder (.rectangle m/bodies x y 20 20 #js {:isStatic true :collisionFilter { :category "red"}})]
     (do
       (m/data! "class" "boulder" boulder))

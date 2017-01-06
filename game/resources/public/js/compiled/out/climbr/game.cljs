@@ -8,8 +8,6 @@
     [climbr.behaviour.user_actions :as user-actions]
     [climbr.behaviour.climber_moves :as climber-moves]))
 
-
-
 (defn- setup-engine!
   "create matter.js engine"
   []
