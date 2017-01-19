@@ -7,7 +7,7 @@
   (let [boulders (.create m/composite)
         b1 (figures/create-boulder {:x 300 :y 350 :height 20 :width 30 :standable true :hookable true})
         b2 (figures/create-boulder {:x 400 :y 350 :height 20 :width 30 :hookable true})
-        b21 (figures/create-boulder {:x 500 :y 350 :height 20 :width 30 })
+        b21 (figures/create-boulder {:x 500 :y 350 :height 20 :width 30 :hookable true})
         b3 (figures/create-boulder {:x 100 :y 200 :height 20 :width 20 :hookable true})
         b4 (figures/create-boulder {:x 400 :y 200 :height 20 :width 20 :standable true})]
 
