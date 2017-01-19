@@ -41,43 +41,43 @@ return climbr.utils.utils.not_nil_QMARK_.call(null,climbr.matter.matter.read_dat
  * checks if all arguments are the same body
  */
 climbr.matter.matter.same_body_QMARK_ = (function climbr$matter$matter$same_body_QMARK_(var_args){
-var args__19857__auto__ = [];
-var len__19850__auto___31168 = arguments.length;
-var i__19851__auto___31169 = (0);
+var args__19871__auto__ = [];
+var len__19864__auto___20360 = arguments.length;
+var i__19865__auto___20361 = (0);
 while(true){
-if((i__19851__auto___31169 < len__19850__auto___31168)){
-args__19857__auto__.push((arguments[i__19851__auto___31169]));
+if((i__19865__auto___20361 < len__19864__auto___20360)){
+args__19871__auto__.push((arguments[i__19865__auto___20361]));
 
-var G__31170 = (i__19851__auto___31169 + (1));
-i__19851__auto___31169 = G__31170;
+var G__20362 = (i__19865__auto___20361 + (1));
+i__19865__auto___20361 = G__20362;
 continue;
 } else {
 }
 break;
 }
 
-var argseq__19858__auto__ = ((((0) < args__19857__auto__.length))?(new cljs.core.IndexedSeq(args__19857__auto__.slice((0)),(0),null)):null);
-return climbr.matter.matter.same_body_QMARK_.cljs$core$IFn$_invoke$arity$variadic(argseq__19858__auto__);
+var argseq__19872__auto__ = ((((0) < args__19871__auto__.length))?(new cljs.core.IndexedSeq(args__19871__auto__.slice((0)),(0),null)):null);
+return climbr.matter.matter.same_body_QMARK_.cljs$core$IFn$_invoke$arity$variadic(argseq__19872__auto__);
 });
 
 climbr.matter.matter.same_body_QMARK_.cljs$core$IFn$_invoke$arity$variadic = (function (args){
-var ids = cljs.core.map.call(null,(function (p1__31166_SHARP_){
-return p1__31166_SHARP_.id;
+var ids = cljs.core.map.call(null,(function (p1__20358_SHARP_){
+return p1__20358_SHARP_.id;
 }),args);
 return cljs.core.apply.call(null,cljs.core._EQ_,ids);
 });
 
 climbr.matter.matter.same_body_QMARK_.cljs$lang$maxFixedArity = (0);
 
-climbr.matter.matter.same_body_QMARK_.cljs$lang$applyTo = (function (seq31167){
-return climbr.matter.matter.same_body_QMARK_.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq31167));
+climbr.matter.matter.same_body_QMARK_.cljs$lang$applyTo = (function (seq20359){
+return climbr.matter.matter.same_body_QMARK_.cljs$core$IFn$_invoke$arity$variadic(cljs.core.seq.call(null,seq20359));
 });
 
 climbr.matter.matter.apply_force = (function climbr$matter$matter$apply_force(body,force){
-var map__31173 = force;
-var map__31173__$1 = ((((!((map__31173 == null)))?((((map__31173.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__31173.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__31173):map__31173);
-var x = cljs.core.get.call(null,map__31173__$1,new cljs.core.Keyword(null,"x","x",2099068185));
-var y = cljs.core.get.call(null,map__31173__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
+var map__20365 = force;
+var map__20365__$1 = ((((!((map__20365 == null)))?((((map__20365.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__20365.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__20365):map__20365);
+var x = cljs.core.get.call(null,map__20365__$1,new cljs.core.Keyword(null,"x","x",2099068185));
+var y = cljs.core.get.call(null,map__20365__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
 return Matter.Body.applyForce(body,body.position,({"x": x, "y": y}));
 });
 climbr.matter.matter.y = (function climbr$matter$matter$y(body){
@@ -108,4 +108,4 @@ var result = climbr.matter.matter.bounds_contain_QMARK_.call(null,target_bounds,
 return climbr.matter.matter.bounds_contain_QMARK_.call(null,target_bounds,({"x": testee_center_x, "y": y_border}));
 });
 
-//# sourceMappingURL=matter.js.map?rel=1483691459323
+//# sourceMappingURL=matter.js.map?rel=1484862754430

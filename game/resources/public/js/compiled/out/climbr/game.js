@@ -107,4 +107,4 @@ climbr.game.run_render_BANG_.call(null,render);
 return climbr.game.start_timer_BANG_.call(null);
 });
 
-//# sourceMappingURL=game.js.map?rel=1483691493168
+//# sourceMappingURL=game.js.map?rel=1484862758830

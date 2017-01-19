@@ -4,10 +4,10 @@ goog.require('cljs.core');
 goog.require('reagi.core');
 goog.require('climbr.utils.utils');
 climbr.behaviour.position_watches.def_ = (function climbr$behaviour$position_watches$def_(_AMPERSAND_form,_AMPERSAND_env,item,value){
-return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,cljs.core._conj.call(null,cljs.core.List.EMPTY,new cljs.core.Symbol(null,"def","def",597100991,null)),(function (){var x__19579__auto__ = item;
-return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__19579__auto__);
-})(),(function (){var x__19579__auto__ = value;
-return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__19579__auto__);
+return cljs.core.sequence.call(null,cljs.core.seq.call(null,cljs.core.concat.call(null,cljs.core._conj.call(null,cljs.core.List.EMPTY,new cljs.core.Symbol(null,"def","def",597100991,null)),(function (){var x__19593__auto__ = item;
+return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__19593__auto__);
+})(),(function (){var x__19593__auto__ = value;
+return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__19593__auto__);
 })())));
 });
 
@@ -78,8 +78,8 @@ climbr.behaviour.position_watches.create_nearing_watch_BANG_ = (function climbr$
 var data = new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var distance_sig = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var near_sig = reagi.core.map.call(null,((function (data,distance_sig){
-return (function (p1__30742_SHARP_){
-return (p1__30742_SHARP_ < threshold);
+return (function (p1__27723_SHARP_){
+return (p1__27723_SHARP_ < threshold);
 });})(data,distance_sig))
 ,distance_sig);
 var near_change_sig = reagi.core.uniq.call(null,near_sig);
@@ -134,4 +134,4 @@ return null;
 ,bodies_position_predicate_watches));
 });
 
-//# sourceMappingURL=position_watches.js.map?rel=1483691449346
+//# sourceMappingURL=position_watches.js.map?rel=1484862758304
