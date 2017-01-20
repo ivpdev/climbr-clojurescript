@@ -1,5 +1,6 @@
 (ns ^:figwheel-always climbr.figures.level1
-  (:require [climbr.matter.matter :as m]))
+  (:require [climbr.matter.matter :as m]
+            [climbr.figures.figures :as figures]))
 
 ;TODO via figures
 
@@ -12,10 +13,10 @@
 
 (def level
   (let [boulders (.create m/composite)
-        b1 (create-boulder 300 350)
-        b2 (create-boulder 500 400)
-        b3 (create-boulder 100 200)
-        b4 (create-boulder 400 200)]
+        b1 (figures/create-boulder {:x 300 :y 350 :height 20 :width 40 :hookable true})
+        b2 (figures/create-boulder {:x 500 :y 400 :height 20 :width 20 :hookable true})
+        b3 (figures/create-boulder {:x 100 :y 200 :height 20 :width 20 :hookable true})
+        b4 (figures/create-boulder {:x 400 :y 200 :height 20 :width 20 :hookable true})]
 
     (do
       (m/data! "name" "4" b1)

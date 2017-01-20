@@ -12,6 +12,11 @@
 (defn get-all-standables[]
   (m/find-world-bodies #(true? (m/read-data "standable" %))))
 
+;TODO macros (non-empty-props [x y width height] opts)
+;TODO (boolean-props [standable? holdable?] opts)
+;TODO (with-default [width 20
+;                    height 20] opts)
+
 (defn create-boulder [opts]
   (let [{:keys [x y width height]} opts
         standable? (not-nil? (:standable opts))

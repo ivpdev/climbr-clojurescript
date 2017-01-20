@@ -26,7 +26,7 @@ goog.addDependency("../climbr/utils/utils.js", ['climbr.utils.utils'], ['cljs.co
 goog.addDependency("../climbr/matter/matter.js", ['climbr.matter.matter'], ['cljs.core', 'climbr.app_state', 'climbr.utils.utils']);
 goog.addDependency("../climbr/figures/figures.js", ['climbr.figures.figures'], ['climbr.matter.matter', 'cljs.core', 'climbr.utils.utils']);
 goog.addDependency("../climbr/figures/level0.js", ['climbr.figures.level0'], ['climbr.matter.matter', 'cljs.core', 'climbr.utils.utils', 'climbr.figures.figures']);
-goog.addDependency("../climbr/figures/level1.js", ['climbr.figures.level1'], ['climbr.matter.matter', 'cljs.core']);
+goog.addDependency("../climbr/figures/level1.js", ['climbr.figures.level1'], ['climbr.matter.matter', 'cljs.core', 'climbr.figures.figures']);
 goog.addDependency("../climbr/figures/levels.js", ['climbr.figures.levels'], ['climbr.figures.level0', 'climbr.figures.level1', 'cljs.core', 'climbr.utils.utils']);
 goog.addDependency("../climbr/figures/climber.js", ['climbr.figures.climber'], ['climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.utils.utils']);
 goog.addDependency("../climbr/figures/ground.js", ['climbr.figures.ground'], ['climbr.matter.matter', 'cljs.core']);

@@ -5,8 +5,8 @@ goog.require('climbr.utils.utils');
 goog.require('climbr.figures.level0');
 goog.require('climbr.figures.level1');
 climbr.figures.levels.get_level = (function climbr$figures$levels$get_level(level_name){
-var G__20391 = level_name;
-switch (G__20391) {
+var G__22628 = level_name;
+switch (G__22628) {
 case "l0":
 return climbr.figures.level0.level;
 
@@ -28,4 +28,4 @@ var level_name = climbr.utils.utils.get_current_level_name.call(null);
 return climbr.figures.levels.get_level.call(null,level_name);
 });
 
-//# sourceMappingURL=levels.js.map?rel=1484862754492
+//# sourceMappingURL=levels.js.map?rel=1484944639205
