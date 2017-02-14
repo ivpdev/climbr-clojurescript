@@ -7,10 +7,11 @@
   (case level-name
     "l0" l0/level
     "l1" l1/level
-    "default"))
+    nil))
 
 (defn get-current-level
   "get level according to levelname in URL"
   []
-  (let [level-name (u/get-current-level-name)]
-    (get-level level-name)))
+  (let [level-name (u/get-current-level-name)
+        level (get-level level-name)]
+    (if (not (nil? level)) level (println "level not found"))))

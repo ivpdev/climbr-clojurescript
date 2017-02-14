@@ -20,25 +20,20 @@
 
 
   :npm {:dependencies [[matter-js "0.10.0"]
-                       ;; Other types of dependencies (github, private npm, etc.) can be passed as a string
-                       ;["your_username/your-module" "0.1.O"]
-                       ]}
-
+                       [prng "git+ssh://git@github.com:pigulla/mersennetwister.git"]]}
 
   ;; to run "lein resource"
   :resource { ;;TODO hook into cljsbuild
 
-              :resource-paths [ ["node_modules/matter-js/build/"
-                                 {
-                                   ;; :includes ["matter.js"]  ;; list of regex
-                                   :excludes []  ;; list of regex
-                                   :target-path "resources/public/js/compiled/out/lib/matter-js" ;; directory to store files
-                                   }]]
+              :resource-paths [["node_modules/matter-js/build/"
+                                { :target-path "resources/public/js/compiled/out/lib/matter-js"}]
+                               ["node_modules/mersennetwister/src/MersenneTwister.js"
+                                {:target-path "resources/public/js/compiled/out/lib/mersennetwister/mersennetwister.js"}]]
 
               :update   false      ;; if true only process files with src newer than dest
               :silent false ;; if true, only print errors
-              :verbose false ;; if true, print debugging information ;; optional - default to nil
-              }
+              :verbose false} ;; if true, print debugging information ;; optional - default to nil
+
 
   :source-paths ["src"]
 
@@ -70,7 +65,7 @@
              ;; :server-port 3449 ;; default
              ;; :server-ip "127.0.0.1"
 
-             :css-dirs ["resources/public/css"] ;; watch and update CSS
+             :css-dirs ["resources/public/css"]}) ;; watch and update CSS
 
              ;; Start an nREPL server into the running figwheel process
              ;; :nrepl-port 7888
@@ -95,4 +90,4 @@
 
              ;; to configure a different figwheel logfile path
              ;; :server-logfile "tmp/logs/figwheel-logfile.log"
-             })
+

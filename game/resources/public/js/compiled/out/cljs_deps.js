@@ -28,6 +28,7 @@ goog.addDependency("../climbr/figures/figures.js", ['climbr.figures.figures'], [
 goog.addDependency("../climbr/figures/level0.js", ['climbr.figures.level0'], ['climbr.matter.matter', 'cljs.core', 'climbr.utils.utils', 'climbr.figures.figures']);
 goog.addDependency("../climbr/figures/level1.js", ['climbr.figures.level1'], ['climbr.matter.matter', 'cljs.core', 'climbr.figures.figures']);
 goog.addDependency("../climbr/figures/levels.js", ['climbr.figures.levels'], ['climbr.figures.level0', 'climbr.figures.level1', 'cljs.core', 'climbr.utils.utils']);
+goog.addDependency("../climbr/figures/level_generator.js", ['climbr.figures.level_generator'], ['cljs.core', 'climbr.utils.utils']);
 goog.addDependency("../climbr/figures/climber.js", ['climbr.figures.climber'], ['climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.utils.utils']);
 goog.addDependency("../climbr/figures/ground.js", ['climbr.figures.ground'], ['climbr.matter.matter', 'cljs.core']);
 goog.addDependency("../climbr/controls/keyboard.js", ['climbr.controls.keyboard'], ['cljs.core', 'cljs.core.async']);
@@ -36,6 +37,6 @@ goog.addDependency("../climbr/behaviour/position_watches.js", ['climbr.behaviour
 goog.addDependency("../climbr/behaviour/climber_moves.js", ['climbr.behaviour.climber_moves'], ['climbr.figures.levels', 'climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.figures.climber', 'climbr.controls.keyboard', 'climbr.behaviour.position_watches']);
 goog.addDependency("../clojure/data.js", ['clojure.data'], ['cljs.core', 'clojure.set']);
 goog.addDependency("../climbr/behaviour/user_actions.js", ['climbr.behaviour.user_actions'], ['climbr.matter.matter', 'cljs.core', 'cljs.core.async', 'climbr.app_state', 'climbr.utils.utils', 'climbr.figures.climber', 'climbr.controls.keyboard', 'clojure.data', 'climbr.figures.figures']);
-goog.addDependency("../climbr/game.js", ['climbr.game'], ['climbr.figures.levels', 'climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.figures.climber', 'climbr.figures.ground', 'climbr.behaviour.climber_moves', 'climbr.behaviour.user_actions']);
+goog.addDependency("../climbr/game.js", ['climbr.game'], ['climbr.figures.levels', 'climbr.figures.level_generator', 'climbr.matter.matter', 'cljs.core', 'climbr.app_state', 'climbr.figures.climber', 'climbr.figures.ground', 'climbr.behaviour.climber_moves', 'climbr.behaviour.user_actions']);
 goog.addDependency("../climbr/core.js", ['climbr.core'], ['climbr.game', 'cljs.core', 'climbr.utils.utils']);
 goog.addDependency("../figwheel/connect.js", ['figwheel.connect'], ['cljs.core', 'figwheel.client', 'climbr.core', 'figwheel.client.utils']);

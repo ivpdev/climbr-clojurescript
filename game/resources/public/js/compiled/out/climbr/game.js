@@ -3,6 +3,7 @@ goog.provide('climbr.game');
 goog.require('cljs.core');
 goog.require('climbr.figures.levels');
 goog.require('climbr.app_state');
+goog.require('climbr.figures.level_generator');
 goog.require('climbr.matter.matter');
 goog.require('climbr.figures.climber');
 goog.require('climbr.figures.ground');
@@ -37,6 +38,13 @@ return climbr.matter.matter.world.add(world,cljs.core.clj__GT_js.call(null,new c
  * load level based on URL param and put it into the world
  */
 climbr.game.setup_level_BANG_ = (function climbr$game$setup_level_BANG_(engine){
+var level_23824 = climbr.figures.levels.get_current_level.call(null);
+var level_composite_23825 = new cljs.core.Keyword(null,"composite","composite",-257118970).cljs$core$IFn$_invoke$arity$1(level_23824);
+var world_23826 = engine.world;
+cljs.core.swap_BANG_.call(null,climbr.app_state.app_state,cljs.core.assoc,new cljs.core.Keyword(null,"current-level","current-level",-11925890),level_23824);
+
+climbr.matter.matter.world.add(world_23826,cljs.core.clj__GT_js.call(null,new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [level_composite_23825], null)));
+
 var level = climbr.figures.levels.get_current_level.call(null);
 var level_composite = new cljs.core.Keyword(null,"composite","composite",-257118970).cljs$core$IFn$_invoke$arity$1(level);
 var world = engine.world;
@@ -92,6 +100,8 @@ return climbr.behaviour.climber_moves.watch_hand_reaches_top_BANG_.call(null,cli
 climbr.game.start_BANG_ = (function climbr$game$start_BANG_(){
 var engine = climbr.game.setup_engine_BANG_.call(null);
 var render = climbr.game.setup_render_BANG_.call(null,engine);
+climbr.figures.level_generator.generate_boulder_candidate.call(null,(81));
+
 climbr.game.setup_world_base_BANG_.call(null,engine);
 
 climbr.game.setup_level_BANG_.call(null,engine);
@@ -107,4 +117,4 @@ climbr.game.run_render_BANG_.call(null,render);
 return climbr.game.start_timer_BANG_.call(null);
 });
 
-//# sourceMappingURL=game.js.map?rel=1484944639326
+//# sourceMappingURL=game.js.map?rel=1487058560223

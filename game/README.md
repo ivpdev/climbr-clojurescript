@@ -2,6 +2,16 @@
 
 2d physics game about bouldering
 
+## Prerequisites
+
+    - Leiningen
+    - Node.js
+
+## Fresh run
+
+    lein npm install
+    lein resource
+
 ## Setup
 
 To get an interactive development environment run:

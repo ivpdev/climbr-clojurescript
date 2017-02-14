@@ -3,6 +3,7 @@
     [climbr.figures.ground :as ground]
     [climbr.figures.climber :as climber]
     [climbr.figures.levels :as levels]
+    [climbr.figures.level_generator :as level-generator]
     [climbr.matter.matter :as m]
     [climbr.app_state :as a]
     [climbr.behaviour.user_actions :as user-actions]
@@ -33,6 +34,15 @@
 (defn- setup-level!
   "load level based on URL param and put it into the world"
   [engine]
+
+  (let [level (levels/get-current-level)
+        level-composite (:composite level)
+        world (.-world engine)]
+
+    (do
+      (swap! a/app-state assoc :current-level level)
+      (.add m/world world (clj->js [level-composite]))))
+
   (let[level (levels/get-current-level)
        level-composite (:composite level)
        world (.-world engine)]
@@ -86,11 +96,12 @@
   (let [engine (setup-engine!)
         render (setup-render! engine)]
 
-    (do
+      (level-generator/generate-boulder-candidate 81)
+
       (setup-world-base! engine)
       (setup-level! engine)
       (setup-climber! engine)
       (watch-reaching-top!)
       (run-engine! engine)
       (run-render! render)
-      (start-timer!))))
+      (start-timer!)))

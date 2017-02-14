@@ -2,15 +2,6 @@
   (:require [climbr.matter.matter :as m]
             [climbr.figures.figures :as figures]))
 
-;TODO via figures
-
-(defn create-boulder [x y & [width heights]]
-  (let [boulder (.rectangle m/bodies x y 20 20 #js {:isStatic true :collisionFilter { :category "red"}})]
-    (do
-      (m/data! "class" "boulder" boulder))
-
-    boulder))
-
 (def level
   (let [boulders (.create m/composite)
         b1 (figures/create-boulder {:x 300 :y 350 :height 20 :width 40 :hookable true})

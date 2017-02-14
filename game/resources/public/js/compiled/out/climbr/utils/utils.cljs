@@ -43,6 +43,16 @@
         y col2]
     [x y]))
 
+(defn get-canvas-width[]
+      ;TODO
+  600
+  )
+
+(defn get-canvas-height[]
+      ;TODO
+  400
+  )
+
 ;TODO create script which parses source code end extracts all TODOs
 
 ;TODO create issue macro

@@ -61,8 +61,15 @@
          (when-let* ~(drop 2 bindings) ~@body))
       `(do ~@body))))
 
-(defmacro def- [item value]
+(defmacro def- [item value] ;TODO remove ?
   `(def ^{:private true} ~item ~value))
+
+(defmacro coalesce
+  ([] nil)
+  ([x] x)
+  ([x & next]
+    `(let [v# ~x]
+       (if (not (nil? v#)) v# (coalesce ~@next)))))
 
 (defmacro TODO
   "Ignores body, yields nil"
