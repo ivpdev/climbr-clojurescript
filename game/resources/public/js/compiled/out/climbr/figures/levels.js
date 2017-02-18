@@ -4,20 +4,25 @@ goog.require('cljs.core');
 goog.require('climbr.utils.utils');
 goog.require('climbr.figures.level0');
 goog.require('climbr.figures.level1');
+goog.require('climbr.figures.level_generator');
 climbr.figures.levels.get_level = (function climbr$figures$levels$get_level(level_name){
-var G__23396 = level_name;
-switch (G__23396) {
-case "l0":
+if(cljs.core.truth_(climbr.figures.level_generator.level_seed_QMARK_.call(null,level_name))){
+return climbr.figures.level_generator.generate_level.call(null,parseInt(level_name));
+} else {
+if(cljs.core._EQ_.call(null,level_name,"l0")){
 return climbr.figures.level0.level;
-
-break;
-case "l1":
-return climbr.figures.level1.level;
-
-break;
-default:
+} else {
+if(cljs.core._EQ_.call(null,level_name,"l1")){
+return l2.level;
+} else {
+if(cljs.core._EQ_.call(null,level_name,"random")){
+return climbr.figures.level_generator.generate_level.call(null);
+} else {
 return null;
 
+}
+}
+}
 }
 });
 /**
@@ -25,12 +30,15 @@ return null;
  */
 climbr.figures.levels.get_current_level = (function climbr$figures$levels$get_current_level(){
 var level_name = climbr.utils.utils.get_current_level_name.call(null);
-var level = climbr.figures.levels.get_level.call(null,level_name);
-if(!((level == null))){
-return level;
+return climbr.figures.levels.get_level.call(null,level_name);
+});
+climbr.figures.levels.get_current_level_code = (function climbr$figures$levels$get_current_level_code(){
+var level_name = climbr.utils.utils.get_current_level_name.call(null);
+if(cljs.core._EQ_.call(null,level_name,"random")){
+return climbr.figures.level_generator.last_seed;
 } else {
-return cljs.core.println.call(null,"level not found");
+return level_name;
 }
 });
 
-//# sourceMappingURL=levels.js.map?rel=1487058559612
+//# sourceMappingURL=levels.js.map?rel=1487435302430

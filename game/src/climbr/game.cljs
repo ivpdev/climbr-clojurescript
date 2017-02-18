@@ -7,7 +7,8 @@
     [climbr.matter.matter :as m]
     [climbr.app_state :as a]
     [climbr.behaviour.user_actions :as user-actions]
-    [climbr.behaviour.climber_moves :as climber-moves]))
+    [climbr.behaviour.climber_moves :as climber-moves]
+    [climbr.utils.utils :as u]))
 
 (defn- setup-engine!
   "create matter.js engine"
@@ -35,20 +36,17 @@
   "load level based on URL param and put it into the world"
   [engine]
 
-  (let [level (levels/get-current-level)
-        level-composite (:composite level)
-        world (.-world engine)]
+  (let [level-name (u/get-current-level-name)]
+      (if-let[level (levels/get-level level-name)]
+         (let [level-composite (:composite level)
+               world (.-world engine)
+               level-code (levels/get-current-level-code)]
+              (do
+                (u/show-level-code level-code)
+                (swap! a/app-state assoc :current-level level)
+                (.add m/world world (clj->js [level-composite]))))
 
-    (do
-      (swap! a/app-state assoc :current-level level)
-      (.add m/world world (clj->js [level-composite]))))
-
-  (let[level (levels/get-current-level)
-       level-composite (:composite level)
-       world (.-world engine)]
-
-    (swap! a/app-state assoc :current-level level)
-    (.add m/world world (clj->js [level-composite]))))
+         (js/alert (str "Could not load level '" level-name "'")))))
 
 (defn- setup-climber!
   "setup climber and put him into the world"
@@ -61,7 +59,6 @@
     (user-actions/setup-climber-hook-events! engine)
     (user-actions/setup-climber-release-events! engine)
     (user-actions/setup-climber-moves!)))
-
 
 (defn- run-engine![engine]
   (let [runner (.run m/engine engine)]
@@ -95,8 +92,6 @@
 (defn start![]
   (let [engine (setup-engine!)
         render (setup-render! engine)]
-
-      (level-generator/generate-boulder-candidate 81)
 
       (setup-world-base! engine)
       (setup-level! engine)

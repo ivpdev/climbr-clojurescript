@@ -19,8 +19,8 @@ return cljs.core._conj.call(null,cljs.core.List.EMPTY,x__19593__auto__);
 climbr.behaviour.climber_moves.def_.cljs$lang$macro = true;
 climbr.behaviour.climber_moves.update_hand_can_hook_BANG_ = (function climbr$behaviour$climber_moves$update_hand_can_hook_BANG_(can_hook_QMARK_,hand,boulder){
 var hand_name = climbr.matter.matter.read_data.call(null,"name",hand);
-var hand_key = (function (){var G__23418 = hand_name;
-switch (G__23418) {
+var hand_key = (function (){var G__38467 = hand_name;
+switch (G__38467) {
 case "h1":
 return new cljs.core.Keyword(null,"h1","h1",-1896887462);
 
@@ -47,8 +47,8 @@ var hand2 = new cljs.core.Keyword(null,"h2","h2",-372662728).cljs$core$IFn$_invo
 var level = climbr.figures.levels.get_current_level.call(null);
 var boulders = new cljs.core.Keyword(null,"parts","parts",849007691).cljs$core$IFn$_invoke$arity$1(level);
 var hookable_boulders = cljs.core.filter.call(null,((function (climber,hand1,hand2,level,boulders){
-return (function (p1__23420_SHARP_){
-return climbr.matter.matter.hookable_QMARK_.call(null,p1__23420_SHARP_);
+return (function (p1__38469_SHARP_){
+return climbr.matter.matter.hookable_QMARK_.call(null,p1__38469_SHARP_);
 });})(climber,hand1,hand2,level,boulders))
 ,boulders);
 return climbr.behaviour.position_watches.watch_approaching_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 5, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,hand2], null),new cljs.core.Keyword(null,"approaching","approaching",-564158407),hookable_boulders,new cljs.core.Keyword(null,"with","with",-1536296876),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"distance","distance",-1671893894),(20)], null),new cljs.core.Keyword(null,"when-near","when-near",-35119232),cljs.core.partial.call(null,climbr.behaviour.climber_moves.update_hand_can_hook_BANG_,true),new cljs.core.Keyword(null,"when-far","when-far",2057815104),cljs.core.partial.call(null,climbr.behaviour.climber_moves.update_hand_can_hook_BANG_,false)], null));
@@ -68,4 +68,4 @@ return (y < (0));
 return climbr.behaviour.position_watches.watch_position_BANG_.call(null,new cljs.core.PersistentArrayMap(null, 3, [new cljs.core.Keyword(null,"watch","watch",380988277),new cljs.core.PersistentVector(null, 3, 5, cljs.core.PersistentVector.EMPTY_NODE, [hand1,new cljs.core.Keyword(null,"or","or",235744169),hand2], null),new cljs.core.Keyword(null,"is","is",369128998),over_top_QMARK_,new cljs.core.Keyword(null,"when-true","when-true",-657079170),on_reach], null));
 });
 
-//# sourceMappingURL=climber_moves.js.map?rel=1487058559885
+//# sourceMappingURL=climber_moves.js.map?rel=1487435302484

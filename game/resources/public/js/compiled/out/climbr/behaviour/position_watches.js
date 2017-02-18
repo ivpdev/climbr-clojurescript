@@ -78,8 +78,8 @@ climbr.behaviour.position_watches.create_nearing_watch_BANG_ = (function climbr$
 var data = new cljs.core.Keyword(null,"data","data",-232669377).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var distance_sig = new cljs.core.Keyword(null,"signal","signal",-1984951589).cljs$core$IFn$_invoke$arity$1(distance_watch);
 var near_sig = reagi.core.map.call(null,((function (data,distance_sig){
-return (function (p1__23414_SHARP_){
-return (p1__23414_SHARP_ < threshold);
+return (function (p1__37941_SHARP_){
+return (p1__37941_SHARP_ < threshold);
 });})(data,distance_sig))
 ,distance_sig);
 var near_change_sig = reagi.core.uniq.call(null,near_sig);
@@ -134,4 +134,4 @@ return null;
 ,bodies_position_predicate_watches));
 });
 
-//# sourceMappingURL=position_watches.js.map?rel=1487058559858
+//# sourceMappingURL=position_watches.js.map?rel=1487434215282

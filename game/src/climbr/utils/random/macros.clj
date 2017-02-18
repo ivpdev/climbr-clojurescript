@@ -4,6 +4,8 @@
    "provides context for calling random value generation functions based on seeded PRNG"
    [seed body]
 
+;TODO set global variable
+;TODO after the body was executed - cleanup
   `(let [~'rng (js/MersenneTwister. ~seed)]
       ~body))
 
@@ -11,7 +13,7 @@
   "generate random int. options:
     - range: desired range for generated number (e.g.[10 20])
     - exclude: range (or ranges) of number which should never appear as generated-value (e.g. [5 30], or [[5 30] [35 45]])"
-  [opts]
+  [opts rng]
   `(let [random-int# (fn [rng# n#]
                          (let [random-raw# (.random rng#)]
                                         (* random-raw# n#)))
@@ -20,7 +22,7 @@
                                     (let [min# (if range# (nth range# 0) 0)
                                           max# (if range# (nth range# 1) 1)]
 
-                                         (- (random-int# rng# (+ min# max#)) min#)))
+                                         (+ (random-int# rng# (- max# min#)) min#)))
 
          random-value-with-exclude# (fn [next-random-val-fn# should-be-rejected?#]
                                       (let [random-value# (next-random-val-fn#)
@@ -32,7 +34,7 @@
                                                (println "rejected: " random-value#)
                                                (recur next-random-val-fn# should-be-rejected?#)))))
 
-         random-int-with# (fn [opts#]
+         random-int-with# (fn [rng# opts#]
                                    (let [range# (:range opts#)
                                          exclude# (:exclude opts#)
 
@@ -50,18 +52,18 @@
                                                  (every? vector? exclude#) (every? #(partial in-range?# val#) exclude#) ;exlude is multiple intervals (e.g. [[10 20] [5 10]])
                                                  :else false))
 
-                                         next-random-int-fn# (partial random-int-from-range#  ~'rng range#)]
+                                         next-random-int-fn# (partial random-int-from-range# rng# range#)]
 
                                         (random-value-with-exclude# next-random-int-fn# should-be-rejected?#)))
 
-         value# (random-int-with# ~opts)]
+         value# (random-int-with# ~rng ~opts)]
 
         (do
           (println "value" value#)
           value# )))
 
-(defmacro random-boolean[]
-   `(let [random-int# (.random ~'rng)
+(defmacro random-boolean[rng]
+   `(let [random-int# (.random ~rng)
           random-boolean# (> random-int# 0.5)]
          (do
            (println "random-boolean: " random-boolean#))))

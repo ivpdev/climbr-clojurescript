@@ -14,21 +14,32 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc="
+            crossorigin="anonymous"></script>
+    <script src="js/menu/menu.js"></script>
 </head>
 <body>
 <menu class="menu">
     <h1 class="title">Climbr</h1>
     <p class="subtitle lead">Try to reach the top as fast as possible</p>
-    <div class="levels">
-        <a type="button" class="level-link" id="level0" href="game.html?l=l0">Level 0</a><br>
-        <a type="button" class="level-link" id="level1" href="game.html?l=l1">Level 1</a>
+    <div class="menu-items">
+        <div class="menu-item">
+            <a type="button" class="level-link" id="random-level" href="game.html?l=random">Play random level</a><br>
+        </div>
+        <div class="menu-item">
+            <input class="level-code-input" placeholder=" Level Code"/>
+            <a type="button" class="level-link" id="level-from-code" href="#"><span class="level-from-code-arrow">-></span> open level</a><br>
+        </div>
+
+        <!-- a type="button" class="level-link" id="level1" href="game.html?l=l1">Level 1</a -->
     </div>
     <br>
     <p class="lead controls"><b>Controls</b><br>
         <b>arrows</b> - lunging to directions<br>
-        <b>a</b> - grab hold with left hand<br>
-        <b>d</b> - grab hold with right hand<br>
-        <b>s</b> - grab hold with any hand<br>
+        <b>a</b> - hook hold with left hand<br>
+        <b>d</b> - hook hold with right hand<br>
+        <b>s</b> - hook hold with any hand<br>
         <b>q</b> - release left hand<br>
         <b>e</b> - release right hand<br>
         <b>w</b> - release both hands<br>

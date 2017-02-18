@@ -1,6 +1,7 @@
 (ns ^:figwheel-always climbr.utils.utils
   "Utilities"
-  (:require [cemerick.url :as url]))
+  (:require [cemerick.url :as url]
+            [climbr.utils.dom :as dom]))
 
 (defmacro def- [item value]
   `(def ^{:private true} ~item ~value))
@@ -36,6 +37,12 @@
   (let [loading-el (.getElementById js/document "loading")]
     (set! (.-hidden loading-el) true)))
 
+(defn show-level-code[code]
+   (do
+     (dom/remove-class "hidden" "#level-code-container")
+     (dom/set-inner-html code "#level-code")))
+
+
 (defn cartesian-prod
   "computes cartesian product of two collections returning collection of all possible combinations"
   [col1 col2]
@@ -45,13 +52,28 @@
 
 (defn get-canvas-width[]
       ;TODO
-  600
-  )
+  800)
 
 (defn get-canvas-height[]
       ;TODO
-  400
-  )
+  600)
+
+(defn numeric? [obj]
+      (not (js/isNaN obj)))
+
+(defn- in-interval?
+       "Returns a predicate that tests if its argument falls in
+       the inclusive interval [a, b]."
+       [a b]
+       (fn [x] (and (>= x a) (<= x b))))
+
+(defn- intersects?[A-min A-max B-min B-max offset]
+       (let [target-min (- A-min offset)
+             target-max (+ A-max offset)
+             in-target-interval? (in-interval? target-min target-max)]
+
+            (or (in-target-interval? B-min)
+                (in-target-interval? B-max))))
 
 ;TODO create script which parses source code end extracts all TODOs
 

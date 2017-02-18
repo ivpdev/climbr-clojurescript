@@ -1,3 +1,15 @@
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+    outline: none;
+}
+
+a:focus {
+    text-decoration: none !important;
+    outline: none !important;
+}
+
 .menu {
     margin: auto;
     width: 50%;
@@ -21,27 +33,57 @@
 }
 
 body {
-    /*background-image: url(https://wallpaperscraft.com/image/climber_extreme_silhouette_climbing_rock_difficulties_sunset_79975_1280x1024.jpg);
-    */
-    /* background-image: url(http://cdn.earthporm.com/wp-content/uploads/2015/05/imgur-rock-climbing-larger-size.png)*/;
     background-image: url(../images/background.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .subtitle {
     color: black;
-    position: fixed;
+    position: absolute;
     top: 136px;
 }
 
-.levels {
+.menu-items {
     margin-top: 10px;
 }
 
-.level-link {
+.level-link,
+.level-link:focus
+ {
     color: #ffff27;
-    font-size: 51px;
+    font-size: 40px;
     font-family: fantasy;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.menu-item {
+    padding-left: 10px;
+    /* text-align: center; */
+}
+
+.menu-item:hover {
+    /* background-color: blue; */
+}
+
+.level-code-input {
+    width: 95px;
+    position: relative;
+    top: -5px;
+
+    -moz-border-radius:10px; /* Firefox */
+    -webkit-border-radius: 10px; /* Safari, Chrome */
+    -khtml-border-radius: 10px; /* KHTML */
+    border-radius: 10px;
+
+    padding-left: 7px;
+}
+
+.level-from-code-arrow {
+    font-size: 23px;
+    padding-bottom: 6px;
+    position: relative;
+    top: -3px;
 }
 
 .level-link:hover {

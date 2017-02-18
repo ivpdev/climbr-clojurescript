@@ -2,323 +2,149 @@
 goog.provide('climbr.figures.level_generator');
 goog.require('cljs.core');
 goog.require('climbr.utils.utils');
-climbr.figures.level_generator.generate_boulder_candidate = (function climbr$figures$level_generator$generate_boulder_candidate(seed){
+goog.require('climbr.utils.random.random');
+goog.require('climbr.figures.figures');
+goog.require('climbr.matter.matter');
+climbr.figures.level_generator.max_seed = (1000000);
+climbr.figures.level_generator.max_seed_size = cljs.core.count.call(null,[cljs.core.str(climbr.figures.level_generator.max_seed)].join(''));
+climbr.figures.level_generator.last_seed = null;
+climbr.figures.level_generator.level_seed_QMARK_ = (function climbr$figures$level_generator$level_seed_QMARK_(level_name){
+var and__18744__auto__ = climbr.utils.utils.numeric_QMARK_.call(null,level_name);
+if(cljs.core.truth_(and__18744__auto__)){
+return (cljs.core.count.call(null,level_name) < climbr.figures.level_generator.max_seed_size);
+} else {
+return and__18744__auto__;
+}
+});
+climbr.figures.level_generator.generate_boulder_candidate = (function climbr$figures$level_generator$generate_boulder_candidate(rng){
+var x = climbr.utils.random.random.random_int_with.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),climbr.utils.utils.get_canvas_width.call(null)], null)], null),rng);
+var y = climbr.utils.random.random.random_int_with.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),climbr.utils.utils.get_canvas_height.call(null)], null)], null),rng);
+var width = climbr.utils.random.random.random_int_with.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(10),(50)], null)], null),rng);
+var height = climbr.utils.random.random.random_int_with.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(10),(50)], null)], null),rng);
+var standable = climbr.utils.random.random.random_boolean.call(null,rng);
+var holdable = climbr.utils.random.random.random_boolean.call(null,rng);
+return new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"x","x",2099068185),x,new cljs.core.Keyword(null,"y","y",-1757859776),y,new cljs.core.Keyword(null,"width","width",-384071477),width,new cljs.core.Keyword(null,"height","height",1025178622),height,new cljs.core.Keyword(null,"standable","standable",492063634),standable,new cljs.core.Keyword(null,"holdable","holdable",1363007938),holdable], null);
+});
+climbr.figures.level_generator.fits_QMARK_ = (function climbr$figures$level_generator$fits_QMARK_(boulder_candidate,level){
+var offset_x = (20);
+var offset_y = (10);
+var candidate_x = new cljs.core.Keyword(null,"x","x",2099068185).cljs$core$IFn$_invoke$arity$1(boulder_candidate);
+var candidate_x_min = candidate_x;
+var candidate_x_max = (candidate_x_min + new cljs.core.Keyword(null,"width","width",-384071477).cljs$core$IFn$_invoke$arity$1(boulder_candidate));
+var candidate_y = new cljs.core.Keyword(null,"y","y",-1757859776).cljs$core$IFn$_invoke$arity$1(boulder_candidate);
+var candidate_y_min = candidate_y;
+var candidate_y_max = (candidate_y_min + new cljs.core.Keyword(null,"height","height",1025178622).cljs$core$IFn$_invoke$arity$1(boulder_candidate));
+var intersects = cljs.core.some.call(null,((function (offset_x,offset_y,candidate_x,candidate_x_min,candidate_x_max,candidate_y,candidate_y_min,candidate_y_max){
+return (function (boulder){
+var boulder_x = new cljs.core.Keyword(null,"x","x",2099068185).cljs$core$IFn$_invoke$arity$1(boulder);
+var boulder_x_min = boulder_x;
+var boulder_x_max = (boulder_x_min + new cljs.core.Keyword(null,"width","width",-384071477).cljs$core$IFn$_invoke$arity$1(boulder));
+var boulder_y = new cljs.core.Keyword(null,"y","y",-1757859776).cljs$core$IFn$_invoke$arity$1(boulder);
+var boulder_y_min = boulder_y;
+var boulder_y_max = (boulder_y_min + new cljs.core.Keyword(null,"height","height",1025178622).cljs$core$IFn$_invoke$arity$1(boulder));
+var interects_horizontally = climbr.utils.utils.intersects_QMARK_.call(null,boulder_x_min,boulder_x_max,candidate_x_min,candidate_x_max,offset_x);
+var interects_vertically = climbr.utils.utils.intersects_QMARK_.call(null,boulder_y_min,boulder_y_max,candidate_y_min,candidate_y_max,offset_y);
+var or__18756__auto__ = interects_horizontally;
+if(cljs.core.truth_(or__18756__auto__)){
+return or__18756__auto__;
+} else {
+return interects_vertically;
+}
+});})(offset_x,offset_y,candidate_x,candidate_x_min,candidate_x_max,candidate_y,candidate_y_min,candidate_y_max))
+,level);
+return cljs.core.not.call(null,intersects);
+});
+climbr.figures.level_generator.generate_level_definition = (function climbr$figures$level_generator$generate_level_definition(seed){
+var level = cljs.core.PersistentVector.EMPTY;
+var max_fails_allowed = (5);
+var max_boulders_allowed = (20);
+var insertion_fails = (0);
 var rng = (new MersenneTwister(seed));
-var x = (function (){var random_int__23275__auto__ = ((function (rng){
-return (function (rng__23276__auto__,n__23277__auto__){
-var random_raw__23278__auto__ = rng__23276__auto__.random();
-return (random_raw__23278__auto__ * n__23277__auto__);
-});})(rng))
-;
-var random_int_from_range__23279__auto__ = ((function (random_int__23275__auto__,rng){
-return (function (rng__23276__auto__,range__23280__auto__){
-var min__23281__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(0)):(0));
-var max__23282__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(1)):(1));
-return (random_int__23275__auto__.call(null,rng__23276__auto__,(min__23281__auto__ + max__23282__auto__)) - min__23281__auto__);
-});})(random_int__23275__auto__,rng))
-;
-var random_value_with_exclude__23283__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,rng){
-return (function (next_random_val_fn__23284__auto__,should_be_rejected_QMARK___23285__auto__){
+var level__$1 = cljs.core.PersistentVector.EMPTY;
+var insertion_fails__$1 = (0);
+var boulders_inserted = (0);
 while(true){
-var random_value__23286__auto__ = next_random_val_fn__23284__auto__.call(null);
-var excluded_QMARK___23287__auto__ = should_be_rejected_QMARK___23285__auto__.call(null,random_value__23286__auto__);
-if(cljs.core.not.call(null,excluded_QMARK___23287__auto__)){
-return random_value__23286__auto__;
+if(((insertion_fails__$1 >= max_fails_allowed)) || ((boulders_inserted >= max_boulders_allowed))){
+return level__$1;
 } else {
-cljs.core.println.call(null,"rejected: ",random_value__23286__auto__);
-
-var G__23400 = next_random_val_fn__23284__auto__;
-var G__23401 = should_be_rejected_QMARK___23285__auto__;
-next_random_val_fn__23284__auto__ = G__23400;
-should_be_rejected_QMARK___23285__auto__ = G__23401;
+var boulder_candidate = climbr.figures.level_generator.generate_boulder_candidate.call(null,rng);
+var fits_into_level = climbr.figures.level_generator.fits_QMARK_.call(null,boulder_candidate,level__$1);
+if(cljs.core.truth_(fits_into_level)){
+var G__38448 = cljs.core.conj.call(null,level__$1,boulder_candidate);
+var G__38449 = (0);
+var G__38450 = (boulders_inserted + (1));
+level__$1 = G__38448;
+insertion_fails__$1 = G__38449;
+boulders_inserted = G__38450;
 continue;
+} else {
+var G__38451 = level__$1;
+var G__38452 = (insertion_fails__$1 + (1));
+var G__38453 = (boulders_inserted + (1));
+level__$1 = G__38451;
+insertion_fails__$1 = G__38452;
+boulders_inserted = G__38453;
+continue;
+}
 }
 break;
 }
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,rng))
-;
-var random_int_with__23288__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng){
-return (function (opts__23289__auto__){
-var range__23280__auto__ = new cljs.core.Keyword(null,"range","range",1639692286).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var exclude__23290__auto__ = new cljs.core.Keyword(null,"exclude","exclude",-1230250334).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var in_range_QMARK___23291__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng){
-return (function (val__23292__auto__,range__23280__auto____$1){
-var min__23281__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(0));
-var max__23282__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(1));
-return ((val__23292__auto__ >= min__23281__auto__)) && ((val__23292__auto__ <= max__23282__auto__));
-});})(range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng))
-;
-var should_be_rejected_QMARK___23285__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng){
-return (function (val__23292__auto__){
-if(!(cljs.core.vector_QMARK_.call(null,exclude__23290__auto__))){
-return false;
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.number_QMARK_,exclude__23290__auto__)){
-return in_range_QMARK___23291__auto__.call(null,val__23292__auto__,exclude__23290__auto__);
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.vector_QMARK_,exclude__23290__auto__)){
-return cljs.core.every_QMARK_.call(null,((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng){
-return (function (){
-return cljs.core.partial.call(null,in_range_QMARK___23291__auto__,val__23292__auto__);
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng))
-,exclude__23290__auto__);
-} else {
-return false;
-
-}
-}
-}
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng))
-;
-var next_random_int_fn__23293__auto__ = cljs.core.partial.call(null,random_int_from_range__23279__auto__,rng,range__23280__auto__);
-return random_value_with_exclude__23283__auto__.call(null,next_random_int_fn__23293__auto__,should_be_rejected_QMARK___23285__auto__);
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,rng))
-;
-var value__23294__auto__ = random_int_with__23288__auto__.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(500)], null),new cljs.core.Keyword(null,"exclude","exclude",-1230250334),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(150),(400)], null)], null));
-cljs.core.println.call(null,"value",value__23294__auto__);
-
-return value__23294__auto__;
-})();
-var y = (function (){var random_int__23275__auto__ = ((function (x,rng){
-return (function (rng__23276__auto__,n__23277__auto__){
-var random_raw__23278__auto__ = rng__23276__auto__.random();
-return (random_raw__23278__auto__ * n__23277__auto__);
-});})(x,rng))
-;
-var random_int_from_range__23279__auto__ = ((function (random_int__23275__auto__,x,rng){
-return (function (rng__23276__auto__,range__23280__auto__){
-var min__23281__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(0)):(0));
-var max__23282__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(1)):(1));
-return (random_int__23275__auto__.call(null,rng__23276__auto__,(min__23281__auto__ + max__23282__auto__)) - min__23281__auto__);
-});})(random_int__23275__auto__,x,rng))
-;
-var random_value_with_exclude__23283__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,x,rng){
-return (function (next_random_val_fn__23284__auto__,should_be_rejected_QMARK___23285__auto__){
-while(true){
-var random_value__23286__auto__ = next_random_val_fn__23284__auto__.call(null);
-var excluded_QMARK___23287__auto__ = should_be_rejected_QMARK___23285__auto__.call(null,random_value__23286__auto__);
-if(cljs.core.not.call(null,excluded_QMARK___23287__auto__)){
-return random_value__23286__auto__;
-} else {
-cljs.core.println.call(null,"rejected: ",random_value__23286__auto__);
-
-var G__23402 = next_random_val_fn__23284__auto__;
-var G__23403 = should_be_rejected_QMARK___23285__auto__;
-next_random_val_fn__23284__auto__ = G__23402;
-should_be_rejected_QMARK___23285__auto__ = G__23403;
-continue;
-}
-break;
-}
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,x,rng))
-;
-var random_int_with__23288__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng){
-return (function (opts__23289__auto__){
-var range__23280__auto__ = new cljs.core.Keyword(null,"range","range",1639692286).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var exclude__23290__auto__ = new cljs.core.Keyword(null,"exclude","exclude",-1230250334).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var in_range_QMARK___23291__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng){
-return (function (val__23292__auto__,range__23280__auto____$1){
-var min__23281__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(0));
-var max__23282__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(1));
-return ((val__23292__auto__ >= min__23281__auto__)) && ((val__23292__auto__ <= max__23282__auto__));
-});})(range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng))
-;
-var should_be_rejected_QMARK___23285__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng){
-return (function (val__23292__auto__){
-if(!(cljs.core.vector_QMARK_.call(null,exclude__23290__auto__))){
-return false;
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.number_QMARK_,exclude__23290__auto__)){
-return in_range_QMARK___23291__auto__.call(null,val__23292__auto__,exclude__23290__auto__);
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.vector_QMARK_,exclude__23290__auto__)){
-return cljs.core.every_QMARK_.call(null,((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng){
-return (function (){
-return cljs.core.partial.call(null,in_range_QMARK___23291__auto__,val__23292__auto__);
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng))
-,exclude__23290__auto__);
-} else {
-return false;
-
-}
-}
-}
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng))
-;
-var next_random_int_fn__23293__auto__ = cljs.core.partial.call(null,random_int_from_range__23279__auto__,rng,range__23280__auto__);
-return random_value_with_exclude__23283__auto__.call(null,next_random_int_fn__23293__auto__,should_be_rejected_QMARK___23285__auto__);
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,rng))
-;
-var value__23294__auto__ = random_int_with__23288__auto__.call(null,new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(0),(300)], null),new cljs.core.Keyword(null,"exclude","exclude",-1230250334),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(150),(400)], null)], null));
-cljs.core.println.call(null,"value",value__23294__auto__);
-
-return value__23294__auto__;
-})();
-var width = (function (){var random_int__23275__auto__ = ((function (x,y,rng){
-return (function (rng__23276__auto__,n__23277__auto__){
-var random_raw__23278__auto__ = rng__23276__auto__.random();
-return (random_raw__23278__auto__ * n__23277__auto__);
-});})(x,y,rng))
-;
-var random_int_from_range__23279__auto__ = ((function (random_int__23275__auto__,x,y,rng){
-return (function (rng__23276__auto__,range__23280__auto__){
-var min__23281__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(0)):(0));
-var max__23282__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(1)):(1));
-return (random_int__23275__auto__.call(null,rng__23276__auto__,(min__23281__auto__ + max__23282__auto__)) - min__23281__auto__);
-});})(random_int__23275__auto__,x,y,rng))
-;
-var random_value_with_exclude__23283__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,x,y,rng){
-return (function (next_random_val_fn__23284__auto__,should_be_rejected_QMARK___23285__auto__){
-while(true){
-var random_value__23286__auto__ = next_random_val_fn__23284__auto__.call(null);
-var excluded_QMARK___23287__auto__ = should_be_rejected_QMARK___23285__auto__.call(null,random_value__23286__auto__);
-if(cljs.core.not.call(null,excluded_QMARK___23287__auto__)){
-return random_value__23286__auto__;
-} else {
-cljs.core.println.call(null,"rejected: ",random_value__23286__auto__);
-
-var G__23404 = next_random_val_fn__23284__auto__;
-var G__23405 = should_be_rejected_QMARK___23285__auto__;
-next_random_val_fn__23284__auto__ = G__23404;
-should_be_rejected_QMARK___23285__auto__ = G__23405;
-continue;
-}
-break;
-}
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,x,y,rng))
-;
-var random_int_with__23288__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng){
-return (function (opts__23289__auto__){
-var range__23280__auto__ = new cljs.core.Keyword(null,"range","range",1639692286).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var exclude__23290__auto__ = new cljs.core.Keyword(null,"exclude","exclude",-1230250334).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var in_range_QMARK___23291__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng){
-return (function (val__23292__auto__,range__23280__auto____$1){
-var min__23281__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(0));
-var max__23282__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(1));
-return ((val__23292__auto__ >= min__23281__auto__)) && ((val__23292__auto__ <= max__23282__auto__));
-});})(range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng))
-;
-var should_be_rejected_QMARK___23285__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng){
-return (function (val__23292__auto__){
-if(!(cljs.core.vector_QMARK_.call(null,exclude__23290__auto__))){
-return false;
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.number_QMARK_,exclude__23290__auto__)){
-return in_range_QMARK___23291__auto__.call(null,val__23292__auto__,exclude__23290__auto__);
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.vector_QMARK_,exclude__23290__auto__)){
-return cljs.core.every_QMARK_.call(null,((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng){
-return (function (){
-return cljs.core.partial.call(null,in_range_QMARK___23291__auto__,val__23292__auto__);
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng))
-,exclude__23290__auto__);
-} else {
-return false;
-
-}
-}
-}
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng))
-;
-var next_random_int_fn__23293__auto__ = cljs.core.partial.call(null,random_int_from_range__23279__auto__,rng,range__23280__auto__);
-return random_value_with_exclude__23283__auto__.call(null,next_random_int_fn__23293__auto__,should_be_rejected_QMARK___23285__auto__);
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,rng))
-;
-var value__23294__auto__ = random_int_with__23288__auto__.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(10),(50)], null)], null));
-cljs.core.println.call(null,"value",value__23294__auto__);
-
-return value__23294__auto__;
-})();
-var height = (function (){var random_int__23275__auto__ = ((function (x,y,width,rng){
-return (function (rng__23276__auto__,n__23277__auto__){
-var random_raw__23278__auto__ = rng__23276__auto__.random();
-return (random_raw__23278__auto__ * n__23277__auto__);
-});})(x,y,width,rng))
-;
-var random_int_from_range__23279__auto__ = ((function (random_int__23275__auto__,x,y,width,rng){
-return (function (rng__23276__auto__,range__23280__auto__){
-var min__23281__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(0)):(0));
-var max__23282__auto__ = (cljs.core.truth_(range__23280__auto__)?cljs.core.nth.call(null,range__23280__auto__,(1)):(1));
-return (random_int__23275__auto__.call(null,rng__23276__auto__,(min__23281__auto__ + max__23282__auto__)) - min__23281__auto__);
-});})(random_int__23275__auto__,x,y,width,rng))
-;
-var random_value_with_exclude__23283__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,x,y,width,rng){
-return (function (next_random_val_fn__23284__auto__,should_be_rejected_QMARK___23285__auto__){
-while(true){
-var random_value__23286__auto__ = next_random_val_fn__23284__auto__.call(null);
-var excluded_QMARK___23287__auto__ = should_be_rejected_QMARK___23285__auto__.call(null,random_value__23286__auto__);
-if(cljs.core.not.call(null,excluded_QMARK___23287__auto__)){
-return random_value__23286__auto__;
-} else {
-cljs.core.println.call(null,"rejected: ",random_value__23286__auto__);
-
-var G__23406 = next_random_val_fn__23284__auto__;
-var G__23407 = should_be_rejected_QMARK___23285__auto__;
-next_random_val_fn__23284__auto__ = G__23406;
-should_be_rejected_QMARK___23285__auto__ = G__23407;
-continue;
-}
-break;
-}
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,x,y,width,rng))
-;
-var random_int_with__23288__auto__ = ((function (random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng){
-return (function (opts__23289__auto__){
-var range__23280__auto__ = new cljs.core.Keyword(null,"range","range",1639692286).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var exclude__23290__auto__ = new cljs.core.Keyword(null,"exclude","exclude",-1230250334).cljs$core$IFn$_invoke$arity$1(opts__23289__auto__);
-var in_range_QMARK___23291__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng){
-return (function (val__23292__auto__,range__23280__auto____$1){
-var min__23281__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(0));
-var max__23282__auto__ = cljs.core.nth.call(null,range__23280__auto____$1,(1));
-return ((val__23292__auto__ >= min__23281__auto__)) && ((val__23292__auto__ <= max__23282__auto__));
-});})(range__23280__auto__,exclude__23290__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng))
-;
-var should_be_rejected_QMARK___23285__auto__ = ((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng){
-return (function (val__23292__auto__){
-if(!(cljs.core.vector_QMARK_.call(null,exclude__23290__auto__))){
-return false;
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.number_QMARK_,exclude__23290__auto__)){
-return in_range_QMARK___23291__auto__.call(null,val__23292__auto__,exclude__23290__auto__);
-} else {
-if(cljs.core.every_QMARK_.call(null,cljs.core.vector_QMARK_,exclude__23290__auto__)){
-return cljs.core.every_QMARK_.call(null,((function (range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng){
-return (function (){
-return cljs.core.partial.call(null,in_range_QMARK___23291__auto__,val__23292__auto__);
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng))
-,exclude__23290__auto__);
-} else {
-return false;
-
-}
-}
-}
-});})(range__23280__auto__,exclude__23290__auto__,in_range_QMARK___23291__auto__,random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng))
-;
-var next_random_int_fn__23293__auto__ = cljs.core.partial.call(null,random_int_from_range__23279__auto__,rng,range__23280__auto__);
-return random_value_with_exclude__23283__auto__.call(null,next_random_int_fn__23293__auto__,should_be_rejected_QMARK___23285__auto__);
-});})(random_int__23275__auto__,random_int_from_range__23279__auto__,random_value_with_exclude__23283__auto__,x,y,width,rng))
-;
-var value__23294__auto__ = random_int_with__23288__auto__.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(10),(50)], null)], null));
-cljs.core.println.call(null,"value",value__23294__auto__);
-
-return value__23294__auto__;
-})();
-var standable = (function (){var random_int__23300__auto__ = rng.random();
-var random_boolean__23301__auto__ = (random_int__23300__auto__ > 0.5);
-return cljs.core.println.call(null,"random-boolean: ",random_boolean__23301__auto__);
-})();
-var holdable = (function (){var random_int__23300__auto__ = rng.random();
-var random_boolean__23301__auto__ = (random_int__23300__auto__ > 0.5);
-return cljs.core.println.call(null,"random-boolean: ",random_boolean__23301__auto__);
-})();
-return cljs.core.println.call(null,new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"x","x",2099068185),x,new cljs.core.Keyword(null,"y","y",-1757859776),y,new cljs.core.Keyword(null,"width","width",-384071477),width,new cljs.core.Keyword(null,"height","height",1025178622),height,new cljs.core.Keyword(null,"standable","standable",492063634),standable,new cljs.core.Keyword(null,"holdable","holdable",1363007938),holdable], null));
 });
-climbr.figures.level_generator.fits_QMARK_ = (function climbr$figures$level_generator$fits_QMARK_(level,boulder_candidate){
-return null;
+climbr.figures.level_generator.generate_level_with_seed = (function climbr$figures$level_generator$generate_level_with_seed(seed){
+var boulder_defs = climbr.figures.level_generator.generate_level_definition.call(null,seed);
+var composite = climbr.matter.matter.composite.create();
+var boulders = cljs.core.map.call(null,climbr.figures.figures.create_boulder,boulder_defs);
+climbr.figures.level_generator.last_seed = seed;
+
+cljs.core.doall.call(null,cljs.core.map.call(null,((function (boulder_defs,composite,boulders){
+return (function (p1__38454_SHARP_){
+return climbr.matter.matter.composite.add(composite,p1__38454_SHARP_);
+});})(boulder_defs,composite,boulders))
+,boulders));
+
+return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"composite","composite",-257118970),composite,new cljs.core.Keyword(null,"parts","parts",849007691),boulders], null);
 });
-climbr.figures.level_generator.next_rand = (function climbr$figures$level_generator$next_rand(seed){
-return null;
+climbr.figures.level_generator.generate_level = (function climbr$figures$level_generator$generate_level(var_args){
+var args38455 = [];
+var len__19864__auto___38458 = arguments.length;
+var i__19865__auto___38459 = (0);
+while(true){
+if((i__19865__auto___38459 < len__19864__auto___38458)){
+args38455.push((arguments[i__19865__auto___38459]));
+
+var G__38460 = (i__19865__auto___38459 + (1));
+i__19865__auto___38459 = G__38460;
+continue;
+} else {
+}
+break;
+}
+
+var G__38457 = args38455.length;
+switch (G__38457) {
+case 0:
+return climbr.figures.level_generator.generate_level.cljs$core$IFn$_invoke$arity$0();
+
+break;
+case 1:
+return climbr.figures.level_generator.generate_level.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
+
+break;
+default:
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args38455.length)].join('')));
+
+}
 });
 
-//# sourceMappingURL=level_generator.js.map?rel=1487058559751
+climbr.figures.level_generator.generate_level.cljs$core$IFn$_invoke$arity$0 = (function (){
+return climbr.figures.level_generator.generate_level_with_seed.call(null,cljs.core.rand_int.call(null,climbr.figures.level_generator.max_seed));
+});
+
+climbr.figures.level_generator.generate_level.cljs$core$IFn$_invoke$arity$1 = (function (seed){
+return climbr.figures.level_generator.generate_level_with_seed.call(null,seed);
+});
+
+climbr.figures.level_generator.generate_level.cljs$lang$maxFixedArity = 1;
+
+
+//# sourceMappingURL=level_generator.js.map?rel=1487435302389
