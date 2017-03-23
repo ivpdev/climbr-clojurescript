@@ -1,3 +1,16 @@
+body {
+    text-align: center;
+    background-color: #dedede;
+}
+
 .hidden {
     display: none;
+}
+
+canvas {
+    border: solid 2px #a5a5a5;
+}
+
+.level-code-container {
+    color: white;
 }
