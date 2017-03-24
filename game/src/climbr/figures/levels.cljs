@@ -6,17 +6,17 @@
 
 (defn get-level[level-name]
       (cond
-          (generator/level-seed? level-name) (generator/generate-level (js/parseInt level-name))
+          (generator/level-seed? level-name) (generator/generate-level level-name)
           (= level-name "l0") l0/level
-          (= level-name "l1") l2/level
+          (= level-name "l1") l1/level
           (= level-name "random") (generator/generate-level)
           :else nil))
 
 (defn get-current-level
   "get level according to levelname in URL"
   []
-  (let [level-name (u/get-current-level-name)]
-       (get-level level-name)))
+  (let [level-code (get-current-level-code)]
+       (get-level level-code)))
 
 (defn get-current-level-code[]
       (let [level-name (u/get-current-level-name)]

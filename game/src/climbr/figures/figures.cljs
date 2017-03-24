@@ -19,8 +19,8 @@
 
 (defn create-boulder [opts]
   (let [{:keys [x y width height]} opts
-        standable? (not-nil? (:standable opts))
-        hookable? (not-nil? (:hookable opts))
+        standable? (:standable opts)
+        hookable? (:hookable opts)
         color (get-boulder-color standable? hookable?)
 
         base-params {:isStatic true

@@ -8,14 +8,22 @@
             [climbr.matter.matter :as m]))
 
 (def max-seed 1000000)
-(def max-seed-size (count (str max-seed)))
+;(def max-seed-size (count (str max-seed)))
 
 (def last-seed nil)
 
 (defn level-seed? [level-name]
-      (and
-        (u/numeric? level-name)
-        (< (count level-name) max-seed-size)))
+      (if (u/numeric? level-name)
+        (let [level-code (js/parseInt level-name)]
+             (< level-code max-seed))
+
+        false)
+
+      ;(and
+      ;  (u/numeric? level-name)
+      ;  (< (count level-name) max-seed-size))
+
+      )
 
 (defn- generate-boulder-candidate[rng]
       (let [x (r/random-int-with {:range [0 (u/get-canvas-width)]} rng)
@@ -23,9 +31,9 @@
             width (r/random-int-with {:range [10 50]} rng)
             height (r/random-int-with {:range [10 50]} rng)
             standable (r/random-boolean rng)
-            holdable (r/random-boolean rng)]
+            hookable (r/random-boolean rng)]
 
-           {:x x :y y :width width :height height :standable standable :holdable holdable}))
+           {:x x :y y :width width :height height :standable standable :hookable hookable}))
 
 (defn- fits? [boulder-candidate level]
       (let [offset-x 20
@@ -80,8 +88,9 @@
                        (recur (conj level boulder-candidate) 0 (inc boulders-inserted))
                        (recur level (inc insertion-fails) (inc boulders-inserted))))))))
 
-(defn- generate-level-with-seed [seed]
-       (let [boulder-defs (generate-level-definition seed)
+(defn- generate-level-with-seed [seed-arg]
+       (let [seed (js/parseInt seed-arg)
+             boulder-defs (generate-level-definition seed)
              composite (.create m/composite)
              boulders (map figures/create-boulder boulder-defs)]
 

@@ -6,14 +6,13 @@ goog.require('climbr.utils.random.random');
 goog.require('climbr.figures.figures');
 goog.require('climbr.matter.matter');
 climbr.figures.level_generator.max_seed = (1000000);
-climbr.figures.level_generator.max_seed_size = cljs.core.count.call(null,[cljs.core.str(climbr.figures.level_generator.max_seed)].join(''));
 climbr.figures.level_generator.last_seed = null;
 climbr.figures.level_generator.level_seed_QMARK_ = (function climbr$figures$level_generator$level_seed_QMARK_(level_name){
-var and__18744__auto__ = climbr.utils.utils.numeric_QMARK_.call(null,level_name);
-if(cljs.core.truth_(and__18744__auto__)){
-return (cljs.core.count.call(null,level_name) < climbr.figures.level_generator.max_seed_size);
+if(cljs.core.truth_(climbr.utils.utils.numeric_QMARK_.call(null,level_name))){
+var level_code = parseInt(level_name);
+return (level_code < climbr.figures.level_generator.max_seed);
 } else {
-return and__18744__auto__;
+return false;
 }
 });
 climbr.figures.level_generator.generate_boulder_candidate = (function climbr$figures$level_generator$generate_boulder_candidate(rng){
@@ -22,8 +21,8 @@ var y = climbr.utils.random.random.random_int_with.call(null,new cljs.core.Persi
 var width = climbr.utils.random.random.random_int_with.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(10),(50)], null)], null),rng);
 var height = climbr.utils.random.random.random_int_with.call(null,new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"range","range",1639692286),new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [(10),(50)], null)], null),rng);
 var standable = climbr.utils.random.random.random_boolean.call(null,rng);
-var holdable = climbr.utils.random.random.random_boolean.call(null,rng);
-return new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"x","x",2099068185),x,new cljs.core.Keyword(null,"y","y",-1757859776),y,new cljs.core.Keyword(null,"width","width",-384071477),width,new cljs.core.Keyword(null,"height","height",1025178622),height,new cljs.core.Keyword(null,"standable","standable",492063634),standable,new cljs.core.Keyword(null,"holdable","holdable",1363007938),holdable], null);
+var hookable = climbr.utils.random.random.random_boolean.call(null,rng);
+return new cljs.core.PersistentArrayMap(null, 6, [new cljs.core.Keyword(null,"x","x",2099068185),x,new cljs.core.Keyword(null,"y","y",-1757859776),y,new cljs.core.Keyword(null,"width","width",-384071477),width,new cljs.core.Keyword(null,"height","height",1025178622),height,new cljs.core.Keyword(null,"standable","standable",492063634),standable,new cljs.core.Keyword(null,"hookable","hookable",2044539136),hookable], null);
 });
 climbr.figures.level_generator.fits_QMARK_ = (function climbr$figures$level_generator$fits_QMARK_(boulder_candidate,level){
 var offset_x = (20);
@@ -70,58 +69,59 @@ return level__$1;
 var boulder_candidate = climbr.figures.level_generator.generate_boulder_candidate.call(null,rng);
 var fits_into_level = climbr.figures.level_generator.fits_QMARK_.call(null,boulder_candidate,level__$1);
 if(cljs.core.truth_(fits_into_level)){
-var G__38448 = cljs.core.conj.call(null,level__$1,boulder_candidate);
-var G__38449 = (0);
-var G__38450 = (boulders_inserted + (1));
-level__$1 = G__38448;
-insertion_fails__$1 = G__38449;
-boulders_inserted = G__38450;
+var G__24987 = cljs.core.conj.call(null,level__$1,boulder_candidate);
+var G__24988 = (0);
+var G__24989 = (boulders_inserted + (1));
+level__$1 = G__24987;
+insertion_fails__$1 = G__24988;
+boulders_inserted = G__24989;
 continue;
 } else {
-var G__38451 = level__$1;
-var G__38452 = (insertion_fails__$1 + (1));
-var G__38453 = (boulders_inserted + (1));
-level__$1 = G__38451;
-insertion_fails__$1 = G__38452;
-boulders_inserted = G__38453;
+var G__24990 = level__$1;
+var G__24991 = (insertion_fails__$1 + (1));
+var G__24992 = (boulders_inserted + (1));
+level__$1 = G__24990;
+insertion_fails__$1 = G__24991;
+boulders_inserted = G__24992;
 continue;
 }
 }
 break;
 }
 });
-climbr.figures.level_generator.generate_level_with_seed = (function climbr$figures$level_generator$generate_level_with_seed(seed){
+climbr.figures.level_generator.generate_level_with_seed = (function climbr$figures$level_generator$generate_level_with_seed(seed_arg){
+var seed = parseInt(seed_arg);
 var boulder_defs = climbr.figures.level_generator.generate_level_definition.call(null,seed);
 var composite = climbr.matter.matter.composite.create();
 var boulders = cljs.core.map.call(null,climbr.figures.figures.create_boulder,boulder_defs);
 climbr.figures.level_generator.last_seed = seed;
 
-cljs.core.doall.call(null,cljs.core.map.call(null,((function (boulder_defs,composite,boulders){
-return (function (p1__38454_SHARP_){
-return climbr.matter.matter.composite.add(composite,p1__38454_SHARP_);
-});})(boulder_defs,composite,boulders))
+cljs.core.doall.call(null,cljs.core.map.call(null,((function (seed,boulder_defs,composite,boulders){
+return (function (p1__24993_SHARP_){
+return climbr.matter.matter.composite.add(composite,p1__24993_SHARP_);
+});})(seed,boulder_defs,composite,boulders))
 ,boulders));
 
 return new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"composite","composite",-257118970),composite,new cljs.core.Keyword(null,"parts","parts",849007691),boulders], null);
 });
 climbr.figures.level_generator.generate_level = (function climbr$figures$level_generator$generate_level(var_args){
-var args38455 = [];
-var len__19864__auto___38458 = arguments.length;
-var i__19865__auto___38459 = (0);
+var args24994 = [];
+var len__19864__auto___24997 = arguments.length;
+var i__19865__auto___24998 = (0);
 while(true){
-if((i__19865__auto___38459 < len__19864__auto___38458)){
-args38455.push((arguments[i__19865__auto___38459]));
+if((i__19865__auto___24998 < len__19864__auto___24997)){
+args24994.push((arguments[i__19865__auto___24998]));
 
-var G__38460 = (i__19865__auto___38459 + (1));
-i__19865__auto___38459 = G__38460;
+var G__24999 = (i__19865__auto___24998 + (1));
+i__19865__auto___24998 = G__24999;
 continue;
 } else {
 }
 break;
 }
 
-var G__38457 = args38455.length;
-switch (G__38457) {
+var G__24996 = args24994.length;
+switch (G__24996) {
 case 0:
 return climbr.figures.level_generator.generate_level.cljs$core$IFn$_invoke$arity$0();
 
@@ -131,7 +131,7 @@ return climbr.figures.level_generator.generate_level.cljs$core$IFn$_invoke$arity
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args38455.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args24994.length)].join('')));
 
 }
 });
@@ -147,4 +147,4 @@ return climbr.figures.level_generator.generate_level_with_seed.call(null,seed);
 climbr.figures.level_generator.generate_level.cljs$lang$maxFixedArity = 1;
 
 
-//# sourceMappingURL=level_generator.js.map?rel=1487435302389
+//# sourceMappingURL=level_generator.js.map?rel=1490352274014

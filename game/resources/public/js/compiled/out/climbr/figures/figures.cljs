@@ -19,8 +19,8 @@
 
 (defn create-boulder [opts]
   (let [{:keys [x y width height]} opts
-        standable? (not-nil? (:standable opts))
-        hookable? (not-nil? (:hookable opts))
+        standable? (:standable opts)
+        hookable? (:hookable opts)
         color (get-boulder-color standable? hookable?)
 
         base-params {:isStatic true
@@ -31,6 +31,8 @@
         boulder (.rectangle m/bodies x y width height (clj->js params))]
 
     (do
+      ;(println "st " standable?)
+      ;(println "hk " hookable?)
       (when standable?
         (m/data! "standable" true boulder))
       (when hookable?
