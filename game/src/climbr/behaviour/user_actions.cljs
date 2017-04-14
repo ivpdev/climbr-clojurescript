@@ -168,7 +168,7 @@
 
 (defn- connect-hand-and-boulder[hand boulder engine]
   (let [hand-name (m/read-data "name" hand)
-        constraint (.create m/constraint #js { :bodyA hand :bodyB boulder })
+        constraint (.create m/constraint (clj->js { :bodyA hand :bodyB boulder :render {:strokeStyle "#191716"} }))
         key-hooked (case hand-name "h1" :h1-hooked
                                    "h2" :h2-hooked
                                    nil)]

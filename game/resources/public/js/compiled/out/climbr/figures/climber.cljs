@@ -6,11 +6,27 @@
 
 ;TODO figures => bodies
 
+(def body-color "#191716")
+
 (def climber
   (let [climber (.create m/composite)
-        body (.circle m/bodies 400 400 10) ;TODO body=> torso, corpus
-        left-hand (.circle m/bodies 350 400 5  #js {:friction 0.8})
-        right-hand (.circle m/bodies 450 400 5  #js {:friction 0.8})
+        body (.circle m/bodies 400 400 10
+               (clj->js {:friction 0.8
+                         :render
+                         {:strokeStyle body-color
+                          :fillStyle body-color}})) ;TODO body=> torso, corpus
+
+        left-hand (.circle m/bodies 350 400 5
+                      (clj->js {:friction 0.8
+                                :render
+                                    {:strokeStyle body-color
+                                     :fillStyle body-color}}))
+
+        right-hand (.circle m/bodies 450 400 5
+                      (clj->js {:friction 0.8
+                                 :render
+                                    {:strokeStyle body-color
+                                     :fillStyle body-color}}))
 
         left-arm (.create m/constraint #js {:bodyA left-hand :bodyB body :stiffness 0.3 })
         right-arm (.create m/constraint #js {:bodyA right-hand :bodyB body :stiffness 0.3 })]

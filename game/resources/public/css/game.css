@@ -8,10 +8,10 @@ body {
 }
 
 canvas {
-    border: solid 2px #e2e2e2;
+    border: solid 2px #191716;
     border-radius: 10px;
 }
 
 .level-code-container, #loading {
-    color: #a5a5a5;
+    color: #191716;
 }
