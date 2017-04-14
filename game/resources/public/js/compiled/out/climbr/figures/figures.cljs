@@ -4,10 +4,10 @@
             [climbr.utils.utils :as u :refer [not-nil?]]))
 
 (defn- get-boulder-color[standable? hookable?]
-  (cond (and standable? hookable?) "#57846d"
-        standable? "#1abc68"
-        hookable? "#bcbcbc"
-        :else "#e2e2e2" ))
+  (cond (and standable? hookable?) "#7A6169"
+        standable? "#3D348B"
+        hookable? "#E6AF2E"
+        :else "#BEB7A4" ))
 
 (defn get-all-standables[]
   (m/find-world-bodies #(true? (m/read-data "standable" %))))
@@ -31,8 +31,6 @@
         boulder (.rectangle m/bodies x y width height (clj->js params))]
 
     (do
-      ;(println "st " standable?)
-      ;(println "hk " hookable?)
       (when standable?
         (m/data! "standable" true boulder))
       (when hookable?

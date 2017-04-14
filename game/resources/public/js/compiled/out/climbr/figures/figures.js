@@ -4,39 +4,39 @@ goog.require('cljs.core');
 goog.require('climbr.matter.matter');
 goog.require('climbr.utils.utils');
 climbr.figures.figures.get_boulder_color = (function climbr$figures$figures$get_boulder_color(standable_QMARK_,hookable_QMARK_){
-if(cljs.core.truth_((function (){var and__18744__auto__ = standable_QMARK_;
-if(cljs.core.truth_(and__18744__auto__)){
+if(cljs.core.truth_((function (){var and__18730__auto__ = standable_QMARK_;
+if(cljs.core.truth_(and__18730__auto__)){
 return hookable_QMARK_;
 } else {
-return and__18744__auto__;
+return and__18730__auto__;
 }
 })())){
-return "#57846d";
+return "#7A6169";
 } else {
 if(cljs.core.truth_(standable_QMARK_)){
-return "#1abc68";
+return "#3D348B";
 } else {
 if(cljs.core.truth_(hookable_QMARK_)){
-return "#bcbcbc";
+return "#E6AF2E";
 } else {
-return "#e2e2e2";
+return "#BEB7A4";
 
 }
 }
 }
 });
 climbr.figures.figures.get_all_standables = (function climbr$figures$figures$get_all_standables(){
-return climbr.matter.matter.find_world_bodies.call(null,(function (p1__23791_SHARP_){
-return climbr.matter.matter.read_data.call(null,"standable",p1__23791_SHARP_) === true;
+return climbr.matter.matter.find_world_bodies.call(null,(function (p1__45889_SHARP_){
+return climbr.matter.matter.read_data.call(null,"standable",p1__45889_SHARP_) === true;
 }));
 });
 climbr.figures.figures.create_boulder = (function climbr$figures$figures$create_boulder(opts){
-var map__23794 = opts;
-var map__23794__$1 = ((((!((map__23794 == null)))?((((map__23794.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__23794.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__23794):map__23794);
-var x = cljs.core.get.call(null,map__23794__$1,new cljs.core.Keyword(null,"x","x",2099068185));
-var y = cljs.core.get.call(null,map__23794__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
-var width = cljs.core.get.call(null,map__23794__$1,new cljs.core.Keyword(null,"width","width",-384071477));
-var height = cljs.core.get.call(null,map__23794__$1,new cljs.core.Keyword(null,"height","height",1025178622));
+var map__45892 = opts;
+var map__45892__$1 = ((((!((map__45892 == null)))?((((map__45892.cljs$lang$protocol_mask$partition0$ & (64))) || ((cljs.core.PROTOCOL_SENTINEL === map__45892.cljs$core$ISeq$)))?true:false):false))?cljs.core.apply.call(null,cljs.core.hash_map,map__45892):map__45892);
+var x = cljs.core.get.call(null,map__45892__$1,new cljs.core.Keyword(null,"x","x",2099068185));
+var y = cljs.core.get.call(null,map__45892__$1,new cljs.core.Keyword(null,"y","y",-1757859776));
+var width = cljs.core.get.call(null,map__45892__$1,new cljs.core.Keyword(null,"width","width",-384071477));
+var height = cljs.core.get.call(null,map__45892__$1,new cljs.core.Keyword(null,"height","height",1025178622));
 var standable_QMARK_ = new cljs.core.Keyword(null,"standable","standable",492063634).cljs$core$IFn$_invoke$arity$1(opts);
 var hookable_QMARK_ = new cljs.core.Keyword(null,"hookable","hookable",2044539136).cljs$core$IFn$_invoke$arity$1(opts);
 var color = climbr.figures.figures.get_boulder_color.call(null,standable_QMARK_,hookable_QMARK_);
@@ -56,4 +56,4 @@ climbr.matter.matter.data_BANG_.call(null,"hookable",true,boulder);
 return boulder;
 });
 
-//# sourceMappingURL=figures.js.map?rel=1490294996866
+//# sourceMappingURL=figures.js.map?rel=1492202854972
