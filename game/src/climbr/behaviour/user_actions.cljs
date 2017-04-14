@@ -245,7 +245,7 @@
 (defn setup-climber-moves! []
   (bind-keys! k/keypressed
     {:up  #(cond
-             (and (on-the-ground?)
+             (and (is-standing?)
                (hooked-nothing?))  (lunge! :both-hands :to :top)
 
              (hooked-both?)           (lunge! :body :to :top)

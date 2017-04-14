@@ -30,14 +30,10 @@ return null;
  */
 climbr.figures.levels.get_current_level = (function climbr$figures$levels$get_current_level(){
 var level_code = climbr.figures.levels.get_current_level_code.call(null);
-var x = cljs.core.println.call(null,"code ",level_code);
 return climbr.figures.levels.get_level.call(null,level_code);
 });
 climbr.figures.levels.get_current_level_code = (function climbr$figures$levels$get_current_level_code(){
 var level_name = climbr.utils.utils.get_current_level_name.call(null);
-var xx = cljs.core.println.call(null,level_name);
-var xx__$1 = cljs.core.println.call(null,cljs.core._EQ_.call(null,level_name,"random"));
-var xx__$2 = cljs.core.println.call(null,climbr.figures.level_generator.last_seed);
 if(cljs.core._EQ_.call(null,level_name,"random")){
 return climbr.figures.level_generator.last_seed;
 } else {
@@ -45,4 +41,4 @@ return level_name;
 }
 });
 
-//# sourceMappingURL=levels.js.map?rel=1490352274068
+//# sourceMappingURL=levels.js.map?rel=1492194219648
